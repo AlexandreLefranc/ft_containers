@@ -6,7 +6,7 @@
 #    By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/21 18:52:01 by alefranc          #+#    #+#              #
-#    Updated: 2022/10/21 19:45:52 by alefranc         ###   ########.fr        #
+#    Updated: 2022/10/21 20:18:15 by alefranc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,35 +74,41 @@ OBJ_STD		=	$(OBJ:.o=_std.o)
 
 all: $(NAME)_ft
 
-change_ns:
-	@echo called
-	@echo $(NS)
+to_std:
 	$(eval NS = std)
-	@echo $(NS)
 
-stl: change_ns $(NAME)_$(NS)
+to_ft:
+	$(eval NS = ft)
 
-$(NAME)_ft: $(OBJ_FT)
-	$(CXX) $(CXXFLAGS) -DNS=$(NS) $(LDFLAGS) $(OBJ) -o $(NAME)_$(NS)
+std: clean to_std $(NAME)_$(NS)
 
-$(NAME): $(OBJ)
+ft: clean to_ft $(NAME)_$(NS)
+
+$(NAME)_$(NS): $(OBJ)
 	$(CXX) $(CXXFLAGS) -DNS=$(NS) $(LDFLAGS) $(OBJ) -o $(NAME)_$(NS)
 
 $(OBJDIR)%.o: $(SRCDIR)%.cpp $(INC)
 	@mkdir -p `dirname $@`
-	$(CXX) $(CXXFLAGS) -c -DNS=$(NS) $< -o $@ -I $(INCDIR)
+	$(CXX) $(CXXFLAGS) -DNS=$(NS) -c $< -o $@ -I $(INCDIR)
+
+diff:
+	$(MAKE) ft
+	$(MAKE) std
+	./$(NAME)_ft > output.ft.txt
+	./$(NAME)_std > output.std.txt
+	diff output.ft.txt output.std.txt
+	rm -rf output.ft.txt output.std.txt
 
 clean:
 	rm -rf $(OBJDIR)
 
 fclean: clean
-	rm -rf $(NAME)_*
+	rm -rf $(NAME)_ft
+	rm -rf $(NAME)_std
 
 re: fclean all
 
 print:
-	@echo $(OBJ)
-	@echo $(OBJ_FT)
-	@echo $(OBJ_STD)
+	@echo $(MAKE)
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re to_std to_ft std ft diff
