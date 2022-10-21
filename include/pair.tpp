@@ -7,7 +7,7 @@ pair<T1, T2>::pair()
 {}
 
 template <typename T1, typename T2>
-pair<T1, T2>::pair(T1 one, T2 two)
+pair<T1, T2>::pair(const T1& one, const T2& two)
 	: first(one), second(two)
 {}
 

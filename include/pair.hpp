@@ -28,7 +28,7 @@ namespace ft
 
 		// Constructors
 		pair();
-		pair(T1 one, T2 two);
+		pair(const T1& one, const T2& two);
 		pair(const pair<T1, T2>& src);
 
 		// Operator overload

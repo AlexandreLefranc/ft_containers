@@ -6,7 +6,7 @@
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 15:52:41 by alefranc          #+#    #+#             */
-/*   Updated: 2022/10/18 19:02:00 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/10/21 12:35:48 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,6 @@ void	test_pair_make_pair()
 	NS::pair<int, std::string> p1 = NS::make_pair<int, std::string>(42, "4 et 2");
 	std::cout	<< "p1.first = " << p1.first
 				<< " | p1.second = " << p1.second << std::endl;
-
-	int n = 1;
-	int a[5] = {1, 2, 3, 4, 5};
-	NS::pair<int&, int*> p2 = NS::make_pair<int&, int*>(n, a);
-	n = 7;
-	std::cout	<< "p2.first = " << p2.first
-				<< " | p2.second = " << *p2.second << std::endl;
 }
 
 void	test_pair_comparison()
@@ -85,6 +78,30 @@ void	test_pair_comparison()
 	std::cout << (NS::pair<int, int>(2,1) > NS::pair<int, int>(2,1)) << std::endl;
 	std::cout << "pair(2, 1) > pair(2, 2) = ";
 	std::cout << (NS::pair<int, int>(2,1) > NS::pair<int, int>(2,2)) << std::endl;
+
+	std::cout << std::endl;
+	std::cout << "pair(2, 1) >= pair(1, 1) = ";
+	std::cout << (NS::pair<int, int>(2,1) >= NS::pair<int, int>(1,1)) << std::endl;
+	std::cout << "pair(2, 1) >= pair(2, 1) = ";
+	std::cout << (NS::pair<int, int>(2,1) >= NS::pair<int, int>(2,1)) << std::endl;
+	std::cout << "pair(2, 1) >= pair(2, 2) = ";
+	std::cout << (NS::pair<int, int>(2,1) >= NS::pair<int, int>(2,2)) << std::endl;
+
+	std::cout << std::endl;
+	std::cout << "pair(2, 1) < pair(1, 1) = ";
+	std::cout << (NS::pair<int, int>(2,1) < NS::pair<int, int>(1,1)) << std::endl;
+	std::cout << "pair(2, 1) < pair(2, 1) = ";
+	std::cout << (NS::pair<int, int>(2,1) < NS::pair<int, int>(2,1)) << std::endl;
+	std::cout << "pair(2, 1) < pair(2, 2) = ";
+	std::cout << (NS::pair<int, int>(2,1) < NS::pair<int, int>(2,2)) << std::endl;
+
+	std::cout << std::endl;
+	std::cout << "pair(2, 1) <=pair(1, 1) = ";
+	std::cout << (NS::pair<int, int>(2,1) <=NS::pair<int, int>(1,1)) << std::endl;
+	std::cout << "pair(2, 1) <=pair(2, 1) = ";
+	std::cout << (NS::pair<int, int>(2,1) <=NS::pair<int, int>(2,1)) << std::endl;
+	std::cout << "pair(2, 1) <=pair(2, 2) = ";
+	std::cout << (NS::pair<int, int>(2,1) <=NS::pair<int, int>(2,2)) << std::endl;
 }
 
 int main()

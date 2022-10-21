@@ -1,0 +1,17 @@
+
+=============================================================
+EQUAL
+=============================================================
+
+The contents of both sequences are equal.
+The contents of both sequences differ.
+"radar" is a palindrome
+"hello" is not a palindrome
+
+=============================================================
+LEXICOGRAPHICAL COMPARE
+=============================================================
+
+Comparing foo and bar lexicographically (foo<bar):
+Using default comparison (operator<): true
+Using mycomp as comparison object: false
