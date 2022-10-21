@@ -6,7 +6,7 @@
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 18:04:03 by alefranc          #+#    #+#             */
-/*   Updated: 2022/10/21 18:17:26 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/10/21 18:54:11 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void    test_lexicographical_compare()
     std::cout << '\n';  
 }
 
-int main ()
+int main_equal()
 {
     test_equal();
     test_equal2();

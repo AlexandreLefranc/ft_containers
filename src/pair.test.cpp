@@ -6,7 +6,7 @@
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 15:52:41 by alefranc          #+#    #+#             */
-/*   Updated: 2022/10/21 12:35:48 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/10/21 18:55:02 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 #include "pair.hpp"
 
-void	print_title(const std::string& title)
+static void	print_title(const std::string& title)
 {
 	std::cout << std::endl;
 	std::cout << "=============================================================\n";
@@ -25,7 +25,7 @@ void	print_title(const std::string& title)
 	std::cout << std::endl;
 }
 
-void	test_pair_constructors()
+static void	test_pair_constructors()
 {
 	print_title("PAIR - CONSTRUCTORS");
 
@@ -47,7 +47,7 @@ void	test_pair_constructors()
 				<< " | pair1.second = " << pair1.second << std::endl;
 }
 
-void	test_pair_make_pair()
+static void	test_pair_make_pair()
 {
 	print_title("PAIR - MAKE_PAIR");
 
@@ -56,7 +56,7 @@ void	test_pair_make_pair()
 				<< " | p1.second = " << p1.second << std::endl;
 }
 
-void	test_pair_comparison()
+static void	test_pair_comparison()
 {
 	print_title("PAIR - COMPARISON");
 
@@ -104,7 +104,7 @@ void	test_pair_comparison()
 	std::cout << (NS::pair<int, int>(2,1) <=NS::pair<int, int>(2,2)) << std::endl;
 }
 
-int main()
+void main_pair()
 {
 	test_pair_constructors();
 	test_pair_make_pair();
