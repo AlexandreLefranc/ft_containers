@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pair.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 15:34:01 by alefranc          #+#    #+#             */
-/*   Updated: 2022/10/18 16:46:49 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/10/24 11:59:38 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,22 +40,22 @@ namespace ft
 	pair<T1,T2> make_pair(T1 x, T2 y);
 
 	template <typename T1,typename T2>
-	bool operator==(const std::pair<T1,T2>& lhs, const std::pair<T1,T2>& rhs);
+	bool operator==(const ft::pair<T1,T2>& lhs, const ft::pair<T1,T2>& rhs);
 
 	template <typename T1,typename T2>
-	bool operator!=(const std::pair<T1,T2>& lhs, const std::pair<T1,T2>& rhs);
+	bool operator!=(const ft::pair<T1,T2>& lhs, const ft::pair<T1,T2>& rhs);
 
 	template <typename T1,typename T2>
-	bool operator<(const std::pair<T1,T2>& lhs, const std::pair<T1,T2>& rhs);
+	bool operator<(const ft::pair<T1,T2>& lhs, const ft::pair<T1,T2>& rhs);
 
 	template <typename T1,typename T2>
-	bool operator<=(const std::pair<T1,T2>& lhs, const std::pair<T1,T2>& rhs);
+	bool operator<=(const ft::pair<T1,T2>& lhs, const ft::pair<T1,T2>& rhs);
 
 	template <typename T1,typename T2>
-	bool operator>(const std::pair<T1,T2>& lhs, const std::pair<T1,T2>& rhs);
+	bool operator>(const ft::pair<T1,T2>& lhs, const ft::pair<T1,T2>& rhs);
 
 	template <typename T1,typename T2>
-	bool operator>=(const std::pair<T1,T2>& lhs, const std::pair<T1,T2>& rhs);
+	bool operator>=(const ft::pair<T1,T2>& lhs, const ft::pair<T1,T2>& rhs);
 
 	#include "pair.tpp"
 }

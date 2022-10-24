@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+         #
+#    By: alex <alex@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/21 18:52:01 by alefranc          #+#    #+#              #
-#    Updated: 2022/10/21 20:18:15 by alefranc         ###   ########.fr        #
+#    Updated: 2022/10/24 12:56:37 by alex             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,16 +72,21 @@ OBJ_STD		=	$(OBJ:.o=_std.o)
 #                                                                              #
 #------------------------------------------------------------------------------#
 
+.PHONY: all
 all: $(NAME)_ft
 
+.PHONY: to_std
 to_std:
 	$(eval NS = std)
 
+.PHONY: to_ft
 to_ft:
 	$(eval NS = ft)
 
+.PHONY: std
 std: clean to_std $(NAME)_$(NS)
 
+.PHONY: ft
 ft: clean to_ft $(NAME)_$(NS)
 
 $(NAME)_$(NS): $(OBJ)
@@ -91,24 +96,24 @@ $(OBJDIR)%.o: $(SRCDIR)%.cpp $(INC)
 	@mkdir -p `dirname $@`
 	$(CXX) $(CXXFLAGS) -DNS=$(NS) -c $< -o $@ -I $(INCDIR)
 
+.PHONY: diff
 diff:
-	$(MAKE) ft
-	$(MAKE) std
+	$(MAKE) --quiet ft
+	$(MAKE) --quiet std
 	./$(NAME)_ft > output.ft.txt
 	./$(NAME)_std > output.std.txt
-	diff output.ft.txt output.std.txt
+	diff --report-identical-files output.ft.txt output.std.txt
 	rm -rf output.ft.txt output.std.txt
+	$(MAKE) --quiet fclean
 
+.PHONY: clean
 clean:
 	rm -rf $(OBJDIR)
 
+.PHONY: fclean
 fclean: clean
 	rm -rf $(NAME)_ft
 	rm -rf $(NAME)_std
 
+.PHONY: re
 re: fclean all
-
-print:
-	@echo $(MAKE)
-
-.PHONY: all clean fclean re to_std to_ft std ft diff
