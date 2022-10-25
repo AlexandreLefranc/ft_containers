@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: alex <alex@student.42.fr>                  +#+  +:+       +#+         #
+#    By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/21 18:52:01 by alefranc          #+#    #+#              #
-#    Updated: 2022/10/24 12:56:37 by alex             ###   ########.fr        #
+#    Updated: 2022/10/25 17:18:40 by alefranc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,8 @@ NS			= ft
 SRCDIR		=	src/
 SRCFILE		=	main.cpp \
 				pair.test.cpp \
-				equal.test.cpp
+				equal.test.cpp \
+				vector.test.cpp
 
 SRC			=	$(addprefix $(SRCDIR), $(SRCFILE))
 
@@ -54,6 +55,8 @@ INCFILE		=	container.hpp \
 				pair.tpp \
 				equal.hpp \
 				equal.tpp \
+				vector.hpp \
+				vector.tpp
 
 INC			=	$(addprefix $(INCDIR), $(INCFILE))
 
