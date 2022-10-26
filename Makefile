@@ -6,7 +6,7 @@
 #    By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/21 18:52:01 by alefranc          #+#    #+#              #
-#    Updated: 2022/10/25 17:18:40 by alefranc         ###   ########.fr        #
+#    Updated: 2022/10/26 18:13:40 by alefranc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,11 +22,8 @@
 
 NAME = containers
 
-# CC			= gcc
-# CFLAGS		= -Wall -Wextra -Werror -g3
-
 CXX 		= c++
-CXXFLAGS	= -Wall -Wextra -Werror -std=c++98 -g3
+CXXFLAGS	= -Wall -Wextra -Werror -std=c++11 -g3
 
 LDFLAGS		=
 
@@ -41,7 +38,8 @@ SRCDIR		=	src/
 SRCFILE		=	main.cpp \
 				pair.test.cpp \
 				equal.test.cpp \
-				vector.test.cpp
+				vector.test.cpp \
+				is_integral.test.cpp
 
 SRC			=	$(addprefix $(SRCDIR), $(SRCFILE))
 
@@ -51,10 +49,11 @@ SRC			=	$(addprefix $(SRCDIR), $(SRCFILE))
 
 INCDIR		=	include/
 INCFILE		=	container.hpp \
-				pair.hpp \
-				pair.tpp \
 				equal.hpp \
 				equal.tpp \
+				is_integral.hpp \
+				pair.hpp \
+				pair.tpp \
 				vector.hpp \
 				vector.tpp
 
