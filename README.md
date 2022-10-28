@@ -1,8 +1,49 @@
 # ft_containers
 
+## Exemple d'implementations
+
+GNU
 https://gcc.gnu.org/onlinedocs/gcc-4.6.3/libstdc++/api/a00739.html#ac49dfb9f917a249a935a1d4d815d8e18
 
+Google
 https://github.com/google/libcxx/blob/master/include/vector
 
+Microsoft
+https://github.com/microsoft/STL/blob/main/stl/inc/vector#L494
 
 https://cplusplus.com/forum/general/219746/
+
+https://www.stroustrup.com/except.pdf
+
+TinySTL
+https://github.com/mendsley/tinystl
+
+## Vector
+
+### Private attributes
+
+- Pointer to first element
+- Pointer to past the last element
+- Pointer to past the last allocated space
+- The allocator
+
+```cpp
+template <class T, class A = std::allocator<T> >
+class vector {
+public:
+    // public member functions
+private:
+    T* data_;         // points to first element
+    T* end_capacity_; // points to one past internal storage
+    T* end_;          // points to one past last element
+    A  allocator_;
+};
+```
+
+## Liens utiles pour vector
+
+Minimal vector
+https://www.geeksforgeeks.org/how-to-implement-our-own-vector-class-in-c/
+
+https://stackoverflow.com/questions/3064559/how-is-vector-implemented-in-c
+
