@@ -47,3 +47,14 @@ https://www.geeksforgeeks.org/how-to-implement-our-own-vector-class-in-c/
 
 https://stackoverflow.com/questions/3064559/how-is-vector-implemented-in-c
 
+SFINAE 
+https://www.fluentcpp.com/2018/05/15/make-sfinae-pretty-1-what-value-sfinae-brings-to-code/
+
+Allocator
+https://medium.com/@vgasparyan1995/what-is-an-allocator-c8df15a93ed
+
+Conteneur et iterateur
+https://h-deb.clg.qc.ca/Sujets/Divers--cplusplus/Intro--Conteneurs-Iterateurs.html
+
+Exceptions
+https://www.stroustrup.com/except.pdf
