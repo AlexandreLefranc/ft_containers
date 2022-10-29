@@ -11,6 +11,15 @@ https://github.com/google/libcxx/blob/master/include/vector
 Microsoft
 https://github.com/microsoft/STL/blob/main/stl/inc/vector#L494
 
+LLVM
+https://github.com/llvm/llvm-project/tree/main/libcxx/include
+
+uSTL
+https://github.com/msharov/ustl
+
+smallSTL (not really)
+https://github.com/alandefreitas/small
+
 https://cplusplus.com/forum/general/219746/
 
 https://www.stroustrup.com/except.pdf
