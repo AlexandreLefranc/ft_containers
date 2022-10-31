@@ -240,16 +240,111 @@ processWidget(pw, priority());
 
 ## Chapter 4: Designs and Declarations
 
-### Item 18:
+### Item 18: Make interfaces easy to use correctly and hard to use incorrectly
 
-### Item 19:
-### Item 20:
-### Item 21:
-### Item 22:
-### Item 23:
-### Item 24:
-### Item 25:
+- Consider the kinds of mistakes a client might make
+- Introduce new type when you expect specific arguments
+- New types should behave consistently, aka like `int`
+- Use of smart pointer to not rely on client for deleting objects
 
+### Item 19: Treat class design as type design
+
+C++ is about creating classes and classes are types. So C++ is about creating types.
+
+- Think how to create and destroy the class
+- Think the assignment operator
+- When creating conversion behavior, beaware of cases where the object is passed by value
+- Think of valid values for your class and how to handle incorrect values
+- Think if you want to be inheritable or not
+- Implicit type conversion (`operator T2`) vs explicit type conversion (constructor `T2(T1)`) ?
+- Implement meaningful behaviors
+- What behavior you want to disable, make private
+- Think the scope (public, protected, private) for each member
+- Think of exception safety
+- If your class is a whole family of class, consider make it a template
+- Is few non-member function not better than creating a new class ?
+
+### Item 20: Prefer pass-by-ref-to-const to pass-by-value
+
+- pass-by-value calls the copy constructor, then the destructor. So it is computing expensive. And memory expensive because you have to use stack and heap memory to create the new temporary object
+
+```cpp
+bool validateStudent(Student s);        // Expensive
+bool validateStudent(const Student& s); // better
+```
+
+- Avoid slicing problem: If function takes Base class arguments by value, using the function with Derived class argument will sliced off. The actual object will be the Base object even though you passed the Derived one.
+
+```cpp
+class Window;                         // base
+class WindowImproved: public Window;  // derived
+displayWindow(Window w);              // incorrect! may be sliced
+
+WindowImproved wi;
+displayWindow(wi);                    // wi is sliced into its Window part only
+```
+
+Instead:
+
+```cpp
+displayWindow(const Window& w);        // fine! won't be sliced
+```
+
+- The exception is built-in types and iterators that are meant to be passed by value.
+
+### Item 21: Don't try to return a reference when you must return an object
+
+- Sometimes, the only good choice is to return by value
+- Never return a pointer or reference to local stack object
+- Never return a reference to heap-based object
+- Avoir return a pointer or reference to local static object
+
+```cpp
+// BAD ! Reference to destroyed object !
+const Rational& operator*(const Rational& lhs, const Rational& rhs)
+{
+    Rational result(lhs.n * rhs.n, lhs.d * rhs.d);
+    return result;
+}
+
+// BAD ! Undeletable heap-based object
+const Rational& operator*(const Rational& lhs, const Rational& rhs)
+{
+    Rational *result = new Rational(lhs.n * rhs.n, lhs.d * rhs.d);
+    return *result;
+}
+
+// OK ! 
+const Rational operator*(const Rational& lhs, const Rational& rhs)
+{
+    return Rational(lhs.n * rhs.n, lhs.d * rhs.d);
+}
+```
+
+### Item 22: Declare data member `private`
+
+- Control to give getter/setter, only getter or nothing to the client
+- Hide implementation behind interface function. Gives flexibility if you want to change the implementation. It also doesn't break any code using the data member if you want to remove it.
+- `protected` is no more encapsulated than `public`
+
+### Item 23: Prefer non-member non-friend functions to member functions
+
+- All functions that don't really need to access data of a class should be non-member non-friend functions
+
+### Item 24: Declare non-member functions when type conversions should apply to all parameters
+
+- Errrm unclear but it doesn't look not very important. Read it if you want to know about it
+
+### Item 25: Consider support for a non-throwing `swap`
+
+Unclear
+
+- Provide a swap member function when std::swap would be inefficient for your type. Make sure your swap doesn’t throw exceptions.
+- If you offer a member swap, also offer a non-member swap that calls the member. For classes (not templates), specialize std::swap, too.
+- When calling swap, employ a using declaration for std::swap, then call swap without namespace qualification.
+- It’s fine to totally specialize std templates for user-defined types, but never try to add something completely new to std.
+
+## Implementations
 
 ### Item
 ### Item

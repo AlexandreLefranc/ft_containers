@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_integral.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 14:14:14 by alefranc          #+#    #+#             */
-/*   Updated: 2022/10/26 18:30:23 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/10/29 13:09:13 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,94 +39,94 @@ namespace ft
 
 	// List of specialized type -> true_type
 	template <>
-	bool
+	struct is_integral<bool>: public true_type {};
 
 	template <>
-	char
+	struct is_integral<char>: public true_type {};
 
 	template <>
-	char16_t
+	struct is_integral<char16_t>: public true_type {};
 
 	template <>
-	char32_t
+	struct is_integral<char32_t>: public true_type {};
 
 	template <>
-	wchar_t
+	struct is_integral<wchar_t>: public true_type {};
 
 	template <>
-	signed char
+	struct is_integral<signed char>: public true_type {};
 
 	template <>
-	short int
+	struct is_integral<short int>: public true_type {};
 
 	template <>
-	int
+	struct is_integral<int>: public true_type {};
 
 	template <>
-	long int
+	struct is_integral<long int>: public true_type {};
 
 	template <>
-	long long int
+	struct is_integral<long long int>: public true_type {};
 
 	template <>
-	unsigned char
+	struct is_integral<unsigned char>: public true_type {};
 
 	template <>
-	unsigned short int
+	struct is_integral<unsigned short int>: public true_type {};
 
 	template <>
-	unsigned int
+	struct is_integral<unsigned int>: public true_type {};
 
 	template <>
-	unsigned long int
+	struct is_integral<unsigned long int>: public true_type {};
 
 	template <>
-	unsigned long long int
+	struct is_integral<unsigned long long int>: public true_type {};
 
 	template <>
-	bool
+	struct is_integral<const bool>: public true_type {};
 
 	template <>
-	char
+	struct is_integral<const char>: public true_type {};
 
 	template <>
-	char16_t
+	struct is_integral<const char16_t>: public true_type {};
 
 	template <>
-	char32_t
+	struct is_integral<const char32_t>: public true_type {};
 
 	template <>
-	wchar_t
+	struct is_integral<const wchar_t>: public true_type {};
 
 	template <>
-	signed char
+	struct is_integral<const signed char>: public true_type {};
 
 	template <>
-	short int
+	struct is_integral<const short int>: public true_type {};
 
 	template <>
-	int
+	struct is_integral<const int>: public true_type {};
 
 	template <>
-	long int
+	struct is_integral<const long int>: public true_type {};
 
 	template <>
-	long long int
+	struct is_integral<const long long int>: public true_type {};
 
 	template <>
-	unsigned char
+	struct is_integral<const unsigned char>: public true_type {};
 
 	template <>
-	unsigned short int
+	struct is_integral<const unsigned short int>: public true_type {};
 
 	template <>
-	unsigned int
+	struct is_integral<const unsigned int>: public true_type {};
 
 	template <>
-	unsigned long int
+	struct is_integral<const unsigned long int>: public true_type {};
 
 	template <>
-	unsigned long long int
+	struct is_integral<const unsigned long long int>: public true_type {};
 
 }
 
