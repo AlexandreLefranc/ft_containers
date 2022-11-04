@@ -346,10 +346,47 @@ Unclear
 
 ## Implementations
 
-### Item
-### Item
-### Item
-### Item
+### Item 26: Postpone variable definitions as long as possible
+
+- Postpone definition until you use it
+- Postpone definition until you get everything to intialize it
+- Define and intialize in the same line => Avoid default-construct +  copy assignation
+
+```cpp
+// Approach A: define outside loop
+Widget w;
+for (int i = 0; i < n; ++i) {
+    w = some value dependent on i;
+}
+
+// Approach B: define inside loop
+for (int i = 0; i < n; ++i) {
+    Widget w(some value dependent on i);
+}
+```
+
+- In loops, prefer approach B unless:
+    - You know that assignment is less expensive then constructor-destructor
+    - AND your are dealing with performance sensitive part of the code
+
+### Item 27: Minimize casting
+
+- In C++, casting is dangerous. So to avoid
+- Avoid casts whenever practical, especially dynamic_casts in performance-sensitive code. If a design requires casting, try to develop a cast-free alternative.
+- When casting is necessary, try to hide it inside a function. Clients can then call the function instead of putting casts in their own code.
+- Prefer C++-style casts to old-style casts. They are easier to see, and they are more specific about what they do.
+
+### Item 28: Avoid returning 'handles' to object internals
+
+- References, pointers and iterators are all 'handles'
+- Handles can break encapsulation: A data member is only as encapsulated as the most accessible function returning a handle to it
+- Avoir returning handles
+- If you have to return an handle, consider make it `const`
+- Be careful of handles that outlive it object. If the object is destroyed before the handle, the handle will be left dangling
+
+### Item 29: Strive for exception-safe code
+
+
 ### Item
 ### Item
 ### Item
