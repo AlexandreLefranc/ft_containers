@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   is_integral.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 14:14:14 by alefranc          #+#    #+#             */
-/*   Updated: 2022/10/29 13:09:13 by alex             ###   ########.fr       */
+/*   Updated: 2022/11/08 16:32:08 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef IS_INTEGRAL_HPP
 # define IS_INTEGRAL_HPP
 
-# include <type_traits>
+// # include <type_traits>
 
 namespace ft
 {
@@ -43,12 +43,6 @@ namespace ft
 
 	template <>
 	struct is_integral<char>: public true_type {};
-
-	template <>
-	struct is_integral<char16_t>: public true_type {};
-
-	template <>
-	struct is_integral<char32_t>: public true_type {};
 
 	template <>
 	struct is_integral<wchar_t>: public true_type {};
@@ -88,12 +82,6 @@ namespace ft
 
 	template <>
 	struct is_integral<const char>: public true_type {};
-
-	template <>
-	struct is_integral<const char16_t>: public true_type {};
-
-	template <>
-	struct is_integral<const char32_t>: public true_type {};
 
 	template <>
 	struct is_integral<const wchar_t>: public true_type {};

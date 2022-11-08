@@ -6,7 +6,7 @@
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 18:04:03 by alefranc          #+#    #+#             */
-/*   Updated: 2022/10/21 18:54:11 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/11/08 15:58:57 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,14 @@
 #include <vector>
 #include <string>
 
-#include "equal.hpp"
+#ifdef FT
+    #include "equal.hpp"
+	namespace ns = ft;
+#endif
+#ifdef STD
+	namespace ns = std;
+#endif
+
 
 void	print_title(const std::string& title)
 {
@@ -39,7 +46,7 @@ bool mypredicate (int i, int j)
 
 bool is_palindrome(const std::string& s)
 {
-    return NS::equal(s.begin(), s.begin() + s.size()/2, s.rbegin());
+    return ns::equal(s.begin(), s.begin() + s.size()/2, s.rbegin());
 }
 
 void    test_equal()
@@ -50,7 +57,7 @@ void    test_equal()
     std::vector<int>    myvector(myints,myints+5);     // myvector: 20 40 60 80 100
 
     // using default comparison:
-    if (NS::equal (myvector.begin(), myvector.end(), myints))
+    if (ns::equal (myvector.begin(), myvector.end(), myints))
         std::cout << "The contents of both sequences are equal.\n";
     else
         std::cout << "The contents of both sequences differ.\n";
@@ -58,7 +65,7 @@ void    test_equal()
     myvector[3]=81;                                 // myvector: 20 40 60 81 100
 
     // using predicate comparison:
-    if (NS::equal (myvector.begin(), myvector.end(), myints, mypredicate))
+    if (ns::equal (myvector.begin(), myvector.end(), myints, mypredicate))
         std::cout << "The contents of both sequences are equal.\n";
     else
         std::cout << "The contents of both sequences differ.\n";
@@ -92,11 +99,11 @@ void    test_lexicographical_compare()
     std::cout << "Comparing foo and bar lexicographically (foo<bar):\n";
 
     std::cout << "Using default comparison (operator<): ";
-    std::cout << NS::lexicographical_compare(foo,foo+5,bar,bar+9);
+    std::cout << ns::lexicographical_compare(foo,foo+5,bar,bar+9);
     std::cout << '\n';
 
     std::cout << "Using mycomp as comparison object: ";
-    std::cout << NS::lexicographical_compare(foo,foo+5,bar,bar+9,mycomp);
+    std::cout << ns::lexicographical_compare(foo,foo+5,bar,bar+9,mycomp);
     std::cout << '\n';  
 }
 

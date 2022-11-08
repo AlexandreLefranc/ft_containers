@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   container.hpp                                      :+:      :+:    :+:   */
+/*   enable_if.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/21 18:55:20 by alefranc          #+#    #+#             */
-/*   Updated: 2022/11/08 17:18:37 by alefranc         ###   ########.fr       */
+/*   Created: 2022/11/08 16:09:48 by alefranc          #+#    #+#             */
+/*   Updated: 2022/11/08 16:52:45 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TEST_HPP
-# define TEST_HPP
+#ifndef ENABLE_IF_HPP
+# define ENABLE_IF_HPP
 
-# include <iostream>
-
-void	main_pair();
-void	main_equal();
-void	main_vector();
-void	main_is_integral();
-void	main_enable_if();
-void	main_iterator_traits();
+namespace ft
+{
+	
+	template<bool B, class T = void>
+	struct enable_if {};
+	
+	template<class T>
+	struct enable_if<true, T> { typedef T type; };
+	
+}
 
 #endif

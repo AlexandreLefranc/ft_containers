@@ -6,16 +6,21 @@
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 15:16:10 by alefranc          #+#    #+#             */
-/*   Updated: 2022/10/25 18:12:03 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/11/08 17:06:44 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
-
-#include <iostream>
-#include <vector>
 #include <string>
-#include "vector.hpp"
+
+#ifdef FT
+	#include "vector.hpp"
+	namespace ns = ft;
+#endif
+#ifdef STD
+	#include <vector>
+	namespace ns = std;
+#endif
 
 static void	print_title(const std::string& title)
 {
@@ -30,27 +35,27 @@ static void	test_vector_typedef()
 {
 	print_title("VECTOR - TYPEDEF");
 
-	std::cout << "sizeof(NS::vector<int>::value_type)      = " << sizeof(NS::vector<int>::value_type) << std::endl;
-	std::cout << "sizeof(NS::vector<int>::allocator_type)  = " << sizeof(NS::vector<int>::allocator_type) << std::endl;
-	std::cout << "sizeof(NS::vector<int>::size_type)       = " << sizeof(NS::vector<int>::size_type) << std::endl;
-	std::cout << "sizeof(NS::vector<int>::difference_type) = " << sizeof(NS::vector<int>::difference_type) << std::endl;
-	std::cout << "sizeof(NS::vector<int>::reference)       = " << sizeof(NS::vector<int>::reference) << std::endl;
-	std::cout << "sizeof(NS::vector<int>::const_reference) = " << sizeof(NS::vector<int>::const_reference) << std::endl;
-	std::cout << "sizeof(NS::vector<int>::pointer)         = " << sizeof(NS::vector<int>::pointer) << std::endl;
-	std::cout << "sizeof(NS::vector<int>::const_pointer)   = " << sizeof(NS::vector<int>::const_pointer) << std::endl;
+	std::cout << "sizeof(ns::vector<int>::value_type)      = " << sizeof(ns::vector<int>::value_type) << std::endl;
+	std::cout << "sizeof(ns::vector<int>::allocator_type)  = " << sizeof(ns::vector<int>::allocator_type) << std::endl;
+	std::cout << "sizeof(ns::vector<int>::size_type)       = " << sizeof(ns::vector<int>::size_type) << std::endl;
+	std::cout << "sizeof(ns::vector<int>::difference_type) = " << sizeof(ns::vector<int>::difference_type) << std::endl;
+	std::cout << "sizeof(ns::vector<int>::reference)       = " << sizeof(ns::vector<int>::reference) << std::endl;
+	std::cout << "sizeof(ns::vector<int>::const_reference) = " << sizeof(ns::vector<int>::const_reference) << std::endl;
+	std::cout << "sizeof(ns::vector<int>::pointer)         = " << sizeof(ns::vector<int>::pointer) << std::endl;
+	std::cout << "sizeof(ns::vector<int>::const_pointer)   = " << sizeof(ns::vector<int>::const_pointer) << std::endl;
 }
 
 static void	test_vector_constructor()
 {
 	print_title("VECTOR - CONSTRUCTORS");
 
-	// NS::vector<std::string> a;
-	// NS::vector<std::string> b(10);
-	// NS::vector<std::string> c(10, "0");
+	// ns::vector<std::string> a;
+	// ns::vector<std::string> b(10);
+	// ns::vector<std::string> c(10, "0");
 
-	NS::vector<int> a;
-	// NS::vector<int> b(10);
-	// NS::vector<int> c(10, 1);
+	ns::vector<int> a;
+	// ns::vector<int> b(10);
+	// ns::vector<int> c(10, 1);
 }
 
 void	main_vector()

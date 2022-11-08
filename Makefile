@@ -6,7 +6,7 @@
 #    By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/21 18:52:01 by alefranc          #+#    #+#              #
-#    Updated: 2022/10/26 18:13:40 by alefranc         ###   ########.fr        #
+#    Updated: 2022/11/08 17:19:06 by alefranc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,11 +23,11 @@
 NAME = containers
 
 CXX 		= c++
-CXXFLAGS	= -Wall -Wextra -Werror -std=c++11 -g3
+CXXFLAGS	= -Wall -Wextra -Werror -std=c++98 -g3
 
 LDFLAGS		=
 
-NS			= ft
+NS			= FT
 
 #------------------------------------#
 #          SOURCES AND CLASSES       #
@@ -39,7 +39,10 @@ SRCFILE		=	main.cpp \
 				pair.test.cpp \
 				equal.test.cpp \
 				vector.test.cpp \
-				is_integral.test.cpp
+				iterator_traits.test.cpp \
+
+				# is_integral.test.cpp \
+				# enable_if.test.cpp \
 
 SRC			=	$(addprefix $(SRCDIR), $(SRCFILE))
 
@@ -49,13 +52,11 @@ SRC			=	$(addprefix $(SRCDIR), $(SRCFILE))
 
 INCDIR		=	include/
 INCFILE		=	container.hpp \
-				equal.hpp \
-				equal.tpp \
+				enable_if.hpp \
+				equal.hpp equal.tpp \
 				is_integral.hpp \
-				pair.hpp \
-				pair.tpp \
-				vector.hpp \
-				vector.tpp
+				pair.hpp pair.tpp \
+				vector.hpp vector.tpp
 
 INC			=	$(addprefix $(INCDIR), $(INCFILE))
 
@@ -75,15 +76,15 @@ OBJ_STD		=	$(OBJ:.o=_std.o)
 #------------------------------------------------------------------------------#
 
 .PHONY: all
-all: $(NAME)_ft
+all: $(NAME)_$(NS)
 
 .PHONY: to_std
 to_std:
-	$(eval NS = std)
+	$(eval NS = STD)
 
 .PHONY: to_ft
 to_ft:
-	$(eval NS = ft)
+	$(eval NS = FT)
 
 .PHONY: std
 std: clean to_std $(NAME)_$(NS)
@@ -92,19 +93,19 @@ std: clean to_std $(NAME)_$(NS)
 ft: clean to_ft $(NAME)_$(NS)
 
 $(NAME)_$(NS): $(OBJ)
-	$(CXX) $(CXXFLAGS) -DNS=$(NS) $(LDFLAGS) $(OBJ) -o $(NAME)_$(NS)
+	$(CXX) $(CXXFLAGS) -D$(NS) $(LDFLAGS) $(OBJ) -o $(NAME)_$(NS)
 
 $(OBJDIR)%.o: $(SRCDIR)%.cpp $(INC)
 	@mkdir -p `dirname $@`
-	$(CXX) $(CXXFLAGS) -DNS=$(NS) -c $< -o $@ -I $(INCDIR)
+	$(CXX) $(CXXFLAGS) -D$(NS) -c $< -o $@ -I $(INCDIR)
 
 .PHONY: diff
 diff:
 	$(MAKE) --quiet ft
 	$(MAKE) --quiet std
-	./$(NAME)_ft > output.ft.txt
-	./$(NAME)_std > output.std.txt
-	diff --report-identical-files output.ft.txt output.std.txt
+	./$(NAME)_FT > output.ft.txt
+	./$(NAME)_STD > output.std.txt
+	-diff output.ft.txt output.std.txt --color --report-identical-files 
 	rm -rf output.ft.txt output.std.txt
 	$(MAKE) --quiet fclean
 
@@ -114,8 +115,8 @@ clean:
 
 .PHONY: fclean
 fclean: clean
-	rm -rf $(NAME)_ft
-	rm -rf $(NAME)_std
+	rm -rf $(NAME)_FT
+	rm -rf $(NAME)_STD
 
 .PHONY: re
 re: fclean all
