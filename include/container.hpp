@@ -6,7 +6,7 @@
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 18:55:20 by alefranc          #+#    #+#             */
-/*   Updated: 2022/11/08 17:18:37 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/11/09 16:08:02 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,6 @@ void	main_vector();
 void	main_is_integral();
 void	main_enable_if();
 void	main_iterator_traits();
+void	main_reverse_iterator();
 
 #endif

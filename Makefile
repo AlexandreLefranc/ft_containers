@@ -6,7 +6,7 @@
 #    By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/21 18:52:01 by alefranc          #+#    #+#              #
-#    Updated: 2022/11/08 17:19:06 by alefranc         ###   ########.fr        #
+#    Updated: 2022/11/09 13:57:51 by alefranc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,7 @@ SRCFILE		=	main.cpp \
 				equal.test.cpp \
 				vector.test.cpp \
 				iterator_traits.test.cpp \
+				reverse_iterator.test.cpp \
 
 				# is_integral.test.cpp \
 				# enable_if.test.cpp \
@@ -56,6 +57,7 @@ INCFILE		=	container.hpp \
 				equal.hpp equal.tpp \
 				is_integral.hpp \
 				pair.hpp pair.tpp \
+				reverse_iterator.hpp reverse_iterator.tpp \
 				vector.hpp vector.tpp
 
 INC			=	$(addprefix $(INCDIR), $(INCFILE))
