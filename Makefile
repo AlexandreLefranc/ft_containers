@@ -6,7 +6,7 @@
 #    By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/21 18:52:01 by alefranc          #+#    #+#              #
-#    Updated: 2022/11/09 13:57:51 by alefranc         ###   ########.fr        #
+#    Updated: 2022/11/09 17:33:29 by alefranc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,10 +54,10 @@ SRC			=	$(addprefix $(SRCDIR), $(SRCFILE))
 INCDIR		=	include/
 INCFILE		=	container.hpp \
 				enable_if.hpp \
-				equal.hpp equal.tpp \
+				equal.hpp \
 				is_integral.hpp \
-				pair.hpp pair.tpp \
-				reverse_iterator.hpp reverse_iterator.tpp \
+				pair.hpp \
+				reverse_iterator.hpp \
 				vector.hpp vector.tpp
 
 INC			=	$(addprefix $(INCDIR), $(INCFILE))
