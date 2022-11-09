@@ -6,12 +6,14 @@
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 11:37:01 by alefranc          #+#    #+#             */
-/*   Updated: 2022/11/09 17:05:38 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/11/09 17:08:01 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef REVERSE_ITERATOR_HPP
 # define REVERSE_ITERATOR_HPP
+
+# include "iterator_traits.hpp"
 
 namespace ft
 {
@@ -23,11 +25,11 @@ namespace ft
 
 		// Typedefs
 		typedef Iter													iterator_type;
-		typedef typename std::iterator_traits<Iter>::iterator_category	iterator_category;
-		typedef typename std::iterator_traits<Iter>::value_type			value_type;
-		typedef typename std::iterator_traits<Iter>::difference_type	difference_type;
-		typedef typename std::iterator_traits<Iter>::pointer			pointer;
-		typedef typename std::iterator_traits<Iter>::reference			reference;
+		typedef typename ft::iterator_traits<Iter>::iterator_category	iterator_category;
+		typedef typename ft::iterator_traits<Iter>::value_type			value_type;
+		typedef typename ft::iterator_traits<Iter>::difference_type		difference_type;
+		typedef typename ft::iterator_traits<Iter>::pointer				pointer;
+		typedef typename ft::iterator_traits<Iter>::reference			reference;
 
 	private:
 
@@ -41,7 +43,7 @@ namespace ft
 		explicit reverse_iterator(iterator_type x);
 		template<class U>
 		reverse_iterator(const reverse_iterator<U>& other);
-		
+
 		template<class U>
 		reverse_iterator& operator=(const reverse_iterator<U>& rhs);
 
