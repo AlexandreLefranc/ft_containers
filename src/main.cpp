@@ -6,7 +6,7 @@
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 18:52:48 by alefranc          #+#    #+#             */
-/*   Updated: 2022/11/09 16:07:45 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/11/14 02:38:59 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,11 @@ int main()
     std::cout << "Using STD" << std::endl;
 #endif
 
-    main_pair();
-    main_equal();
+    // main_pair();
+    // main_equal();
     main_vector();
-    // main_is_integral();
-    // main_enable_if();
-    main_iterator_traits();
-    main_reverse_iterator();
+    // main_iterator_traits();
+    // main_reverse_iterator();
 
     return (0);
 }

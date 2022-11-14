@@ -1,6 +1,15 @@
 <style>
-red { color: red }
-yellow { color: yellow }
+h2 {
+    color: red;
+    font-weight:700;
+    font-size: 35px;
+}
+h3 {
+    color: blue;
+    font-weight:700;
+    font-size: 30px;
+}
+
 </style>
 
 # Effective C++ Third Edition
@@ -22,8 +31,6 @@ Because `#define` are not seen by compilers, it can lead to difficult debug.
 `const` create only one copy of the variable whereas `#define` create rvalue wherever it is called.
 
 `inline` are similar to `#define` macros but much safer !
-
-<red>Summary</red>
 
 - For simple constants, prefer `const` or `enum` to `#define`.
 - For function-like macros, prefer `inline` functions to `#define`.
@@ -386,6 +393,16 @@ for (int i = 0; i < n; ++i) {
 
 ### Item 29: Strive for exception-safe code
 
+Exception-safe function should satisfy:
+
+- No leaking ressources: malloc, mutex, file,etc
+- Don't allow data structures to become corrupted
+
+In case of throwing exception, exception-safe functions offer either:
+
+- Basic guarantee: Valid state but could be any valid state
+- Strong guarantee: Unchanged state, case of atomic functions
+- Nothrow guarantee: `int doSomething() throw();`. Note that this declaration doesn't really guarantee nothrow. It says that if an exception is thrown, the error is critical and `unexpected()` function is called.
 
 ### Item
 ### Item

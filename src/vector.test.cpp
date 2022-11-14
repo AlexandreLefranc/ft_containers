@@ -6,7 +6,7 @@
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 15:16:10 by alefranc          #+#    #+#             */
-/*   Updated: 2022/11/08 17:06:44 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/11/14 09:29:26 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,23 @@ static void	test_vector_constructor()
 	// ns::vector<std::string> c(10, "0");
 
 	ns::vector<int> a;
+	std::cout << sizeof(a) << std::endl;
+
 	// ns::vector<int> b(10);
 	// ns::vector<int> c(10, 1);
+}
+
+static void	test_vector_iterator()
+{
+	print_title("VECTOR - ITERATOR");
+
+	ns::vector<int>::iterator	it;
+	std::cout << sizeof(ns::vector<int>::iterator) << std::endl;
 }
 
 void	main_vector()
 {
 	test_vector_typedef();
 	test_vector_constructor();
+	test_vector_iterator();
 }

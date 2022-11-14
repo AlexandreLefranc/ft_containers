@@ -6,7 +6,7 @@
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 17:08:10 by alefranc          #+#    #+#             */
-/*   Updated: 2022/11/08 17:50:39 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/11/14 02:27:06 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,24 @@ namespace ft
 		typedef const T&						reference;
 		typedef ft::random_access_iterator_tag	iterator_category;
 	};
+
+	// template<	class Category,
+	// 			class T,
+	// 			class Distance = std::ptrdiff_t,
+	// 			class Pointer = T*,
+	// 			class Reference = T& >
+	// struct iterator
+	// {
+	// 	typedef Distance	difference_type;
+	// 	typedef T			value_type;
+	// 	typedef Pointer		pointer;
+	// 	typedef Reference	reference;
+	// 	typedef Category	iterator_category;
+	// };
+
+	
+
+
 
 }
 
