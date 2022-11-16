@@ -6,15 +6,16 @@
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 16:09:44 by alefranc          #+#    #+#             */
-/*   Updated: 2022/11/08 16:45:26 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/11/15 14:21:40 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 
 #ifdef FT
-	#include "enable_if.hpp"
-	#include "is_integral.hpp"
+	// #include "enable_if.hpp"
+	// #include "is_integral.hpp"
+	#include "utils.hpp"
 	namespace ns = ft;
 #endif
 #ifdef STD

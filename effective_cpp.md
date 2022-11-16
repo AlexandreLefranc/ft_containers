@@ -1,15 +1,16 @@
 <style>
 h2 {
-    color: red;
+    font-weight: bold;
+    /* color: red;
     font-weight:700;
-    font-size: 35px;
+    font-size: 35px; */
 }
 h3 {
-    color: blue;
+    font-weight: bold;
+    /* color: blue;
     font-weight:700;
-    font-size: 30px;
+    font-size: 30px; */
 }
-
 </style>
 
 # Effective C++ Third Edition
@@ -404,6 +405,44 @@ In case of throwing exception, exception-safe functions offer either:
 - Strong guarantee: Unchanged state, case of atomic functions
 - Nothrow guarantee: `int doSomething() throw();`. Note that this declaration doesn't really guarantee nothrow. It says that if an exception is thrown, the error is critical and `unexpected()` function is called.
 
+A way to offer the strong guarantee is "copy and swap" startegy. Copy the object you want to change, make all the change to the copy, and if all changes are successfull, swap wit the original. Using the "pimpl idiom".
+
+### Item 30: Understand the ins and outs of inlining
+
+- Limit most inlining to small, frequently called functions. This facilitates debugging and binary upgradability, minimizes potential code bloat, and maximizes the chances of greater program speed.
+- Don’t declare function templates inline just because they appear in header files.
+
+### Item 31: Minimize compilation dependencies between files
+
+- The general idea behind minimizing compilation dependencies is to depend on declarations instead of definitions. Two approaches based on this idea are Handle classes and Interface classes.
+- Library header files should exist in full and declaration-only forms. This applies regardless of whether templates are involved.
+
+## Inheritance and Object-Oriented Design
+
+### Item 32: Make sure public inheritance models "is-a"
+
+- Public inheritance means “is-a.” Everything that applies to base classes must also apply to derived  classes, because every derived class object is a base class object.
+
+### Item 33: Avoid hiding inherited names
+
+- Names in derived classes hide names in base classes. Under public inheritance, this is never desirable.
+- To make hidden names visible again, employ `using` declarations or forwarding functions.
+
+### Item 34: Differentiate between inheritance of interface and inheritance of implementation
+
+
+
+### Item
+### Item
+### Item
+### Item
+### Item
+### Item
+### Item
+### Item
+### Item
+### Item
+### Item
 ### Item
 ### Item
 ### Item

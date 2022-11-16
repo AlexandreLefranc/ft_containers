@@ -6,14 +6,14 @@
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 14:22:17 by alefranc          #+#    #+#             */
-/*   Updated: 2022/11/08 16:01:40 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/11/15 14:23:21 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 
 #ifdef FT
-	#include "is_integral.hpp"
+	#include "utils.hpp"
 	namespace ns = ft;
 #endif
 #ifdef STD

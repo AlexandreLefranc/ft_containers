@@ -6,7 +6,7 @@
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 18:04:03 by alefranc          #+#    #+#             */
-/*   Updated: 2022/11/08 15:58:57 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/11/15 14:23:13 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <string>
 
 #ifdef FT
-    #include "equal.hpp"
+    #include "utils.hpp"
 	namespace ns = ft;
 #endif
 #ifdef STD

@@ -6,7 +6,7 @@
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 17:08:59 by alefranc          #+#    #+#             */
-/*   Updated: 2022/11/08 18:07:42 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/11/15 14:31:15 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <list>
 
 #ifdef FT
-	#include "iterator_traits.hpp"
+	#include "iterator.hpp"
 	namespace ns = ft;
 #endif
 #ifdef STD

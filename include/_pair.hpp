@@ -6,7 +6,7 @@
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 15:34:01 by alefranc          #+#    #+#             */
-/*   Updated: 2022/11/09 17:33:53 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/11/15 14:08:11 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,26 +18,22 @@ namespace ft
 	template <typename T1, typename T2>
 	struct pair
 	{
-		// Typedefs
 		typedef	T1	first_type;
 		typedef	T2	second_type;
 
-		// Attributes
 		T1	first;
 		T2	second;
 		
 		/* SYNOPSIS
 
-		// Constructors
 		pair();
 		pair(const T1& one, const T2& two);
 		pair(const pair<T1, T2>& src);
 
-		// Operator overload
 		pair<T1, T2>& operator=(const pair<T1, T2>& other);
 		
 		*/
-		// Constructors
+		
 		pair()
 			: first(T1()), second(T2())
 		{}
@@ -50,7 +46,6 @@ namespace ft
 			: first(src.first), second(src.second)
 		{}
 
-		// Operator overload
 		pair<T1, T2>& operator=(const pair<T1, T2>& other)
 		{
 			if (this != &other)

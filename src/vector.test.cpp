@@ -6,7 +6,7 @@
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 15:16:10 by alefranc          #+#    #+#             */
-/*   Updated: 2022/11/14 09:29:26 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/11/16 14:04:06 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,10 @@ static void	test_vector_constructor()
 	// ns::vector<std::string> c(10, "0");
 
 	ns::vector<int> a;
-	std::cout << sizeof(a) << std::endl;
+	ns::vector<int> b(10, 2);
+	for (int i = 0; i < 10; i++)
+		std::cout << b[i] << " ";
+	std::cout << std::endl;
 
 	// ns::vector<int> b(10);
 	// ns::vector<int> c(10, 1);

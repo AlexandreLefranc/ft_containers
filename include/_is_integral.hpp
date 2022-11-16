@@ -6,14 +6,12 @@
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 14:14:14 by alefranc          #+#    #+#             */
-/*   Updated: 2022/11/08 16:32:08 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/11/15 14:19:18 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef IS_INTEGRAL_HPP
 # define IS_INTEGRAL_HPP
-
-// # include <type_traits>
 
 namespace ft
 {
