@@ -6,7 +6,7 @@
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 15:16:10 by alefranc          #+#    #+#             */
-/*   Updated: 2022/11/16 14:04:06 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/11/17 17:11:15 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,17 @@ static void	print_title(const std::string& title)
 	std::cout << "=============================================================\n";
 	std::cout << std::endl;
 }
+
+template <typename T>
+static void	vinfo(ns::vector<T>& v)
+{
+	std::cout	<< "Vector size     = " << v.size() << std::endl;
+	std::cout	<< "Vector capacity = " << v.capacity() << std::endl;
+	std::cout << std::endl;
+}
+
+
+
 
 static void	test_vector_typedef()
 {
@@ -58,6 +69,21 @@ static void	test_vector_constructor()
 	for (int i = 0; i < 10; i++)
 		std::cout << b[i] << " ";
 	std::cout << std::endl;
+
+	ns::vector<int> v1(100, 5);
+	ns::vector<int> v2(80, 5);
+
+	std::cout << "Info v1:" << std::endl;
+	vinfo(v1);
+	std::cout << "Info v1:" << std::endl;
+	vinfo(v2);
+
+	v2 = v1;
+
+	std::cout << "Info v1:" << std::endl;
+	vinfo(v1);
+	std::cout << "Info v1:" << std::endl;
+	vinfo(v2);
 
 	// ns::vector<int> b(10);
 	// ns::vector<int> c(10, 1);

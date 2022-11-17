@@ -1,21 +1,28 @@
 #include <iostream>
 #include <vector>
 
+template <typename T>
+void	vinfo(std::vector<T>& v)
+{
+	std::cout	<< "Vector size     = " << v.size() << std::endl;
+	std::cout	<< "Vector capacity = " << v.capacity() << std::endl;
+	std::cout << std::endl;
+}
+
 int main()
 {
-	std::vector<int> v;
+	std::vector<int> v1(100, 2);
+	std::vector<int> v2(150, 2);
 
-	for (int i = 0; i<50; i++)
-	{
-		std::cout << "Before: " << v.capacity(); 
-		v.push_back(i);
-		std::cout << "    After: " << v.capacity() << std::endl; 
-	}
-	v.assign( 32, 2 );
-	v.push_back(1564135);
-	std::cout << " assign: " << v.capacity() << std::endl; 
-	std::cout << v[10] << std::endl;
-	std::cout << v.at(40) << std::endl;
-	std::cout << "size: " << v.size() << std::endl;
+
+	vinfo(v1);
+	vinfo(v2);
+
+	v1 = v2;
+	// v2.reserve(200);
+
+	vinfo(v1);
+	vinfo(v2);
+
 	return (0);
 }

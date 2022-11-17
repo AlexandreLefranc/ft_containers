@@ -6,7 +6,7 @@
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 18:02:07 by alefranc          #+#    #+#             */
-/*   Updated: 2022/11/16 17:53:42 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/11/17 17:51:24 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,12 +92,22 @@ namespace ft
 			if (this != &rhs)
 			{
 				clear();
+				reserve(rhs.size());
+				for (size_type i = 0; i < rhs.size(); i++)
+				{
+					_alloc.construct(_data + i, rhs[i]);
+					_size++;
+				}
 			}
 			return (*this);
 		}
 		
 		~vector()
-		{}
+		{
+			for (size_type i = 0; i < size(); i++)
+				_alloc.destroy(_data + i);
+			_alloc.deallocate(_data, _capacity);
+		}
 
 		void assign( size_type count, const T& value )
 		{
@@ -221,7 +231,7 @@ namespace ft
 		bool		empty() const
 		{
 			// return (begin() == end());
-			return (_size == 0);
+			return (size() == 0);
 		}
 
 		size_type	size() const
@@ -238,13 +248,24 @@ namespace ft
 		void		reserve( size_type new_cap )
 		{
 			if (new_cap > max_size())
-				throw std::length_error();
+				throw std::length_error("new_cap > max_size()");
 			if (new_cap > capacity())
 			{
+				T* tmp = _alloc.allocate(new_cap);
+				_capacity = new_cap;
+				size_type i = 0;
 				try
 				{
-					T* tmp = _alloc.allocate
+					for (; i < size(); i++)
+						_alloc.construct(tmp + i, _data[i]);
 				}
+				catch (std::exception& e)
+				{
+					for (size_type j = 0; j < i; i++)
+						_alloc.destroy(tmp + i);
+					_alloc.deallocate(tmp, new_cap);
+				}
+
 			}
 		}
 		
