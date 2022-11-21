@@ -6,7 +6,7 @@
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 14:00:31 by alefranc          #+#    #+#             */
-/*   Updated: 2022/11/16 14:58:33 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/11/21 15:40:23 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ namespace ft
 *                              ITERATOR_TRAITS                                 *
 *                              REVERSE_ITERATOR                                *
 *                              CUSTOM_ITERATOR                                 *
+*                              UTILS_ITERATOR                                  *
 *******************************************************************************/
 
 /*******************************************************************************
@@ -310,12 +311,10 @@ class VectorIterator
 {
 public:
 	// Typedefs
-	typedef typename iterator_traits<T*>::difference_type	difference_type;
-	typedef typename iterator_traits<T*>::value_type		value_type;
-	typedef typename iterator_traits<T*>::pointer			pointer;
-	typedef typename iterator_traits<T*>::reference			reference;
-	// typedef typename iterator_traits<const T*>::pointer		const_pointer;
-	// typedef typename iterator_traits<const T*>::reference	const_reference;
+	typedef typename iterator_traits<T>::difference_type	difference_type;
+	typedef typename iterator_traits<T>::value_type			value_type;
+	typedef typename iterator_traits<T>::pointer			pointer;
+	typedef typename iterator_traits<T>::reference			reference;
 	typedef ft::random_access_iterator_tag					iterator_category;
 
 private:
@@ -337,6 +336,10 @@ public:
 	VectorIterator(const VectorIterator<T>& src)
 		: _ptr(src._ptr)
 	{}
+
+	VectorIterator(pointer ptr)
+		: _ptr(ptr)
+	{}
 	
 	VectorIterator& operator=(const VectorIterator<T>& rhs)
 	{
@@ -348,7 +351,8 @@ public:
 	/* ACCESSOR - SYNOPSYS
 	
 	const pointer		base() const;
-	reference			operator*();
+	reference			operator*() const;
+	pointer				operator->() const;
 	reference			operator[](difference_type n);
 
 	*/
@@ -357,9 +361,14 @@ public:
 		return _ptr;
 	}
 	
-	reference			operator*()
+	reference			operator*() const
 	{
 		return *_ptr;
+	}
+
+	pointer				operator->() const
+	{
+		return _ptr;
 	}
 
 	reference			operator[](difference_type n)
@@ -377,6 +386,7 @@ public:
 	VectorIterator	operator-( difference_type n ) const;
 	VectorIterator&	operator+=( difference_type n );
 	VectorIterator&	operator-=( difference_type n );
+	difference_type operator-(VectorIterator const& r) const;
 
 	*/
 	VectorIterator&	operator++()
@@ -429,6 +439,11 @@ public:
 	{
 		_ptr -= n;
 		return (*this);
+	}
+
+	difference_type operator-(VectorIterator const& r) const
+	{
+		return (_ptr - r._ptr);
 	}
 
 };
@@ -490,6 +505,42 @@ bool	operator>=(const VectorIterator<T>& lhs, const VectorIterator<T>& rhs)
 	return (lhs.base() >= rhs.base());
 }
 	
+/*******************************************************************************
+*                              UTILS_ITERATOR                                  *
+*******************************************************************************/
+
+namespace detail
+{
+
+template<class It>
+typename ft::iterator_traits<It>::difference_type 
+	do_distance(It first, It last, ft::input_iterator_tag)
+{
+	typename ft::iterator_traits<It>::difference_type result = 0;
+	while (first != last) {
+		++first;
+		++result;
+	}
+	return result;
+}
+ 
+template<class It>
+typename ft::iterator_traits<It>::difference_type 
+	do_distance(It first, It last, ft::random_access_iterator_tag)
+{
+	return last - first;
+}
+
+} // namespace detail
+ 
+template<class It>
+typename ft::iterator_traits<It>::difference_type 
+	distance(It first, It last)
+{
+	return detail::do_distance(first, last,
+							   typename ft::iterator_traits<It>::iterator_category());
+}
+
 }
 
 #endif

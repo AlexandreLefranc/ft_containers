@@ -6,7 +6,7 @@
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 14:22:17 by alefranc          #+#    #+#             */
-/*   Updated: 2022/11/15 14:23:21 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/11/21 17:47:02 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ static	void	test_cplusplus()
 	std::cout << "char: " << ns::is_integral<char>::value << std::endl;
 	std::cout << "int: " << ns::is_integral<int>::value << std::endl;
 	std::cout << "float: " << ns::is_integral<float>::value << std::endl;
+	std::cout << "int*: " << ns::is_integral<int*>::value << std::endl;
 }
 
 void	main_is_integral()

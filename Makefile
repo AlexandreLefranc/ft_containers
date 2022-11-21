@@ -6,7 +6,7 @@
 #    By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/21 18:52:01 by alefranc          #+#    #+#              #
-#    Updated: 2022/11/15 14:25:22 by alefranc         ###   ########.fr        #
+#    Updated: 2022/11/21 17:54:47 by alefranc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,6 @@ SRCFILE		=	main.cpp \
 				vector.test.cpp \
 				iterator_traits.test.cpp \
 				reverse_iterator.test.cpp \
-
 				# is_integral.test.cpp \
 				# enable_if.test.cpp \
 

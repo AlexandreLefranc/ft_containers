@@ -1,0 +1,21 @@
+Using FT
+
+=============================================================
+VECTOR - TYPEDEF
+=============================================================
+
+sizeof(ns::vector<int>::value_type)      = 4
+sizeof(ns::vector<int>::allocator_type)  = 1
+sizeof(ns::vector<int>::size_type)       = 8
+sizeof(ns::vector<int>::difference_type) = 8
+sizeof(ns::vector<int>::reference)       = 4
+sizeof(ns::vector<int>::const_reference) = 4
+sizeof(ns::vector<int>::pointer)         = 8
+sizeof(ns::vector<int>::const_pointer)   = 8
+
+=============================================================
+VECTOR - CONSTRUCTORS
+=============================================================
+
+Default constructor
+InputIt constructor

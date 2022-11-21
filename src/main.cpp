@@ -6,7 +6,7 @@
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 18:52:48 by alefranc          #+#    #+#             */
-/*   Updated: 2022/11/15 17:06:57 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/11/21 17:54:41 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int main()
 
     // main_pair();
     // main_equal();
+    // main_is_integral();
     main_vector();
     // main_iterator_traits();
     // main_reverse_iterator();

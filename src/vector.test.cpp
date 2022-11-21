@@ -6,7 +6,7 @@
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 15:16:10 by alefranc          #+#    #+#             */
-/*   Updated: 2022/11/17 17:11:15 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/11/21 18:27:09 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,39 @@ static void	test_vector_iterator()
 {
 	print_title("VECTOR - ITERATOR");
 
+	// int tab[] = {1,2,3,4};
+
+	// ns::vector<int> v(tab, tab + 4);
+	// for (ns::vector<int>::iterator it = v.begin(); it != v.end(); it++)
+	// {
+	// 	std::cout << *it << std::endl;
+	// }
+
 	ns::vector<int>::iterator	it;
 	std::cout << sizeof(ns::vector<int>::iterator) << std::endl;
+}
+
+static void test_vector_assign()
+{
+	print_title("VECTOR - ASSIGN");
+
+	// ns::vector<int> first;
+	// ns::vector<int> second;
+	// ns::vector<int> third;
+
+	// first.assign(7, 100);             // 7 ints with a value of 100
+
+	// ns::vector<int>::iterator it;
+	// it = first.begin() + 1;
+
+	// second.assign(it, first.end() - 1); // the 5 central values of first
+
+	// int myints[] = {1776, 7, 4};
+	// third.assign(myints, myints + 3);  // assigning from array.
+
+	// std::cout << "Size of first: " << int(first.size()) << '\n';
+	// std::cout << "Size of second: " << int(second.size()) << '\n';
+	// std::cout << "Size of third: " << int(third.size()) << '\n';
 }
 
 void	main_vector()
@@ -102,4 +133,6 @@ void	main_vector()
 	test_vector_typedef();
 	test_vector_constructor();
 	test_vector_iterator();
+
+	test_vector_assign();
 }
