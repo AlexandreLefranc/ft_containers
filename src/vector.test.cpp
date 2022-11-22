@@ -6,7 +6,7 @@
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 15:16:10 by alefranc          #+#    #+#             */
-/*   Updated: 2022/11/21 18:27:09 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/11/22 17:20:06 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,10 @@ static void	test_vector_constructor()
 	// ns::vector<std::string> b(10);
 	// ns::vector<std::string> c(10, "0");
 
+	std::cout << "Creating default vector" << std::endl;
 	ns::vector<int> a;
+
+	std::cout << "Creating count vector" << std::endl;
 	ns::vector<int> b(10, 2);
 	for (int i = 0; i < 10; i++)
 		std::cout << b[i] << " ";
@@ -93,6 +96,61 @@ static void	test_vector_iterator()
 {
 	print_title("VECTOR - ITERATOR");
 
+	{
+		std::cout << "Implicit conversion iterator to const_iterator" << std::endl;
+		ns::vector<int> v(6, 0);
+		
+		ns::vector<int>::iterator		it = v.begin();
+		ns::vector<int>::const_iterator	cit = it;
+		
+		(void)cit;
+	}
+
+	{
+		ns::vector<int> v(6, 0);
+		v[1] = 1;
+		v[2] = 2;
+		v[3] = 3;
+		v[4] = 4;
+		v[5] = 5;
+		std::cout << "Non-const vector and non-const iterator" << std::endl;
+		for (ns::vector<int>::iterator it = v.begin(); it != v.end(); it++)
+			std::cout << *it << std::endl;
+			
+		std::cout << "Non-const vector and const iterator" << std::endl;
+		for (ns::vector<int>::const_iterator it = v.begin(); it != v.end(); it++)
+			std::cout << *it << std::endl;
+
+		std::cout << "Non-const vector and non-const reverse iterator" << std::endl;
+		for (ns::vector<int>::reverse_iterator it = v.rbegin(); it != v.rend(); it++)
+			std::cout << *it << std::endl;
+
+		std::cout << "Non-const vector and const reverse iterator" << std::endl;
+		for (ns::vector<int>::const_reverse_iterator it = v.rbegin(); it != v.rend(); it++)
+			std::cout << *it << std::endl;
+	}
+	std::cout << std::endl;
+	{
+		ns::vector<int> v1(6, 0);
+		v1[1] = 1;
+		v1[2] = 2;
+		v1[3] = 3;
+		v1[4] = 4;
+		v1[5] = 5;
+		const ns::vector<int> v(v1);
+		v1[5] = 10;
+		std::cout << "Const vector and const iterator" << std::endl;
+		for (ns::vector<int>::const_iterator it = v.begin(); it != v.end(); it++)
+			std::cout << *it << std::endl;
+
+		std::cout << "Const vector and const reverse iterator" << std::endl;
+		for (ns::vector<int>::const_reverse_iterator it = v.rbegin(); it != v.rend(); it++)
+			std::cout << *it << std::endl;
+
+	}
+
+
+	
 	// int tab[] = {1,2,3,4};
 
 	// ns::vector<int> v(tab, tab + 4);
@@ -100,9 +158,6 @@ static void	test_vector_iterator()
 	// {
 	// 	std::cout << *it << std::endl;
 	// }
-
-	ns::vector<int>::iterator	it;
-	std::cout << sizeof(ns::vector<int>::iterator) << std::endl;
 }
 
 static void test_vector_assign()

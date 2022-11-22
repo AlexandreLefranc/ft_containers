@@ -6,7 +6,7 @@
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 18:02:07 by alefranc          #+#    #+#             */
-/*   Updated: 2022/11/21 18:45:59 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/11/22 16:18:12 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ namespace ft
 		typedef const value_type&						const_reference;
 		typedef value_type*								pointer;
 		typedef const value_type*						const_pointer;
-		typedef ft::VectorIterator<pointer>				iterator;
-		typedef ft::VectorIterator<const_pointer>		const_iterator;
+		typedef ft::VectorIterator2<T>				iterator;
+		typedef ft::VectorIterator2<const T>		const_iterator;
 		typedef ft::reverse_iterator<iterator>			reverse_iterator;
 		typedef ft::reverse_iterator<const_iterator>	const_reverse_iterator;
 
@@ -60,6 +60,8 @@ namespace ft
 
 		template< class InputIt >
 		vector( InputIt first, InputIt last, const Allocator& alloc = Allocator() );
+		
+		vector( const vector& other );
 		
 		vector& operator=( const vector& rhs );
 		
@@ -90,7 +92,6 @@ namespace ft
 			for (size_type i = 0; i < _size; i++)
 				_alloc.construct(_data + i, value);
 		}
-		
 
 		// template< typename InputIt>
 		// vector(InputIt first, InputIt last, const Allocator& alloc = Allocator())
@@ -109,7 +110,6 @@ namespace ft
 		// 	// 	std::cout << "InputIt constructor - Non Integral" << std::endl;
 		// 	// }
 
-
 		// 	(void)first;(void)last;(void)alloc;
 
 		// 	// if (ft::is_integral<InputIt>::value == true)
@@ -127,6 +127,15 @@ namespace ft
 		// 	// 	return;
 		// 	// }
 		// }
+
+		vector( const vector& other )
+			: _data(NULL), _size(other._size), _capacity(other._size), _alloc(other._alloc)
+		{
+			std::cout << "Copy constructor" << std::endl;
+			_data = _alloc.allocate(_capacity);
+			for (size_type i = 0; i < _size; i++)
+				_alloc.construct(_data + i, other[i]);
+		}
 
 		vector& operator=( const vector& rhs )
 		{
@@ -165,34 +174,34 @@ namespace ft
 			}
 		}
 		
-		template < class InputIt >
-		void assign( InputIt first, InputIt last )
-		{
-			// if (is_integral<InputIt>::value == true)
-			// {
-			// 	std::cout << "Prout" << std::endl;
-			// 	return;
-			// }
-			// else
-			// {
-			// 	std::cout << "Prout" << std::endl;
-			// 	return;
-			// }
+		// template < class InputIt >
+		// void assign( InputIt first, InputIt last )
+		// {
+		// 	// if (is_integral<InputIt>::value == true)
+		// 	// {
+		// 	// 	std::cout << "Prout" << std::endl;
+		// 	// 	return;
+		// 	// }
+		// 	// else
+		// 	// {
+		// 	// 	std::cout << "Prout" << std::endl;
+		// 	// 	return;
+		// 	// }
 			
-			difference_type dist = ft::distance<InputIt>(first, last);
+		// 	difference_type dist = ft::distance<InputIt>(first, last);
 
-			clear();
-			if (dist > _capacity)
-				reserve(dist);
-			if (_capacity > dist)
-			{
-				for (size_type i = 0; first != last; first++, i++)
-				{
-					_alloc.construct(_data + i, *first);
-					_size++;
-				}
-			}
-		}
+		// 	clear();
+		// 	if (dist > _capacity)
+		// 		reserve(dist);
+		// 	if (_capacity > dist)
+		// 	{
+		// 		for (size_type i = 0; first != last; first++, i++)
+		// 		{
+		// 			_alloc.construct(_data + i, *first);
+		// 			_size++;
+		// 		}
+		// 	}
+		// }
 
 		allocator_type get_allocator() const
 		{
