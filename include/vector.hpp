@@ -6,7 +6,7 @@
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 18:02:07 by alefranc          #+#    #+#             */
-/*   Updated: 2022/11/22 16:18:12 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/11/22 17:44:34 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,16 +78,16 @@ namespace ft
 
 		vector()
 			: _data(NULL), _size(0), _capacity(0), _alloc(Allocator())
-		{std::cout << "Default constructor" << std::endl;}
+		{/*std::cout << "Default constructor" << std::endl;*/}
 		
 		explicit vector( const Allocator& alloc )
 			: _data(NULL), _size(0), _capacity(0), _alloc(alloc)
-		{std::cout << "Alloc constructor" << std::endl;}
+		{/*std::cout << "Alloc constructor" << std::endl;*/}
 
 		explicit vector( size_type count, const T& value = T(), const Allocator& alloc = Allocator())
 			: _data(NULL), _size(count), _capacity(count), _alloc(alloc)
 		{
-			std::cout << "Count constructor" << std::endl;
+			//std::cout << "Count constructor" << std::endl;
 			_data = _alloc.allocate(_capacity);
 			for (size_type i = 0; i < _size; i++)
 				_alloc.construct(_data + i, value);
@@ -131,7 +131,7 @@ namespace ft
 		vector( const vector& other )
 			: _data(NULL), _size(other._size), _capacity(other._size), _alloc(other._alloc)
 		{
-			std::cout << "Copy constructor" << std::endl;
+			// std::cout << "Copy constructor" << std::endl;
 			_data = _alloc.allocate(_capacity);
 			for (size_type i = 0; i < _size; i++)
 				_alloc.construct(_data + i, other[i]);
@@ -380,19 +380,15 @@ namespace ft
 			if (new_cap > capacity())
 			{
 				T* tmp = _alloc.allocate(new_cap);
+				for (size_type i = 0; i < size(); i++)
+					_alloc.construct(tmp + i, _data[i]);
+				
+				for (size_type i = 0; i < _size; i++)
+					_alloc.destroy(_data + i);
+				_alloc.deallocate(_data, _capacity);
+
+				_data = tmp;
 				_capacity = new_cap;
-				size_type i = 0;
-				try
-				{
-					for (; i < size(); i++)
-						_alloc.construct(tmp + i, _data[i]);
-				}
-				catch (std::exception& e)
-				{
-					for (size_type j = 0; j < i; i++)
-						_alloc.destroy(tmp + i);
-					_alloc.deallocate(tmp, new_cap);
-				}
 			}
 		}
 
@@ -426,9 +422,7 @@ namespace ft
 		void clear()
 		{
 			for (size_type i = 0; i < _size; i++)
-			{
 				_alloc.destroy(_data + i);
-			}
 			_size = 0;
 		}
 
@@ -441,8 +435,22 @@ namespace ft
 		// iterator	erase( iterator pos );
 		// iterator	erase( iterator first, iterator last );
 
-		// void		push_back( const T& value );
-		// void		pop_back();
+		void		push_back( const T& value )
+		{
+			if (_size == 0)
+				reserve(1);
+			else if (_size + 1 > _capacity)
+				reserve(_capacity * 2);
+				
+			_alloc.construct(_data + _size, value);
+			_size++;
+		}
+		
+		void		pop_back()
+		{
+			_alloc.destroy(_data + _size - 1);
+			_size--;
+		}
 
 		// void		resize( size_type count, T value = T() );
 
