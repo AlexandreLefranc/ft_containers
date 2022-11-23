@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 18:02:07 by alefranc          #+#    #+#             */
-/*   Updated: 2022/11/23 19:36:18 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/11/23 21:03:17 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -326,7 +326,7 @@ namespace ft
 
 		size_type	max_size() const
 		{
-			return (std::numeric_limits<difference_type>::max());
+			return (std::numeric_limits<difference_type>::max() / sizeof(T));
 		}
 
 		void		reserve( size_type new_cap )
