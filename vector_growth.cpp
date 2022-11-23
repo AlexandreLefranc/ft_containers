@@ -2,27 +2,28 @@
 #include <vector>
 
 template <typename T>
-void	vinfo(std::vector<T>& v)
+void	vinfo(T& v)
 {
 	std::cout	<< "Vector size     = " << v.size() << std::endl;
 	std::cout	<< "Vector capacity = " << v.capacity() << std::endl;
 	std::cout << std::endl;
 }
 
+template <typename T>
+void	print_vector(T& v)
+{
+	for (typename T::iterator it = v.begin(); it != v.end(); it++)
+		std::cout << *it << " " << std::endl;
+}
+
 int main()
 {
-	std::vector<int> v1(100, 2);
-	std::vector<int> v2(150, 2);
+	std::vector<int> v(5, 1);
 
-
-	vinfo(v1);
-	vinfo(v2);
-
-	v1 = v2;
-	// v2.reserve(200);
-
-	vinfo(v1);
-	vinfo(v2);
+	vinfo(v);
+	v.insert(v.end() + 1, 0);
+	print_vector(v);
+	vinfo(v);
 
 	return (0);
 }

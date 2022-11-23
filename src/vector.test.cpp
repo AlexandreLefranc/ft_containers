@@ -6,7 +6,7 @@
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 15:16:10 by alefranc          #+#    #+#             */
-/*   Updated: 2022/11/22 17:20:06 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/11/23 14:24:04 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,6 @@ static void	vinfo(ns::vector<T>& v)
 	std::cout << std::endl;
 }
 
-
-
-
 static void	test_vector_typedef()
 {
 	print_title("VECTOR - TYPEDEF");
@@ -60,36 +57,85 @@ static void	test_vector_constructor()
 {
 	print_title("VECTOR - CONSTRUCTORS");
 
-	// ns::vector<std::string> a;
-	// ns::vector<std::string> b(10);
-	// ns::vector<std::string> c(10, "0");
-
-	std::cout << "Creating default vector" << std::endl;
-	ns::vector<int> a;
-
-	std::cout << "Creating count vector" << std::endl;
-	ns::vector<int> b(10, 2);
-	for (int i = 0; i < 10; i++)
-		std::cout << b[i] << " ";
+	{
+		std::cout << "Creating default vector" << std::endl;
+		ns::vector<int> v;
+	}
 	std::cout << std::endl;
+	{
+		std::cout << "Creating count vector with default value" << std::endl;
+		ns::vector<int> v(10);
+		for (int i = 0; i < 10; i++)
+			std::cout << v[i] << " ";
+		std::cout << std::endl;
+	}
+	std::cout << std::endl;
+	{
+		std::cout << "Creating count vector with custom value" << std::endl;
+		ns::vector<int> v(10, 2);
+		for (int i = 0; i < 10; i++)
+			std::cout << v[i] << " ";
+		std::cout << std::endl;
+	}
+	std::cout << std::endl;
+	{
+		std::cout << "Creating iter vector" << std::endl;
+		int tab[] = {1,2,3,4,5};
+		ns::vector<int> v(tab, tab+5);
+		for (int i = 0; i < 5; i++)
+			std::cout << v[i] << " ";
+		std::cout << std::endl;
+	}
+	std::cout << std::endl;
+	{
+		std::cout << "Creating vector by copy" << std::endl;
+		ns::vector<int> v1(10, 2);
+		ns::vector<int> v2(v1);
+		v1[0] = 11;
+		for (int i = 0; i < 10; i++)
+			std::cout << v1[i] << " ";
+		std::cout << std::endl;
+		for (int i = 0; i < 10; i++)
+			std::cout << v2[i] << " ";
+		std::cout << std::endl;
+	}
+	std::cout << std::endl;
+	{
+		std::cout << "Creating default vector then assignation operator" << std::endl;
+		ns::vector<int> v1(10, 2);
+		ns::vector<int> v2 = v1;
+		v1[0] = 11;
+		for (int i = 0; i < 10; i++)
+			std::cout << v1[i] << " ";
+		std::cout << std::endl;
+		for (int i = 0; i < 10; i++)
+			std::cout << v2[i] << " ";
+		std::cout << std::endl;
+	}
+}
 
-	ns::vector<int> v1(100, 5);
-	ns::vector<int> v2(80, 5);
+static void	test_vector_assign()
+{
+	print_title("VECTOR - ASSIGN");
 
-	std::cout << "Info v1:" << std::endl;
-	vinfo(v1);
-	std::cout << "Info v1:" << std::endl;
-	vinfo(v2);
-
-	v2 = v1;
-
-	std::cout << "Info v1:" << std::endl;
-	vinfo(v1);
-	std::cout << "Info v1:" << std::endl;
-	vinfo(v2);
-
-	// ns::vector<int> b(10);
-	// ns::vector<int> c(10, 1);
+	{
+		std::cout << "Assigning using count assign" << std::endl;
+		ns::vector<int> v;
+		v.assign(10, 2);
+		for (int i = 0; i < 10; i++)
+			std::cout << v[i] << " ";
+		std::cout << std::endl;
+	}
+	std::cout << std::endl;
+	{
+		std::cout << "Assigning using iter assign" << std::endl;
+		int tab[] = {1,2,3,4,5};
+		ns::vector<int> v;
+		v.assign(tab, tab + 5);
+		for (int i = 0; i < 5; i++)
+			std::cout << v[i] << " ";
+		std::cout << std::endl;
+	}
 }
 
 static void	test_vector_iterator()
@@ -148,46 +194,18 @@ static void	test_vector_iterator()
 			std::cout << *it << std::endl;
 
 	}
-
-
-	
-	// int tab[] = {1,2,3,4};
-
-	// ns::vector<int> v(tab, tab + 4);
-	// for (ns::vector<int>::iterator it = v.begin(); it != v.end(); it++)
-	// {
-	// 	std::cout << *it << std::endl;
-	// }
 }
 
-static void test_vector_assign()
+static void test_vector_insert()
 {
-	print_title("VECTOR - ASSIGN");
-
-	// ns::vector<int> first;
-	// ns::vector<int> second;
-	// ns::vector<int> third;
-
-	// first.assign(7, 100);             // 7 ints with a value of 100
-
-	// ns::vector<int>::iterator it;
-	// it = first.begin() + 1;
-
-	// second.assign(it, first.end() - 1); // the 5 central values of first
-
-	// int myints[] = {1776, 7, 4};
-	// third.assign(myints, myints + 3);  // assigning from array.
-
-	// std::cout << "Size of first: " << int(first.size()) << '\n';
-	// std::cout << "Size of second: " << int(second.size()) << '\n';
-	// std::cout << "Size of third: " << int(third.size()) << '\n';
+	print_title("VECTOR - INSERT");
 }
 
 void	main_vector()
 {
 	test_vector_typedef();
 	test_vector_constructor();
-	test_vector_iterator();
-
 	test_vector_assign();
+	test_vector_iterator();
+	test_vector_insert();
 }

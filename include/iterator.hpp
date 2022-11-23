@@ -6,7 +6,7 @@
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 14:00:31 by alefranc          #+#    #+#             */
-/*   Updated: 2022/11/22 17:18:29 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/11/23 14:17:50 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -627,14 +627,14 @@ public:
 	VectorIterator2	operator+( difference_type n ) const
 	{
 		VectorIterator2 tmp(*this);
-		tmp._ptr + n;
+		tmp._ptr += n;
 		return (tmp);
 	}
 	
 	VectorIterator2	operator-( difference_type n ) const
 	{
 		VectorIterator2 tmp(*this);
-		tmp._ptr - n;
+		tmp._ptr -= n;
 		return (tmp);
 	}
 
@@ -755,6 +755,6 @@ typename ft::iterator_traits<It>::difference_type
 							   typename ft::iterator_traits<It>::iterator_category());
 }
 
-}
+} // namespace ft
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 18:02:07 by alefranc          #+#    #+#             */
-/*   Updated: 2022/11/22 17:44:34 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/11/23 14:38:52 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,46 +87,27 @@ namespace ft
 		explicit vector( size_type count, const T& value = T(), const Allocator& alloc = Allocator())
 			: _data(NULL), _size(count), _capacity(count), _alloc(alloc)
 		{
-			//std::cout << "Count constructor" << std::endl;
+			// std::cout << "Count constructor" << std::endl;
 			_data = _alloc.allocate(_capacity);
 			for (size_type i = 0; i < _size; i++)
 				_alloc.construct(_data + i, value);
 		}
 
-		// template< typename InputIt>
-		// vector(InputIt first, InputIt last, const Allocator& alloc = Allocator())
-		// 	: _data(NULL), _size(0), _capacity(0), _alloc(alloc)
-		// {
-		// 	std::cout << "InputIt constructor" << std::endl;
-			
-		// 	typedef typename ft::is_integral<InputIt>::type		Integral;
-			
-		// 	// if (Integral)
-		// 	// {
-		// 	// 	std::cout << "InputIt constructor - Integral" << std::endl;
-		// 	// }
-		// 	// else
-		// 	// {
-		// 	// 	std::cout << "InputIt constructor - Non Integral" << std::endl;
-		// 	// }
+		template< class InputIt >
+		vector( InputIt first, InputIt last, const Allocator& alloc = Allocator(),
+				typename ft::enable_if<!ft::is_integral<InputIt>::value, void>::type* = NULL)
+			: _data(NULL), _size(0), _capacity(0), _alloc(alloc)
+		{
+			// std::cout << "Iter constructor" << std::endl;
 
-		// 	(void)first;(void)last;(void)alloc;
+			difference_type	dist = ft::distance(first, last);
 
-		// 	// if (ft::is_integral<InputIt>::value == true)
-		// 	// {
-		// 	// 	std::cout << "InputIt is integral" << std::endl;
-		// 	// 	ft::enable_if< ft::is_integral<InputIt>::value, size_type > count = static_cast<size_type>(first);
-		// 	// 	value_type value = static_cast<value_type>(last);
-				
-		// 	// 	_size = count;
-		// 	// 	_capacity = count;
-
-		// 	// 	_data = _alloc.allocate(_capacity);
-		// 	// 	for (size_type i = 0; i < _size; i++)
-		// 	// 		_alloc.construct(_data + i, value);
-		// 	// 	return;
-		// 	// }
-		// }
+			_data = _alloc.allocate(dist);
+			_size = dist;
+			_capacity = dist;
+			for (size_type i = 0; first != last; first++, i++)
+				_alloc.construct(_data + i, *first);
+		}
 
 		vector( const vector& other )
 			: _data(NULL), _size(other._size), _capacity(other._size), _alloc(other._alloc)
@@ -161,47 +142,30 @@ namespace ft
 
 		void assign( size_type count, const T& value )
 		{
+			// std::cout << "Call assign count" << std::endl;
 			clear();
-			if (count > _capacity)
-				reserve(count);
-			if (_capacity >= count)
+			reserve(count);
+			for (size_type i = 0; i < count; i++)
 			{
-				for (size_type i = 0; i < count; i++)
-				{
-					_alloc.construct(_data + i, value);
-					_size++;
-				}
+				_alloc.construct(_data + i, value);
+				_size++;
 			}
 		}
 		
-		// template < class InputIt >
-		// void assign( InputIt first, InputIt last )
-		// {
-		// 	// if (is_integral<InputIt>::value == true)
-		// 	// {
-		// 	// 	std::cout << "Prout" << std::endl;
-		// 	// 	return;
-		// 	// }
-		// 	// else
-		// 	// {
-		// 	// 	std::cout << "Prout" << std::endl;
-		// 	// 	return;
-		// 	// }
-			
-		// 	difference_type dist = ft::distance<InputIt>(first, last);
-
-		// 	clear();
-		// 	if (dist > _capacity)
-		// 		reserve(dist);
-		// 	if (_capacity > dist)
-		// 	{
-		// 		for (size_type i = 0; first != last; first++, i++)
-		// 		{
-		// 			_alloc.construct(_data + i, *first);
-		// 			_size++;
-		// 		}
-		// 	}
-		// }
+		template < class InputIt >
+		typename ft::enable_if<!ft::is_integral<InputIt>::value, void>::type
+		assign( InputIt first, InputIt last )
+		{
+			// std::cout << "Call assign iter" << std::endl;
+			difference_type dist = ft::distance(first, last);
+			clear();
+			reserve(dist);
+			for (size_type i = 0; first != last; first++, i++)
+			{
+				_alloc.construct(_data + i, *first);
+				_size++;
+			}
+		}
 
 		allocator_type get_allocator() const
 		{
@@ -299,50 +263,42 @@ namespace ft
 
 		iterator				begin()
 		{
-			iterator it(_data);
-			return (it);
+			return (iterator(_data));
 		}
 		
 		const_iterator			begin() const
 		{
-			const_iterator it(_data);
-			return (it);
+			return (const_iterator(_data));
 		}
 
 		iterator				end()
 		{
-			iterator it(_data + _size);
-			return (it);
+			return (iterator(_data + _size));
 		}
 
 		const_iterator			end() const
 		{
-			const_iterator it(_data + _size);
-			return (it);
+			return (const_iterator(_data + _size));
 		}
 
 		reverse_iterator		rbegin()
 		{
-			reverse_iterator rit(end())	;
-			return (rit);
+			return (reverse_iterator(end()));
 		}
 		
 		const_reverse_iterator	rbegin() const
 		{
-			const_reverse_iterator rit(end());
-			return (rit);
+			return (const_reverse_iterator(end()));
 		}
 
 		reverse_iterator		rend()
 		{
-			reverse_iterator rit(begin());
-			return (rit);
+			return (reverse_iterator(begin()));
 		}
 		
 		const_reverse_iterator	rend() const
 		{
-			const_reverse_iterator	rit(begin());
-			return (rit);
+			return (const_reverse_iterator(begin()));
 		}
 
 	
@@ -426,7 +382,14 @@ namespace ft
 			_size = 0;
 		}
 
-		// iterator	insert( const_iterator pos, const T& value );
+		// iterator	insert( const_iterator pos, const T& value )
+		// {
+		// 	if (_size == 0)
+		// 		reserve(1);
+		// 	else if (_size + 1 > _capacity)
+		// 		reserve(_capacity * 2);
+			
+		// }
 		// iterator	insert( const_iterator pos, size_type count, const T& value );
 		
 		// template< class InputIt >
