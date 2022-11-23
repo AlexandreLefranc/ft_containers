@@ -13,7 +13,8 @@ template <typename T>
 void	print_vector(T& v)
 {
 	for (typename T::iterator it = v.begin(); it != v.end(); it++)
-		std::cout << *it << " " << std::endl;
+		std::cout << *it << " ";
+	std::cout << std::endl;
 }
 
 int main()
@@ -21,7 +22,10 @@ int main()
 	std::vector<int> v(5, 1);
 
 	vinfo(v);
-	v.insert(v.end() + 1, 0);
+	v.insert( v.end(), 4, 4 );
+	print_vector(v);
+	vinfo(v);
+	v.insert( v.end(), 4, 4 );
 	print_vector(v);
 	vinfo(v);
 

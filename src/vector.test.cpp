@@ -6,7 +6,7 @@
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 15:16:10 by alefranc          #+#    #+#             */
-/*   Updated: 2022/11/23 14:24:04 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/11/23 17:26:35 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,18 @@ static void	print_title(const std::string& title)
 }
 
 template <typename T>
-static void	vinfo(ns::vector<T>& v)
+void	vinfo(T& v)
 {
 	std::cout	<< "Vector size     = " << v.size() << std::endl;
 	std::cout	<< "Vector capacity = " << v.capacity() << std::endl;
+	std::cout << std::endl;
+}
+
+template <typename T>
+void	print_vector(T& v)
+{
+	for (typename T::iterator it = v.begin(); it != v.end(); it++)
+		std::cout << *it << " ";
 	std::cout << std::endl;
 }
 
@@ -199,6 +207,92 @@ static void	test_vector_iterator()
 static void test_vector_insert()
 {
 	print_title("VECTOR - INSERT");
+
+	{
+		std::cout << "Insert single element tests" << std::endl;
+		ns::vector<int> v(5, 1);
+		print_vector(v);
+		vinfo(v);
+		
+		std::cout << "Adding 42 at the end" << std::endl;
+		v.insert(v.end(), 42);
+		print_vector(v);
+		vinfo(v);
+		
+		std::cout << "Adding 42 at the second position" << std::endl;
+		v.insert(v.begin() + 1, 42);
+		print_vector(v);
+		vinfo(v);
+	}
+	std::cout << std::endl;
+	{
+		std::cout << "Insert fill tests" << std::endl;
+		ns::vector<int> v(5, 1);
+		print_vector(v);
+		vinfo(v);
+		
+		std::cout << "Adding 3 * 42 at the end" << std::endl;
+		v.insert(v.end(), 3, 42);
+		print_vector(v);
+		vinfo(v);
+		
+		std::cout << "Adding 3 * 42 at the second position" << std::endl;
+		v.insert(v.begin() + 1, 3, 42);
+		print_vector(v);
+		vinfo(v);
+	}
+	std::cout << std::endl;
+	{
+		std::cout << "Insert range tests" << std::endl;
+		int tab[] = {11,22,33};
+
+		ns::vector<int> v(5, 1);
+		print_vector(v);
+		vinfo(v);
+		
+		std::cout << "Adding {11,22,33} at the end" << std::endl;
+		v.insert(v.end(), tab, tab+3);
+		print_vector(v);
+		vinfo(v);
+		
+		std::cout << "Adding {11,22,33} at the second position" << std::endl;
+		v.insert(v.begin() + 1, tab, tab+3);
+		print_vector(v);
+		vinfo(v);
+	}
+}
+
+static void test_vector_erase()
+{
+	print_title("VECTOR - ERASE");
+
+	{
+		std::cout << "Erase single element tests" << std::endl;
+		
+		int tab[] = {1,2,3,4};
+		ns::vector<int> v(tab, tab+4);
+		print_vector(v);
+		vinfo(v);
+
+		std::cout << "Erase successively 2 elements at 2nd position" << std::endl;
+		v.erase(v.erase(v.begin() + 1));
+		print_vector(v);
+		vinfo(v);
+	}
+	std::cout << std::endl;
+	{
+		std::cout << "Erase single element tests" << std::endl;
+		
+		int tab[] = {1,2,3,4,5,6};
+		ns::vector<int> v(tab, tab+6);
+		print_vector(v);
+		vinfo(v);
+
+		std::cout << "Erase from begin()+1 to end()-2" << std::endl;
+		v.erase(v.begin()+1, v.end()-2);
+		print_vector(v);
+		vinfo(v);
+	}
 }
 
 void	main_vector()
@@ -208,4 +302,5 @@ void	main_vector()
 	test_vector_assign();
 	test_vector_iterator();
 	test_vector_insert();
+	test_vector_erase();
 }

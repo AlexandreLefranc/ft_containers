@@ -6,7 +6,7 @@
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 18:02:07 by alefranc          #+#    #+#             */
-/*   Updated: 2022/11/23 14:38:52 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/11/23 19:36:18 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -332,7 +332,7 @@ namespace ft
 		void		reserve( size_type new_cap )
 		{
 			if (new_cap > max_size())
-				throw std::length_error("new_cap > max_size()");
+				throw std::length_error("vector::reserve");
 			if (new_cap > capacity())
 			{
 				T* tmp = _alloc.allocate(new_cap);
@@ -382,21 +382,78 @@ namespace ft
 			_size = 0;
 		}
 
-		// iterator	insert( const_iterator pos, const T& value )
-		// {
-		// 	if (_size == 0)
-		// 		reserve(1);
-		// 	else if (_size + 1 > _capacity)
-		// 		reserve(_capacity * 2);
-			
-		// }
-		// iterator	insert( const_iterator pos, size_type count, const T& value );
-		
-		// template< class InputIt >
-		// iterator	insert( const_iterator pos, InputIt first, InputIt last );
+		iterator	insert( const_iterator pos, const T& value )
+		{
+			ft::vector<T> tmp(pos, static_cast<const_iterator>(end()));
 
-		// iterator	erase( iterator pos );
-		// iterator	erase( iterator first, iterator last );
+			difference_type dist = ft::distance(static_cast<const_iterator>(begin()), pos);
+			resize(dist);
+			push_back(value);
+			for (const_iterator it = tmp.begin(); it != tmp.end(); it++)
+				push_back(*it);
+			return iterator(_data + dist);
+		}
+		
+		iterator	insert( const_iterator pos, size_type count, const T& value )
+		{
+			ft::vector<T> tmp(pos, static_cast<const_iterator>(end()));
+
+			difference_type dist = ft::distance(static_cast<const_iterator>(begin()), pos);
+			resize(dist);
+			for (size_type i = 0; i < count; i++)
+				push_back(value);
+			for (const_iterator it = tmp.begin(); it != tmp.end(); it++)
+				push_back(*it);
+			return iterator(_data + dist);
+		}
+		
+		template< class InputIt >
+		typename ft::enable_if<!ft::is_integral<InputIt>::value, iterator>::type
+		insert( const_iterator pos, InputIt first, InputIt last )
+		{
+			ft::vector<T> tmp(pos, static_cast<const_iterator>(end()));
+
+			difference_type dist = ft::distance(static_cast<const_iterator>(begin()), pos);
+			resize(dist);
+			for (; first != last; ++first)
+				push_back(*first);
+			for (const_iterator it = tmp.begin(); it != tmp.end(); it++)
+				push_back(*it);
+			return iterator(_data + dist);
+		}
+
+		iterator	erase( iterator pos )
+		{
+
+			_alloc.destroy(pos.base());
+			
+			for (iterator tmp(pos); tmp != (end()-1); tmp++)
+			{
+				_alloc.construct(tmp.base(), *(tmp+1));
+				_alloc.destroy((tmp+1).base());
+			}
+			_size--;
+
+			return (pos);
+		}
+		
+		iterator	erase( iterator first, iterator last )
+		{
+			iterator		tmp;
+			difference_type	dist = last - first;
+
+			for (tmp = first; tmp != last; tmp++)
+				_alloc.destroy(tmp.base());
+
+			for (tmp = first; tmp != (end()-dist); tmp++)
+			{
+				_alloc.construct(tmp.base(), *(tmp+dist));
+				_alloc.destroy((tmp+dist).base());
+			}
+			_size -= dist;
+
+			return (first);
+		}
 
 		void		push_back( const T& value )
 		{
@@ -415,12 +472,165 @@ namespace ft
 			_size--;
 		}
 
-		// void		resize( size_type count, T value = T() );
+		void		resize( size_type count, T value = T() )
+		{
+			if (_size > count)
+			{
+				while (_size != count)
+					pop_back();
+			}
+			else if (_size < count)
+			{
+				while (_size != count)
+					push_back(value);
+			}
+		}
 
-		// void		swap( ft::vector& other );
+		void		swap( ft::vector<T>& other )
+		{
+			pointer	tmp_data = other._data;
+			other._data = _data;
+			_data = tmp_data;
+
+			size_type	tmp_size = other._size;
+			other._size = _size;
+			_size = tmp_size;
+
+			size_type	tmp_capacity = other._capacity;
+			other._capacity = _capacity;
+			_capacity = tmp_capacity;
+
+			allocator_type	tmp_alloc = other._alloc;
+			other._alloc = _alloc;
+			_alloc = tmp_alloc;
+		}
 
 	};
 
-}
+	/* NON-MEMBER FUNCTIONS - SYNOPSIS
+		
+	template< class T, class Alloc >
+	void swap( ft::vector<T, Alloc>& lhs, ft::vector<T, Alloc>& rhs );
+
+	template< class T, class Alloc >
+	bool operator==( const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs );
+
+	template< class T, class Alloc >
+	bool operator!=( const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs );
+
+	template< class T, class Alloc >
+	bool operator<( const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs );
+
+	template< class T, class Alloc >
+	bool operator<=( const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs );
+
+	template< class T, class Alloc >
+	bool operator>( const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs );
+
+	template< class T, class Alloc >
+	bool operator>=( const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs );
+
+	*/
+
+	template< class T, class Alloc >
+	void swap( ft::vector<T, Alloc>& lhs, ft::vector<T, Alloc>& rhs )
+	{
+		lhs.swap(rhs);
+	}
+
+	template< class T, class Alloc >
+	bool operator==( const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs )
+	{
+		if (lhs.size() == rhs.size())
+		{
+			for (typename ft::vector<T,Alloc>::size_type i = 0; i < rhs.size(); i++)
+			{
+				if (lhs[i] != rhs[i])
+					return (false);
+			}
+			return (true);
+		}
+		return (false);
+	}
+
+	template< class T, class Alloc >
+	bool operator!=( const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs )
+	{
+		return !(lhs == rhs);
+	}
+
+	template< class T, class Alloc >
+	bool operator<( const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs )
+	{
+		typename ft::vector<T,Alloc>::const_iterator first1 = lhs.begin();
+		typename ft::vector<T,Alloc>::const_iterator last1 = lhs.end();
+
+		typename ft::vector<T,Alloc>::const_iterator first2 = rhs.begin();
+		typename ft::vector<T,Alloc>::const_iterator last2 = rhs.end();
+		for (; (first1 != last1) && (first2 != last2); ++first1, (void) ++first2)
+		{
+			if (*first1 < *first2)
+				return true;
+			if (*first2 < *first1)
+				return false;
+		}
+		return (first1 == last1) && (first2 != last2);
+	}
+
+	template< class T, class Alloc >
+	bool operator<=( const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs )
+	{
+		typename ft::vector<T,Alloc>::const_iterator first1 = lhs.begin();
+		typename ft::vector<T,Alloc>::const_iterator last1 = lhs.end();
+
+		typename ft::vector<T,Alloc>::const_iterator first2 = rhs.begin();
+		typename ft::vector<T,Alloc>::const_iterator last2 = rhs.end();
+		for (; (first1 != last1) && (first2 != last2); ++first1, (void) ++first2)
+		{
+			if (*first1 <= *first2)
+				return true;
+			if (*first2 <= *first1)
+				return false;
+		}
+		return (first1 == last1) && (first2 != last2);
+	}
+
+	template< class T, class Alloc >
+	bool operator>( const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs )
+	{
+		typename ft::vector<T,Alloc>::const_iterator first1 = lhs.begin();
+		typename ft::vector<T,Alloc>::const_iterator last1 = lhs.end();
+
+		typename ft::vector<T,Alloc>::const_iterator first2 = rhs.begin();
+		typename ft::vector<T,Alloc>::const_iterator last2 = rhs.end();
+		for (; (first1 != last1) && (first2 != last2); ++first1, (void) ++first2)
+		{
+			if (*first1 > *first2)
+				return true;
+			if (*first2 > *first1)
+				return false;
+		}
+		return (first1 == last1) && (first2 != last2);
+	}
+
+	template< class T, class Alloc >
+	bool operator>=( const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs )
+	{
+		typename ft::vector<T,Alloc>::const_iterator first1 = lhs.begin();
+		typename ft::vector<T,Alloc>::const_iterator last1 = lhs.end();
+
+		typename ft::vector<T,Alloc>::const_iterator first2 = rhs.begin();
+		typename ft::vector<T,Alloc>::const_iterator last2 = rhs.end();
+		for (; (first1 != last1) && (first2 != last2); ++first1, (void) ++first2)
+		{
+			if (*first1 >= *first2)
+				return true;
+			if (*first2 >= *first1)
+				return false;
+		}
+		return (first1 == last1) && (first2 != last2);
+	}
+
+} // namespace ft
 
 #endif
