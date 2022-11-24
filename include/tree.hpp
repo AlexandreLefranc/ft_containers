@@ -1,27 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   enable_if.hpp                                      :+:      :+:    :+:   */
+/*   tree.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/08 16:09:48 by alefranc          #+#    #+#             */
-/*   Updated: 2022/11/08 16:52:45 by alefranc         ###   ########.fr       */
+/*   Created: 2022/11/24 17:56:52 by alefranc          #+#    #+#             */
+/*   Updated: 2022/11/24 18:00:50 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ENABLE_IF_HPP
-# define ENABLE_IF_HPP
+#ifndef TREE_HPP
+# define TREE_HPP
 
 namespace ft
 {
-	
-	template<bool B, class T = void>
-	struct enable_if {};
-	
-	template<class T>
-	struct enable_if<true, T> { typedef T type; };
-	
-}
+	template <typename T>
+	struct BSTNode
+	{
+		T	value;
+		BSTNode<T>*	parent;
+		BSTNode<T>*	left;
+		BSTNode<T>*	right;
+	};
+
+	class BSTree
+	{
+		
+	}; // class BSTree
+
+} // namespece ft
 
 #endif

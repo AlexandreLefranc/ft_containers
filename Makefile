@@ -6,7 +6,7 @@
 #    By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/21 18:52:01 by alefranc          #+#    #+#              #
-#    Updated: 2022/11/24 14:42:15 by alefranc         ###   ########.fr        #
+#    Updated: 2022/11/24 20:49:14 by alefranc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,14 +36,9 @@ NS			= FT
 
 SRCDIR		=	src/
 SRCFILE		=	main.cpp \
-				pair.test.cpp \
-				equal.test.cpp \
-				vector.test.cpp \
-				iterator_traits.test.cpp \
-				reverse_iterator.test.cpp \
+				map.test.cpp \
 				stack.test.cpp \
-				# is_integral.test.cpp \
-				# enable_if.test.cpp \
+				vector.test.cpp \
 
 SRC			=	$(addprefix $(SRCDIR), $(SRCFILE))
 
@@ -53,8 +48,11 @@ SRC			=	$(addprefix $(SRCDIR), $(SRCFILE))
 
 INCDIR		=	include/
 INCFILE		=	container.hpp \
+				functional.hpp \
 				iterator.hpp \
+				map.hpp \
 				stack.hpp \
+				tree.hpp \
 				utils.hpp \
 				vector.hpp
 
