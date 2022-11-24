@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 18:02:07 by alefranc          #+#    #+#             */
-/*   Updated: 2022/11/23 21:03:17 by alex             ###   ########.fr       */
+/*   Updated: 2022/11/24 14:27:12 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,10 +167,7 @@ namespace ft
 			}
 		}
 
-		allocator_type get_allocator() const
-		{
-			return (_alloc);
-		}
+		allocator_type get_allocator() const {return (_alloc);}
 
 		/* ELEMENT ACCESS - SYNOPSIS
 
@@ -205,45 +202,17 @@ namespace ft
 			return (_data[pos]);
 		}
 
-		reference 		operator[]( size_type pos )
-		{
-			return (_data[pos]);
-		}
+		reference 		operator[]( size_type pos )			{return _data[pos];}
+		const_reference	operator[]( size_type pos ) const	{return _data[pos];}
+		
+		reference 		front()			{return _data[0];}
+		const_reference	front() const	{return _data[0];}
 
-		const_reference	operator[]( size_type pos ) const
-		{
-			return (_data[pos]);
-		}
-		
-		reference 		front()
-		{
-			return (_data[0]);
-		}
-		
-		const_reference	front() const
-		{
-			return (_data[0]);
-		}
+		reference		back()			{return _data[size() - 1];}
+		const_reference	back() const	{return _data[size() - 1];}
 
-		reference		back()
-		{
-			return (_data[size() - 1]);
-		}
-		
-		const_reference	back() const
-		{
-			return (_data[size() - 1]);
-		}
-
-		T* data()
-		{
-			return (_data);
-		}
-		
-		const T* data() const
-		{
-			return (_data);
-		}
+		T* 			data()			{return _data;}
+		const T*	data() const	{return _data;}
 		
 		/* ITERATORS - SYNOPSIS
 		
@@ -261,45 +230,17 @@ namespace ft
 
 		*/
 
-		iterator				begin()
-		{
-			return (iterator(_data));
-		}
+		iterator				begin()			{return iterator(_data);}
+		const_iterator			begin() const	{return const_iterator(_data);}
+
+		iterator				end()		{return iterator(_data + _size);}
+		const_iterator			end() const	{return const_iterator(_data + _size);}
 		
-		const_iterator			begin() const
-		{
-			return (const_iterator(_data));
-		}
+		reverse_iterator		rbegin()		{return reverse_iterator(end());}
+		const_reverse_iterator	rbegin() const	{return const_reverse_iterator(end());}
 
-		iterator				end()
-		{
-			return (iterator(_data + _size));
-		}
-
-		const_iterator			end() const
-		{
-			return (const_iterator(_data + _size));
-		}
-
-		reverse_iterator		rbegin()
-		{
-			return (reverse_iterator(end()));
-		}
-		
-		const_reverse_iterator	rbegin() const
-		{
-			return (const_reverse_iterator(end()));
-		}
-
-		reverse_iterator		rend()
-		{
-			return (reverse_iterator(begin()));
-		}
-		
-		const_reverse_iterator	rend() const
-		{
-			return (const_reverse_iterator(begin()));
-		}
+		reverse_iterator		rend()			{return reverse_iterator(begin());}		
+		const_reverse_iterator	rend() const	{return const_reverse_iterator(begin());}
 
 	
 		/* CAPACITY - SYNOPSIS
@@ -312,22 +253,9 @@ namespace ft
 
 		*/
 
-		bool		empty() const
-		{
-			// return (begin() == end());
-			return (size() == 0);
-		}
-
-		size_type	size() const
-		{
-			// return (std::distance(begin(), end()));
-			return (_size);
-		}
-
-		size_type	max_size() const
-		{
-			return (std::numeric_limits<difference_type>::max() / sizeof(T));
-		}
+		bool		empty() const	{return size() == 0;}
+		size_type	size() const	{return _size;}
+		size_type	max_size() const	{return _alloc.max_size();}
 
 		void		reserve( size_type new_cap )
 		{
@@ -348,10 +276,7 @@ namespace ft
 			}
 		}
 
-		size_type	capacity() const
-		{
-			return (_capacity);
-		}
+		size_type	capacity() const	{return _capacity;}
 
 		/* MODIFIER - SYNOPSIS
 		

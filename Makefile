@@ -6,7 +6,7 @@
 #    By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/21 18:52:01 by alefranc          #+#    #+#              #
-#    Updated: 2022/11/23 13:35:41 by alefranc         ###   ########.fr        #
+#    Updated: 2022/11/24 14:42:15 by alefranc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ SRCFILE		=	main.cpp \
 				vector.test.cpp \
 				iterator_traits.test.cpp \
 				reverse_iterator.test.cpp \
+				stack.test.cpp \
 				# is_integral.test.cpp \
 				# enable_if.test.cpp \
 
@@ -53,6 +54,7 @@ SRC			=	$(addprefix $(SRCDIR), $(SRCFILE))
 INCDIR		=	include/
 INCFILE		=	container.hpp \
 				iterator.hpp \
+				stack.hpp \
 				utils.hpp \
 				vector.hpp
 
