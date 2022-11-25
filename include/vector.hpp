@@ -6,7 +6,7 @@
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 18:02:07 by alefranc          #+#    #+#             */
-/*   Updated: 2022/11/24 17:55:30 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/11/25 17:27:44 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ namespace ft
 		typedef const value_type&						const_reference;
 		typedef value_type*								pointer;
 		typedef const value_type*						const_pointer;
-		typedef ft::VectorIterator<T>				iterator;
-		typedef ft::VectorIterator<const T>		const_iterator;
+		typedef ft::VectorIterator<T>					iterator;
+		typedef ft::VectorIterator<const T>				const_iterator;
 		typedef ft::reverse_iterator<iterator>			reverse_iterator;
 		typedef ft::reverse_iterator<const_iterator>	const_reverse_iterator;
 
