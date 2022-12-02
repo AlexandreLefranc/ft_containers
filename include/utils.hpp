@@ -6,7 +6,7 @@
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 14:02:33 by alefranc          #+#    #+#             */
-/*   Updated: 2022/11/15 14:24:26 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/12/01 16:17:03 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ struct pair
 	pair()
 		: first(T1()), second(T2())
 	{}
-	
+
 	pair(const T1& one, const T2& two)
 		: first(one), second(two)
 	{}

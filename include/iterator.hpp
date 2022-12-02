@@ -6,7 +6,7 @@
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 14:00:31 by alefranc          #+#    #+#             */
-/*   Updated: 2022/11/24 18:30:53 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/12/02 10:20:38 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -327,6 +327,7 @@ public:
 
 	VectorIterator();
 	VectorIterator(const VectorIterator<T>& src);
+	VectorIterator(pointer ptr);
 	VectorIterator& operator=(const VectorIterator<T>& rhs);
 
 	*/
@@ -351,31 +352,16 @@ public:
 
 	/* ACCESSOR - SYNOPSYS
 	
-	const pointer		base() const;
-	reference			operator*() const;
-	pointer				operator->() const;
-	reference			operator[](difference_type n);
+	const pointer	base() const;
+	reference		operator*() const;
+	pointer			operator->() const;
+	reference		operator[](difference_type n);
 
 	*/
-	pointer		base() const
-	{
-		return _ptr;
-	}
-	
-	reference			operator*() const
-	{
-		return *_ptr;
-	}
-
-	pointer				operator->() const
-	{
-		return _ptr;
-	}
-
-	reference			operator[](difference_type n)
-	{
-		return _ptr[n];
-	}
+	pointer		base() const					{return _ptr;}
+	reference	operator*() const				{return *_ptr;}
+	pointer		operator->() const				{return _ptr;}
+	reference	operator[](difference_type n)	{return _ptr[n];}
 	
 	/* MOVE - SYNOPSIS
 	
@@ -390,19 +376,10 @@ public:
 	difference_type operator-(VectorIterator const& r) const;
 
 	*/
-	VectorIterator&	operator++()
-	{
-		++_ptr;
-		return (*this);
-	}
+	VectorIterator&	operator++() {++_ptr; return (*this);}
+	VectorIterator&	operator--() {--_ptr; return (*this);}
 	
-	VectorIterator&	operator--()
-	{
-		--_ptr;
-		return (*this);
-	}
-	
-	VectorIterator	operator++( int )
+	VectorIterator	operator++( int ) 
 	{
 		VectorIterator tmp(*this);
 		++_ptr;
@@ -430,27 +407,11 @@ public:
 		return (tmp);
 	}
 
-	VectorIterator&	operator+=( difference_type n )
-	{
-		_ptr += n;
-		return (*this);
-	}
+	VectorIterator&	operator+=( difference_type n ) {_ptr += n; return (*this);}
+	VectorIterator&	operator-=( difference_type n ) {_ptr -= n; return (*this);}
+	difference_type operator-(VectorIterator const& r) const {return (_ptr - r._ptr);}
 
-	VectorIterator&	operator-=( difference_type n )
-	{
-		_ptr -= n;
-		return (*this);
-	}
-
-	difference_type operator-(VectorIterator const& r) const
-	{
-		return (_ptr - r._ptr);
-	}
-
-	operator VectorIterator<const T>() const
-	{
-		return (VectorIterator<const T>(this->_ptr));
-	}
+	operator VectorIterator<const T>() const {return (VectorIterator<const T>(this->_ptr));}
 
 };
 
@@ -515,10 +476,133 @@ bool	operator>=(const VectorIterator<T>& lhs, const VectorIterator<U>& rhs)
 *                              MAP_ITERATOR                                    *
 *******************************************************************************/
 
+// C'est un pointeur qui pointe vers un noeud de l'arbre
+// T est donc un BSTNode< pair<Key, Value> >
+
 template <typename T>
 class MapIterator
 {
+public:
+	// Typedefs
+	typedef typename iterator_traits<T*>::difference_type	difference_type;
+	typedef typename iterator_traits<T*>::value_type		value_type;
+	typedef typename iterator_traits<T*>::pointer			pointer;
+	typedef typename iterator_traits<T*>::reference			reference;
+	typedef ft::bidirectional_iterator_tag					iterator_category;
+
+private:
+	pointer	_ptr;
+
+	pointer	_minimum(pointer node)
+	{
+		while (node->left != NULL)
+			node = node->left;
+		return (MapIterator(node));
+	}
+
+	pointer	_maximum(pointer node)
+	{
+		while (node->right != NULL)
+			node = node->right;
+		return (MapIterator(node));
+	}
+
+	pointer	_successor()
+	{
+		pointer	tmp(_ptr);
+		
+		if (tmp->right != NULL)
+			return _minimum(tmp->right);
+
+		pointer parent(tmp->parent);
+		while (parent != NULL && tmp == parent->right)
+		{
+			tmp = parent;
+			parent = tmp->parent;
+		}
+		return (tmp);
+	}
+
+	pointer	_predecessor()
+	{
+		pointer	tmp(_ptr);
+		
+		if (tmp->left != NULL)
+			return _maximum(tmp->left);
+
+		pointer parent(tmp->parent);
+		while (parent != NULL && tmp == parent->left)
+		{
+			tmp = parent;
+			parent = tmp->parent;
+		}
+		return (tmp);
+	}
+
+public:
+
+	/* CONSTRUCTOR - SYNOPSIS
 	
+	VectorIterator();
+	VectorIterator(const VectorIterator<T>& src);
+	MapIterator(pointer ptr);
+	VectorIterator& operator=(const VectorIterator<T>& rhs);
+	
+	*/
+
+	MapIterator()
+		: _ptr(NULL)
+	{}
+	
+	MapIterator(const MapIterator<T>& src)
+		: _ptr(src._ptr)
+	{}
+	
+	MapIterator(pointer ptr)
+		: _ptr(ptr)
+	{}
+	
+	MapIterator& operator=(const MapIterator<T>& rhs)
+	{
+		if (this != &rhs)
+			_ptr = rhs._ptr;
+		return (*this);
+	}
+
+	/* ACCESSOR - SYNOPSYS
+	
+	const pointer	base() const;
+	reference		operator*() const;
+	pointer			operator->() const;
+
+	*/
+
+	pointer		base() const		{return _ptr;}
+	reference	operator*() const	{return _ptr->data;}
+	pointer		operator->() const	{return _ptr;}
+
+	/* MOVE - SYNOPSIS
+	
+	MapIterator&	operator++();
+	MapIterator&	operator--();
+	MapIterator		operator--( int );
+	MapIterator		operator++( int );
+
+	*/
+
+	MapIterator&	operator++()
+	{
+		_ptr = _successor(_ptr);
+		return (*this);
+	}
+
+	MapIterator&	operator--()
+	{
+		_ptr = _predecessor(_ptr);
+		return (*this);
+	}
+	
+
 }; // class MapIterator
 
 /*******************************************************************************
