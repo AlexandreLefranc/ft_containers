@@ -6,11 +6,12 @@
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 20:49:34 by alefranc          #+#    #+#             */
-/*   Updated: 2022/12/02 10:19:48 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/12/08 15:12:51 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
+#include <iomanip>
 #include <string>
 
 #ifdef FT
@@ -31,24 +32,44 @@ static void	print_title(const std::string& title)
 	std::cout << std::endl;
 }
 
+static void	test_map_capacity()
+{
+	print_title("MAP CAPACITY");
+	std::cout << std::boolalpha;
+
+	ns::map<char, int> m;
+
+	std::cout << "m.empty() = " << m.empty() << std::endl;
+	std::cout << "m.size() = " << m.size() << std::endl;
+}
+
 static void	test_map_iterator()
 {
 	print_title("MAP ITERATOR");
 
-	ft::BSTNode< ft::pair<int, int> > node(ft::pair<int, int>(1,1));
-	node.parent = &node.data + 1;
-	node.left   = &node.data + 2;
-	node.right  = &node.data + 3;
+	ns::map<char, int> m;
 
-	std::cout << node.parent << std::endl;
-	std::cout << node.left << std::endl;
-	std::cout << node.right << std::endl;
+	// ns::map<char, int>::iterator it = m.begin();
+	// std::cout << it->first << std::endl;
 
-	ft::map<int, int>::iterator it(&node);
-	// std::cout << *it << std::endl;
+	// ns::map<char, int>::iterator ite = m.end();
+	// std::cout << ite->first << std::endl;
+	// m.end();
+
+	// ns::map<char, int>::iterator it;
+	// std::cout << it.base() << std::endl;
+}
+
+static void	test_map_lookup()
+{
+	print_title("MAP LOOKUP");
+
+	ns::map<char, int> m;
 }
 
 void	main_map()
 {
+	test_map_capacity();
 	test_map_iterator();
+	test_map_lookup();
 }

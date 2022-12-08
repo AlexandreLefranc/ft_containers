@@ -6,7 +6,7 @@
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 14:00:31 by alefranc          #+#    #+#             */
-/*   Updated: 2022/12/02 10:20:38 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/12/08 15:28:22 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -477,44 +477,46 @@ bool	operator>=(const VectorIterator<T>& lhs, const VectorIterator<U>& rhs)
 *******************************************************************************/
 
 // C'est un pointeur qui pointe vers un noeud de l'arbre
-// T est donc un BSTNode< pair<Key, Value> >
+// T est donc un Node< pair<Key, T> >
 
 template <typename T>
 class MapIterator
 {
+
 public:
 	// Typedefs
-	typedef typename iterator_traits<T*>::difference_type	difference_type;
-	typedef typename iterator_traits<T*>::value_type		value_type;
-	typedef typename iterator_traits<T*>::pointer			pointer;
-	typedef typename iterator_traits<T*>::reference			reference;
+	typedef typename iterator_traits<T>::difference_type	difference_type;
+	typedef typename iterator_traits<T>::value_type			value_type;
+	typedef typename iterator_traits<T>::pointer			pointer;
+	typedef typename iterator_traits<T>::reference			reference;
 	typedef ft::bidirectional_iterator_tag					iterator_category;
 
 private:
-	pointer	_ptr;
 
-	pointer	_minimum(pointer node)
+	T*	_ptr;
+
+	T*	_minimum(T* node)
 	{
 		while (node->left != NULL)
 			node = node->left;
-		return (MapIterator(node));
+		return (node);
 	}
 
-	pointer	_maximum(pointer node)
+	T*	_maximum(T* node)
 	{
 		while (node->right != NULL)
 			node = node->right;
-		return (MapIterator(node));
+		return (node);
 	}
 
-	pointer	_successor()
+	T*	_successor()
 	{
-		pointer	tmp(_ptr);
+		T*	tmp(_ptr);
 		
 		if (tmp->right != NULL)
 			return _minimum(tmp->right);
 
-		pointer parent(tmp->parent);
+		T* parent(tmp->parent);
 		while (parent != NULL && tmp == parent->right)
 		{
 			tmp = parent;
@@ -523,14 +525,14 @@ private:
 		return (tmp);
 	}
 
-	pointer	_predecessor()
+	T*	_predecessor()
 	{
-		pointer	tmp(_ptr);
+		T*	tmp(_ptr);
 		
 		if (tmp->left != NULL)
 			return _maximum(tmp->left);
 
-		pointer parent(tmp->parent);
+		T* parent(tmp->parent);
 		while (parent != NULL && tmp == parent->left)
 		{
 			tmp = parent;
@@ -558,7 +560,7 @@ public:
 		: _ptr(src._ptr)
 	{}
 	
-	MapIterator(pointer ptr)
+	MapIterator(T* ptr)
 		: _ptr(ptr)
 	{}
 	
@@ -571,18 +573,16 @@ public:
 
 	/* ACCESSOR - SYNOPSYS
 	
-	const pointer	base() const;
 	reference		operator*() const;
 	pointer			operator->() const;
 
 	*/
-
-	pointer		base() const		{return _ptr;}
+	
 	reference	operator*() const	{return _ptr->data;}
-	pointer		operator->() const	{return _ptr;}
+	pointer		operator->() const	{return &_ptr->data;}
 
 	/* MOVE - SYNOPSIS
-	
+
 	MapIterator&	operator++();
 	MapIterator&	operator--();
 	MapIterator		operator--( int );
@@ -602,6 +602,8 @@ public:
 		return (*this);
 	}
 	
+	// MapIterator		operator--( int );
+	// MapIterator		operator++( int );
 
 }; // class MapIterator
 
