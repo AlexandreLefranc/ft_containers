@@ -6,7 +6,7 @@
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 20:49:34 by alefranc          #+#    #+#             */
-/*   Updated: 2022/12/09 14:49:41 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/12/09 16:21:49 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static void	test_map_lookup()
 
 // 	node_type 	node(ft::pair<const char, int>('a', 42));
 // 	node_type*	node_ptr = &node;
-	
+
 // 	iter_type	it(node_ptr, node_ptr);
 
 // 	value_type	v = *it;

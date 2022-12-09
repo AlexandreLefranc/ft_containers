@@ -6,7 +6,7 @@
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 14:00:31 by alefranc          #+#    #+#             */
-/*   Updated: 2022/12/09 15:01:20 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/12/09 16:37:41 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -593,11 +593,13 @@ public:
 
 	/* ACCESSOR - SYNOPSYS
 
+	T*				base() const;
 	reference		operator*() const;
 	pointer			operator->() const;
 
 	*/
 
+	T*			base() const {return _ptr;}
 	reference	operator*() const	{return _ptr->data;}
 	pointer		operator->() const	{return &_ptr->data;}
 
@@ -637,6 +639,54 @@ public:
 	}
 
 }; // class MapIterator
+
+/* NON-MEMBER FUNCTION - SYNOPSIS
+
+template <typename T, typename U>
+bool	operator==(const MapIterator<T>& lhs, const MapIterator<U>& rhs);
+
+template <typename T, typename U>
+bool	operator!=(const MapIterator<T>& lhs, const MapIterator<U>& rhs);
+
+template <typename T, typename U>
+bool	operator<(const MapIterator<T>& lhs, const MapIterator<U>& rhs);
+
+template <typename T, typename U>
+bool	operator<=(const MapIterator<T>& lhs, const MapIterator<U>& rhs);
+
+template <typename T, typename U>
+bool	operator>(const MapIterator<T>& lhs, const MapIterator<U>& rhs);
+
+template <typename T, typename U>
+bool	operator>=(const MapIterator<T>& lhs, const MapIterator<U>& rhs);
+
+*/
+
+template <typename T, typename U>
+bool	operator==(const MapIterator<T>& lhs, const MapIterator<U>& rhs)
+{
+	if (lhs.base() == NULL && rhs.base() == NULL)
+		return true;
+	return lhs->first == rhs->first;
+}
+
+template <typename T, typename U>
+bool	operator!=(const MapIterator<T>& lhs, const MapIterator<U>& rhs)
+{
+	return !operator==(lhs, rhs);
+}
+
+template <typename T, typename U>
+bool	operator<(const MapIterator<T>& lhs, const MapIterator<U>& rhs);
+
+template <typename T, typename U>
+bool	operator<=(const MapIterator<T>& lhs, const MapIterator<U>& rhs);
+
+template <typename T, typename U>
+bool	operator>(const MapIterator<T>& lhs, const MapIterator<U>& rhs);
+
+template <typename T, typename U>
+bool	operator>=(const MapIterator<T>& lhs, const MapIterator<U>& rhs);
 
 /*******************************************************************************
 *                              UTILS_ITERATOR                                  *

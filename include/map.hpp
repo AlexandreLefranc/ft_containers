@@ -6,12 +6,14 @@
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 18:00:51 by alefranc          #+#    #+#             */
-/*   Updated: 2022/12/09 13:43:58 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/12/09 17:05:14 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MAP_HPP
 # define MAP_HPP
+
+# include <stdexcept>
 
 # include "tree.hpp"
 # include "utils.hpp"
@@ -67,21 +69,21 @@ namespace ft
 
 		typedef	ft::Node<value_type>		node_type;
 
-		node_type*		_root;
-		size_type		_size;
+		node_type*					_root;
+		size_type					_size;
 
-		key_compare		_compare;
-		allocator_type	_alloc;
+		key_compare					_compare;
+		allocator_type				_alloc;
 
 		std::allocator<node_type>	_alloc_node;
 
-		void	_destroy(node_type* root)
+		void	_destroy(node_type* node)
 		{
-			if (root != NULL)
+			if (node != NULL)
 			{
-				_destroy(root->left);
-				_destroy(root->right);
-				_alloc_node.deallocate(root, 1);
+				_destroy(node->left);
+				_destroy(node->right);
+				_alloc_node.deallocate(node, 1);
 			}
 		}
 
@@ -99,7 +101,7 @@ namespace ft
 		allocator_type	get_allocator() const;
 
 		*/
-		
+
 		map()
 			: _root(NULL), _size(0), _compare(Compare()), _alloc(Allocator()), _alloc_node(std::allocator<node_type>())
 		{}
@@ -108,14 +110,16 @@ namespace ft
 			: _root(NULL), _size(0), _compare(comp), _alloc(alloc), _alloc_node(std::allocator<node_type>())
 		{}
 
-		// template< class InputIt >
-		// map( InputIt first, InputIt last, const Compare& comp = Compare(), const Allocator& alloc = Allocator() )
-		// 	: _root(NULL), _size(0), _compare(comp), _alloc(alloc)
-		// {}
+		template< class InputIt >
+		map( InputIt first, InputIt last, const Compare& comp = Compare(), const Allocator& alloc = Allocator() )
+			: _root(NULL), _size(0), _compare(comp), _alloc(alloc), _alloc_node(std::allocator<node_type>())
+		{insert(first, last);}
 
 		~map()
-		{}
-		
+		{
+			_destroy(_root);
+		}
+
 		map&			operator=( const map& other )
 		{
 			if (this == &other)
@@ -135,7 +139,26 @@ namespace ft
 		
 		*/
 
+		T& at( const Key& key )
+		{
+			iterator	it = find(key);
+			if (it != end())
+				return it->second;
+			throw std::out_of_range("out of range");
+		}
 
+		const T& at( const Key& key ) const
+		{
+			const_iterator	it = find(key);
+			if (it != end())
+				return it->second;
+			throw std::out_of_range("out of range");
+		}
+
+		T& operator[]( const Key& key )
+		{
+			return insert(std::make_pair(key, T())).first->second;
+		}
 
 
 
@@ -161,7 +184,7 @@ namespace ft
 			ft::Node<value_type>*	tmp(_root);
 			while (tmp->left != NULL)
 				tmp = tmp->left;
-			return iterator(tmp);
+			return iterator(tmp, _root);
 		}
 		
 		const_iterator begin() const
@@ -169,11 +192,18 @@ namespace ft
 			ft::Node<value_type>*	tmp(_root);
 			while (tmp->left != NULL)
 				tmp = tmp->left;
-			return const_iterator(tmp);
+			return const_iterator(tmp, _root);
 		}
 
-		iterator end();
-		const_iterator end() const;
+		iterator end()
+		{
+			return iterator(NULL, _root);
+		}
+		
+		const_iterator end() const
+		{
+			return const_iterator(NULL, _root);
+		}
 
 		reverse_iterator rbegin();
 		const_reverse_iterator rbegin() const;
@@ -229,6 +259,32 @@ namespace ft
 			_size = 0;
 		}
 
+		ft::pair<iterator, bool>	insert( const value_type& value )
+		{
+			node_type* y = NULL;
+			node_type* x = _root;
+
+			while (x != NULL)
+			{
+				y = x;
+				if (value.first < x->data.first)
+					x = x->left;
+				else
+					x = x->right;
+
+				
+			}
+		}
+		
+		iterator					insert( iterator pos, const value_type& value )
+		{
+			(void)pos;
+			insert(value);
+		}
+		
+		// template< class InputIt >
+		// void						insert( InputIt first, InputIt last );
+
 
 
 
@@ -248,14 +304,52 @@ namespace ft
 
 		*/
 
-		// size_type		count( const Key& key ) const
-		// {
-		// 	if (find() != end())
-		// 		return 1;
-		// 	return 0;
-		// }
+		size_type		count( const Key& key ) const
+		{
+			if (find(key) != end())
+				return 1;
+			return 0;
+		}
 
+		iterator		find( const Key& key )
+		{
+			for (iterator it = begin(); it != end(); it++)
+			{
+				if (it->first == key)
+					return it;
+			}
+			return end();
+		}
 
+		const_iterator	find( const Key& key ) const
+		{
+			for (const_iterator it = begin(); it != end(); it++)
+			{
+				if (it->first == key)
+					return it;
+			}
+			return end();
+		}
+
+		ft::pair<iterator,iterator>				equal_range( const Key& key )
+		{return ft::make_pair(lower_bound(key), upper_bound(key));}
+		
+		ft::pair<const_iterator,const_iterator>	equal_range( const Key& key ) const
+		{return ft::make_pair(lower_bound(key), upper_bound(key));}
+
+		iterator		lower_bound( const Key& key )
+		{
+			return --find(key);
+		}
+		
+		const_iterator	lower_bound( const Key& key ) const
+		{return --find(key);}
+		
+		iterator		upper_bound( const Key& key )
+		{return ++find(key);}
+
+		const_iterator	upper_bound( const Key& key ) const
+		{return ++find(key);}
 
 
 
@@ -265,6 +359,16 @@ namespace ft
 		ft::map::value_compare		value_comp() const;
 
 		*/
+
+		key_compare					key_comp() const
+		{
+			return _compare;
+		}
+		
+		value_compare		value_comp() const
+		{
+			return value_compare();
+		}
 
 	}; // class map
 
