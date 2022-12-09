@@ -6,7 +6,7 @@
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 20:49:34 by alefranc          #+#    #+#             */
-/*   Updated: 2022/12/08 15:12:51 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/12/09 14:49:41 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,43 @@ static void	test_map_lookup()
 	ns::map<char, int> m;
 }
 
+// static void	test_map_test()
+// {
+// 	print_title("MAP TEST");
+
+// 	typedef ft::pair< const char, int >		value_type;
+// 	typedef ft::Node< value_type >			node_type;
+// 	typedef ft::MapIterator< node_type >	iter_type;
+
+// 	node_type 	node(ft::pair<const char, int>('a', 42));
+// 	node_type*	node_ptr = &node;
+	
+// 	iter_type	it(node_ptr, node_ptr);
+
+// 	value_type	v = *it;
+// 	std::cout << v.first << "->" << v.second << std::endl;
+// 	std::cout << it->first << "->" << it->second << std::endl;
+
+// 	std::cout << it._ptr << std::endl;
+// 	std::cout << (++it)._ptr << std::endl;
+
+// 	if (it._ptr == NULL)
+// 		std::cout << "cnul" << std::endl;
+// 	else
+// 		std::cout << "cpanul" << std::endl;
+
+// 	std::cout << (--it)._ptr << std::endl;
+
+// 	if (it._ptr == NULL)
+// 		std::cout << "cnul" << std::endl;
+// 	else
+// 		std::cout << "cpanul" << std::endl;
+// }
+
 void	main_map()
 {
 	test_map_capacity();
 	test_map_iterator();
 	test_map_lookup();
+	// test_map_test();
 }

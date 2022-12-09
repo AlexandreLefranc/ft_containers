@@ -6,7 +6,7 @@
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 14:00:31 by alefranc          #+#    #+#             */
-/*   Updated: 2022/12/08 15:28:22 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/12/09 15:01:20 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -494,6 +494,7 @@ public:
 private:
 
 	T*	_ptr;
+	T*	_root;
 
 	T*	_minimum(T* node)
 	{
@@ -517,6 +518,10 @@ private:
 			return _minimum(tmp->right);
 
 		T* parent(tmp->parent);
+		// added by me
+		if (parent == NULL)
+			return (NULL);
+
 		while (parent != NULL && tmp == parent->right)
 		{
 			tmp = parent;
@@ -528,11 +533,19 @@ private:
 	T*	_predecessor()
 	{
 		T*	tmp(_ptr);
+
+		// added by me
+		if (tmp == NULL)
+			return _maximum(_root);
 		
 		if (tmp->left != NULL)
 			return _maximum(tmp->left);
 
 		T* parent(tmp->parent);
+		// added by me
+		if (parent == NULL)
+			return (NULL);
+
 		while (parent != NULL && tmp == parent->left)
 		{
 			tmp = parent;
@@ -544,40 +557,47 @@ private:
 public:
 
 	/* CONSTRUCTOR - SYNOPSIS
-	
-	VectorIterator();
-	VectorIterator(const VectorIterator<T>& src);
+
+	MapIterator();
+	MapIterator(const MapIterator<T>& src);
 	MapIterator(pointer ptr);
-	VectorIterator& operator=(const VectorIterator<T>& rhs);
+	MapIterator& operator=(const MapIterator<T>& rhs);
 	
+	~MapIterator();
+
 	*/
 
 	MapIterator()
-		: _ptr(NULL)
+		: _ptr(NULL), _root(NULL)
 	{}
 	
 	MapIterator(const MapIterator<T>& src)
-		: _ptr(src._ptr)
+		: _ptr(src._ptr), _root(src._root)
 	{}
 	
-	MapIterator(T* ptr)
-		: _ptr(ptr)
+	MapIterator(T* ptr, T* root)
+		: _ptr(ptr), _root(root)
 	{}
 	
 	MapIterator& operator=(const MapIterator<T>& rhs)
 	{
 		if (this != &rhs)
+		{
 			_ptr = rhs._ptr;
+			_root = rhs._root;
+		}
 		return (*this);
 	}
 
+	~MapIterator() {}
+
 	/* ACCESSOR - SYNOPSYS
-	
+
 	reference		operator*() const;
 	pointer			operator->() const;
 
 	*/
-	
+
 	reference	operator*() const	{return _ptr->data;}
 	pointer		operator->() const	{return &_ptr->data;}
 
@@ -585,25 +605,36 @@ public:
 
 	MapIterator&	operator++();
 	MapIterator&	operator--();
-	MapIterator		operator--( int );
 	MapIterator		operator++( int );
+	MapIterator		operator--( int );
 
 	*/
 
 	MapIterator&	operator++()
 	{
-		_ptr = _successor(_ptr);
+		_ptr = _successor();
 		return (*this);
 	}
 
 	MapIterator&	operator--()
 	{
-		_ptr = _predecessor(_ptr);
+		_ptr = _predecessor();
 		return (*this);
 	}
-	
-	// MapIterator		operator--( int );
-	// MapIterator		operator++( int );
+
+	MapIterator		operator++( int )
+	{
+		MapIterator tmp(*this);
+		_ptr = _successor();
+		return (tmp);
+	}
+
+	MapIterator		operator--( int )
+	{
+		MapIterator tmp(*this);
+		_ptr = _predecessor();
+		return (tmp);
+	}
 
 }; // class MapIterator
 

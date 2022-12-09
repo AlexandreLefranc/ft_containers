@@ -6,7 +6,7 @@
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 18:00:51 by alefranc          #+#    #+#             */
-/*   Updated: 2022/12/08 17:15:00 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/12/09 13:43:58 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,21 +135,6 @@ namespace ft
 		
 		*/
 
-		T&			at( const Key& key );
-		const T&	at( const Key& key ) const;
-
-		T& operator[]( const Key& key )
-		{
-			// Key doesnt exists
-			if (find() == end())
-			{
-				value_type	p(key, mapped_type());
-				insert(p);
-				return p.second();
-			}
-
-			
-		}
 
 
 
@@ -263,21 +248,12 @@ namespace ft
 
 		*/
 
-		size_type		count( const Key& key ) const
-		{
-			if (find() != end())
-				return 1;
-			return 0;
-		}
-
-		iterator		find( const Key& key )
-		{
-			node_type* node = _root;
-			
-			while ()
-		}
-		
-		const_iterator	find( const Key& key ) const;
+		// size_type		count( const Key& key ) const
+		// {
+		// 	if (find() != end())
+		// 		return 1;
+		// 	return 0;
+		// }
 
 
 
@@ -289,12 +265,6 @@ namespace ft
 		ft::map::value_compare		value_comp() const;
 
 		*/
-
-
-		void	test()
-		{
-			
-		}
 
 	}; // class map
 
