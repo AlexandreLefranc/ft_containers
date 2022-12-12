@@ -6,7 +6,7 @@
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 18:00:51 by alefranc          #+#    #+#             */
-/*   Updated: 2022/12/09 17:05:14 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/12/12 16:47:40 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -261,25 +261,39 @@ namespace ft
 
 		ft::pair<iterator, bool>	insert( const value_type& value )
 		{
-			node_type* y = NULL;
-			node_type* x = _root;
-
-			while (x != NULL)
+			node_type*	parent = NULL;
+			node_type*	current = _root;
+			while (current != NULL)
 			{
-				y = x;
-				if (value.first < x->data.first)
-					x = x->left;
+				parent = current;
+				if (value.first == current->key())
+					return ft::pair<iterator, bool>(iterator(current, _root), false);
+				else if (value.first < current->key())
+					current = current->left;
 				else
-					x = x->right;
-
-				
+					current = current->right;
 			}
+
+			node_type*	new_node = _alloc_node.allocate(1);
+			_alloc_node.construct(new_node, node_type(value));
+
+			new_node->parent = parent;
+			if (new_node->parent == NULL)
+				_root = new_node;
+			else if (new_node->key() < parent->key())
+				parent->left = new_node;
+			else
+				parent->right = new_node;
+			
+			_size++;
+
+			return ft::pair<iterator, bool>(iterator(new_node, _root), true);
 		}
 		
 		iterator					insert( iterator pos, const value_type& value )
 		{
 			(void)pos;
-			insert(value);
+			return insert(value).first;
 		}
 		
 		// template< class InputIt >

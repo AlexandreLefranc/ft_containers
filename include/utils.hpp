@@ -6,7 +6,7 @@
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 14:02:33 by alefranc          #+#    #+#             */
-/*   Updated: 2022/12/01 16:17:03 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/12/12 16:35:58 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,11 @@ struct pair
 			this->second = other.second;
 		}
 		return (*this);
+	}
+
+	operator ft::pair<const T1, T2>()
+	{
+		return ft::pair<const T1, T2>(first, second);
 	}
 	
 };

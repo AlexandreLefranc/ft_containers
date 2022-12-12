@@ -6,7 +6,7 @@
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 17:56:52 by alefranc          #+#    #+#             */
-/*   Updated: 2022/12/09 17:02:30 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/12/12 17:24:27 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@ namespace ft
 		typedef T				value_type;
 		typedef T*				pointer;
 		typedef T&				reference;
-		typedef	int	iterator_category;
+		typedef	int				iterator_category;
+
+		typedef	typename T::first_type	first_type;
+		typedef	typename T::second_type	second_type;
 
 		T			data;
 		Node*		parent;
@@ -39,6 +42,21 @@ namespace ft
 			: data(val), parent(NULL), left(NULL), right(NULL)
 		{}
 		
+		const first_type&	key() const
+		{
+			return data.first;
+		}
+
+		const second_type&	mapped_value() const
+		{
+			return data.second;
+		}
+
+		operator ft::Node<const T>()
+		{
+			return ft::Node<const T>(data);
+		}
+
 	}; // struct Node
 
 } // namespece ft

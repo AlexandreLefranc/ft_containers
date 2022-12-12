@@ -6,7 +6,7 @@
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 14:00:31 by alefranc          #+#    #+#             */
-/*   Updated: 2022/12/09 16:37:41 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/12/12 17:47:12 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -519,8 +519,8 @@ private:
 
 		T* parent(tmp->parent);
 		// added by me
-		if (parent == NULL)
-			return (NULL);
+		// if (parent == NULL)
+		// 	return (NULL);
 
 		while (parent != NULL && tmp == parent->right)
 		{
@@ -614,6 +614,7 @@ public:
 
 	MapIterator&	operator++()
 	{
+		std::cout << "_ptr=" << _ptr << " | _successor()=" << _successor() << std::endl;
 		_ptr = _successor();
 		return (*this);
 	}
@@ -667,6 +668,10 @@ bool	operator==(const MapIterator<T>& lhs, const MapIterator<U>& rhs)
 {
 	if (lhs.base() == NULL && rhs.base() == NULL)
 		return true;
+	if (lhs.base() == NULL && rhs.base() != NULL)
+		return false;
+	if (lhs.base() != NULL && rhs.base() == NULL)
+		return false;
 	return lhs->first == rhs->first;
 }
 
