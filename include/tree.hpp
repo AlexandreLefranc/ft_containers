@@ -6,7 +6,7 @@
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 17:56:52 by alefranc          #+#    #+#             */
-/*   Updated: 2022/12/12 17:24:27 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/12/13 15:08:56 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ namespace ft
 			return data.second;
 		}
 
-		operator ft::Node<const T>()
+		operator ft::Node<const T>() const
 		{
 			return ft::Node<const T>(data);
 		}

@@ -6,7 +6,7 @@
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 14:00:31 by alefranc          #+#    #+#             */
-/*   Updated: 2022/12/12 17:47:12 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/12/13 15:21:31 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -513,45 +513,38 @@ private:
 	T*	_successor()
 	{
 		T*	tmp(_ptr);
-		
+
 		if (tmp->right != NULL)
 			return _minimum(tmp->right);
 
 		T* parent(tmp->parent);
-		// added by me
-		// if (parent == NULL)
-		// 	return (NULL);
 
 		while (parent != NULL && tmp == parent->right)
 		{
 			tmp = parent;
 			parent = tmp->parent;
 		}
-		return (tmp);
+		return (parent);
 	}
 
 	T*	_predecessor()
 	{
 		T*	tmp(_ptr);
 
-		// added by me
 		if (tmp == NULL)
 			return _maximum(_root);
-		
+
 		if (tmp->left != NULL)
 			return _maximum(tmp->left);
 
 		T* parent(tmp->parent);
-		// added by me
-		if (parent == NULL)
-			return (NULL);
 
 		while (parent != NULL && tmp == parent->left)
 		{
 			tmp = parent;
 			parent = tmp->parent;
 		}
-		return (tmp);
+		return (parent);
 	}
 
 public:
@@ -614,7 +607,6 @@ public:
 
 	MapIterator&	operator++()
 	{
-		std::cout << "_ptr=" << _ptr << " | _successor()=" << _successor() << std::endl;
 		_ptr = _successor();
 		return (*this);
 	}
@@ -637,6 +629,11 @@ public:
 		MapIterator tmp(*this);
 		_ptr = _predecessor();
 		return (tmp);
+	}
+
+	operator MapIterator<const T>() const
+	{
+		return MapIterator<const T>(_ptr);
 	}
 
 }; // class MapIterator

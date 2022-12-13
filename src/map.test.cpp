@@ -6,7 +6,7 @@
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 20:49:34 by alefranc          #+#    #+#             */
-/*   Updated: 2022/12/12 17:44:06 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/12/13 15:13:37 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,7 @@ static void	print_map(ns::map<T, U>& m)
 {
 	std::cout << "size = " << m.size() << std::endl;
 	for (typename ns::map<T, U>::iterator it = m.begin(); it != m.end(); it++)
-		std::cout << it.base() << std::endl;
-		// std::cout << "key = " << it->first << " -> value = " << it->second << std::endl;
+		std::cout << it->first << " -> " << it->second << std::endl;
 	std::cout << std::endl;
 }
 
@@ -64,29 +63,59 @@ static void	test_map_iterator()
 	m.insert(ns::pair<char, int>('a', 1));
 	m.insert(ns::pair<char, int>('z', 26));
 
-	ns::map<char, int>::iterator it = m.begin();
-	std::cout << it->first << std::endl;
+	std::cout << "      ['m', 13]       " << std::endl;
+	std::cout << "      /       \\      " << std::endl;
+	std::cout << "['a', 1]     ['z', 26]" << std::endl;
+	std::cout << std::endl;
 
-	ns::map<char, int>::iterator ite = m.end();
-	std::cout << (--ite)->first << std::endl;
 
+
+	ns::map<char, int>::iterator it;
+	ns::map<char, int>::iterator ite;
+	ns::map<char, int>::iterator tmpit;
+	
 	it = m.begin();
 	ite = m.end();
-	std::cout << it.base() << std::endl;
-	std::cout << ite.base() << std::endl;
-	std::cout << (it == ite) << std::endl;
+	
+	std::cout << "it = m.begin()" << std::endl;
+	std::cout << "it    = ['" << it->first << "', " << it->second << "]" << std::endl;
+	std::cout << std::endl;
+	
+	std::cout << "tmpit = ++it" << std::endl;
+	tmpit = ++it;
+	std::cout << "tmpit = ['" << tmpit->first << "', " << tmpit->second << "]" << std::endl;
+	std::cout << "it    = ['" << it->first << "', " << it->second << "]" << std::endl;
+	std::cout << std::endl;
+
+	std::cout << "tmpit = it++" << std::endl;
+	tmpit = it++;
+	std::cout << "tmpit = ['" << tmpit->first << "', " << tmpit->second << "]" << std::endl;
+	std::cout << "it    = ['" << it->first << "', " << it->second << "]" << std::endl;
 	std::cout << std::endl;
 
 	++it;
-	std::cout << it.base() << std::endl;
-	std::cout << ite.base() << std::endl;
-	std::cout << (it == ite) << std::endl;
+	--it;
 
+	std::cout << "tmpit = --it" << std::endl;
+	tmpit = --it;
+	std::cout << "tmpit = ['" << tmpit->first << "', " << tmpit->second << "]" << std::endl;
+	std::cout << "it    = ['" << it->first << "', " << it->second << "]" << std::endl;
+	std::cout << std::endl;
 
-	// print_map(m);
+	std::cout << "tmpit = it--" << std::endl;
+	tmpit = it--;
+	std::cout << "tmpit = ['" << tmpit->first << "', " << tmpit->second << "]" << std::endl;
+	std::cout << "it    = ['" << it->first << "', " << it->second << "]" << std::endl;
+	std::cout << std::endl;
 
-	// it = m.begin();
-	// std::cout << it.base() << std::endl;
+	print_map(m);
+
+	std::cout << "Implicit conversion from iterator to const_iterator" << std::endl;
+	it = m.begin();
+
+	// ns::map<char, int>::const_iterator cit;
+	// cit = m.begin();
+
 }
 
 static void	test_map_lookup()

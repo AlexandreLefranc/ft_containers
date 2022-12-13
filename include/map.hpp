@@ -6,7 +6,7 @@
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 18:00:51 by alefranc          #+#    #+#             */
-/*   Updated: 2022/12/12 16:47:40 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/12/13 15:20:32 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,13 @@ namespace ft
 		typedef Compare							key_compare;
 		typedef Allocator						allocator_type;
 
-		typedef value_type&						reference;
-		typedef const value_type&				const_reference;
-		typedef value_type*						pointer;
-		typedef const value_type*				const_pointer;
+		typedef			value_type&		reference;
+		typedef	const	value_type&		const_reference;
+		typedef			value_type*		pointer;
+		typedef const	value_type*		const_pointer;
 		
-		typedef ft::MapIterator< ft::Node<value_type> >			iterator;
-		typedef ft::MapIterator< ft::Node<const value_type> >	const_iterator;
+		typedef ft::MapIterator< ft::Node<       value_type > >	iterator;
+		typedef ft::MapIterator< ft::Node< const value_type > >	const_iterator;
 		typedef ft::reverse_iterator<iterator>					reverse_iterator;
 		typedef ft::reverse_iterator<const_iterator>			const_reverse_iterator;
 		
