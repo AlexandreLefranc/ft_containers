@@ -6,7 +6,7 @@
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 20:49:34 by alefranc          #+#    #+#             */
-/*   Updated: 2022/12/13 15:13:37 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/12/13 19:09:50 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,16 @@ static void	test_map_iterator()
 
 	// ns::map<char, int>::const_iterator cit;
 	// cit = m.begin();
+
+	// ft::Node<       ft::pair<const char, int> >		node1(ft::pair<const char, int>('b', 2));
+	// node1.data.second = 3;
+
+	// ft::Node< const ft::pair<const char, int> >		node2(ft::pair<const char, int>('b', 2));
+
+	// ft::MapIterator< const ft::pair<const char, int> > test(it._ptr, it._root);
+
+	ns::map<char, int>::const_iterator cit;
+	cit = it;
 
 }
 

@@ -6,7 +6,7 @@
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 12:12:40 by alefranc          #+#    #+#             */
-/*   Updated: 2022/11/24 14:43:06 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/12/13 16:57:20 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ namespace ft
 		stack& operator=( const stack& other )
 		{
 			if (this == &other)
-				return;
+				return (*this);
 			c = other.c;
 			return (*this);
 		}

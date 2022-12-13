@@ -6,7 +6,7 @@
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 18:00:51 by alefranc          #+#    #+#             */
-/*   Updated: 2022/12/13 15:20:32 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/12/13 18:44:01 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 
 # include <stdexcept>
 
-# include "tree.hpp"
 # include "utils.hpp"
 # include "functional.hpp"
+# include "tree.hpp"
 # include "iterator.hpp"
 
 namespace ft
@@ -49,8 +49,10 @@ namespace ft
 		typedef			value_type*		pointer;
 		typedef const	value_type*		const_pointer;
 		
-		typedef ft::MapIterator< ft::Node<       value_type > >	iterator;
-		typedef ft::MapIterator< ft::Node< const value_type > >	const_iterator;
+		typedef	ft::Node<value_type>			node_type;
+
+		typedef ft::MapIterator<value_type>						iterator;
+		typedef ft::MapIterator<const value_type>				const_iterator;
 		typedef ft::reverse_iterator<iterator>					reverse_iterator;
 		typedef ft::reverse_iterator<const_iterator>			const_reverse_iterator;
 		
@@ -66,8 +68,6 @@ namespace ft
 		};
 
 	private:
-
-		typedef	ft::Node<value_type>		node_type;
 
 		node_type*					_root;
 		size_type					_size;
@@ -113,7 +113,9 @@ namespace ft
 		template< class InputIt >
 		map( InputIt first, InputIt last, const Compare& comp = Compare(), const Allocator& alloc = Allocator() )
 			: _root(NULL), _size(0), _compare(comp), _alloc(alloc), _alloc_node(std::allocator<node_type>())
-		{insert(first, last);}
+		{
+			insert(first, last);
+		}
 
 		~map()
 		{
@@ -124,7 +126,8 @@ namespace ft
 		{
 			if (this == &other)
 				return (*this);
-			// do stuff
+			clear();
+			insert(other.begin(), other.end());
 			return (*this);
 		}
 
@@ -181,15 +184,15 @@ namespace ft
 
 		iterator begin()
 		{
-			ft::Node<value_type>*	tmp(_root);
+			node_type*	tmp(_root);
 			while (tmp->left != NULL)
 				tmp = tmp->left;
 			return iterator(tmp, _root);
 		}
-		
+
 		const_iterator begin() const
 		{
-			ft::Node<value_type>*	tmp(_root);
+			node_type*	tmp(_root);
 			while (tmp->left != NULL)
 				tmp = tmp->left;
 			return const_iterator(tmp, _root);
@@ -199,7 +202,7 @@ namespace ft
 		{
 			return iterator(NULL, _root);
 		}
-		
+
 		const_iterator end() const
 		{
 			return const_iterator(NULL, _root);
@@ -217,9 +220,6 @@ namespace ft
 
 
 
-
-
-
 		/* CAPACITY - SYNOPSIS
 
 		bool empty() const;
@@ -228,9 +228,9 @@ namespace ft
 
 		*/
 
-		bool empty() const {return _size == 0;}
-		size_type size() const {return _size;}
-		size_type max_size() const {return _alloc_node.max_size();}
+		bool empty() const			{return _size == 0;}
+		size_type size() const		{return _size;}
+		size_type max_size() const	{return _alloc_node.max_size();}
 
 
 
@@ -296,8 +296,12 @@ namespace ft
 			return insert(value).first;
 		}
 		
-		// template< class InputIt >
-		// void						insert( InputIt first, InputIt last );
+		template< class InputIt >
+		void						insert( InputIt first, InputIt last )
+		{
+			for (; first != last; first++)
+				insert(*first);
+		}
 
 
 

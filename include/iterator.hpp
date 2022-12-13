@@ -6,12 +6,14 @@
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 14:00:31 by alefranc          #+#    #+#             */
-/*   Updated: 2022/12/13 15:21:31 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/12/13 18:52:27 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ITERATOR_HPP
 # define ITERATOR_HPP
+
+# include "tree.hpp"
 
 namespace ft
 {
@@ -476,8 +478,7 @@ bool	operator>=(const VectorIterator<T>& lhs, const VectorIterator<U>& rhs)
 *                              MAP_ITERATOR                                    *
 *******************************************************************************/
 
-// C'est un pointeur qui pointe vers un noeud de l'arbre
-// T est donc un Node< pair<Key, T> >
+// T est donc un pair<const Key, T>
 
 template <typename T>
 class MapIterator
@@ -485,39 +486,43 @@ class MapIterator
 
 public:
 	// Typedefs
-	typedef typename iterator_traits<T>::difference_type	difference_type;
-	typedef typename iterator_traits<T>::value_type			value_type;
-	typedef typename iterator_traits<T>::pointer			pointer;
-	typedef typename iterator_traits<T>::reference			reference;
-	typedef ft::bidirectional_iterator_tag					iterator_category;
+	typedef typename ft::Node<T>		node_type;
+
+	typedef typename iterator_traits< node_type >::difference_type	difference_type;
+	typedef typename iterator_traits< node_type >::value_type		value_type;
+	typedef typename iterator_traits< node_type >::pointer			pointer;
+	typedef typename iterator_traits< node_type >::reference		reference;
+	typedef ft::bidirectional_iterator_tag							iterator_category;
+
+public:
+
+	node_type*	_ptr;
+	node_type*	_root;
 
 private:
 
-	T*	_ptr;
-	T*	_root;
-
-	T*	_minimum(T* node)
+	node_type*	_minimum(node_type* node)
 	{
 		while (node->left != NULL)
 			node = node->left;
 		return (node);
 	}
 
-	T*	_maximum(T* node)
+	node_type*	_maximum(node_type* node)
 	{
 		while (node->right != NULL)
 			node = node->right;
 		return (node);
 	}
 
-	T*	_successor()
+	node_type*	_successor()
 	{
-		T*	tmp(_ptr);
+		node_type*	tmp(_ptr);
 
 		if (tmp->right != NULL)
 			return _minimum(tmp->right);
 
-		T* parent(tmp->parent);
+		node_type* parent(tmp->parent);
 
 		while (parent != NULL && tmp == parent->right)
 		{
@@ -527,9 +532,9 @@ private:
 		return (parent);
 	}
 
-	T*	_predecessor()
+	node_type*	_predecessor()
 	{
-		T*	tmp(_ptr);
+		node_type*	tmp(_ptr);
 
 		if (tmp == NULL)
 			return _maximum(_root);
@@ -537,7 +542,7 @@ private:
 		if (tmp->left != NULL)
 			return _maximum(tmp->left);
 
-		T* parent(tmp->parent);
+		node_type* parent(tmp->parent);
 
 		while (parent != NULL && tmp == parent->left)
 		{
@@ -552,10 +557,10 @@ public:
 	/* CONSTRUCTOR - SYNOPSIS
 
 	MapIterator();
-	MapIterator(const MapIterator<T>& src);
+	MapIterator(const MapIterator<node_type>& src);
 	MapIterator(pointer ptr);
-	MapIterator& operator=(const MapIterator<T>& rhs);
-	
+	MapIterator& operator=(const MapIterator<node_type>& rhs);
+
 	~MapIterator();
 
 	*/
@@ -564,15 +569,15 @@ public:
 		: _ptr(NULL), _root(NULL)
 	{}
 	
-	MapIterator(const MapIterator<T>& src)
+	MapIterator(const MapIterator<node_type>& src)
 		: _ptr(src._ptr), _root(src._root)
 	{}
 	
-	MapIterator(T* ptr, T* root)
+	MapIterator(node_type* ptr, node_type* root)
 		: _ptr(ptr), _root(root)
 	{}
 	
-	MapIterator& operator=(const MapIterator<T>& rhs)
+	MapIterator& operator=(const MapIterator<node_type>& rhs)
 	{
 		if (this != &rhs)
 		{
@@ -586,15 +591,15 @@ public:
 
 	/* ACCESSOR - SYNOPSYS
 
-	T*				base() const;
+	node_type*		base() const;
 	reference		operator*() const;
 	pointer			operator->() const;
 
 	*/
 
-	T*			base() const {return _ptr;}
+	node_type*	base() const		{return _ptr;}
 	reference	operator*() const	{return _ptr->data;}
-	pointer		operator->() const	{return &_ptr->data;}
+	pointer		operator->() const	{return &(_ptr->data);}
 
 	/* MOVE - SYNOPSIS
 
@@ -631,9 +636,9 @@ public:
 		return (tmp);
 	}
 
-	operator MapIterator<const T>() const
+	operator MapIterator<const T>()
 	{
-		return MapIterator<const T>(_ptr);
+		return MapIterator<const T>(NULL, NULL);
 	}
 
 }; // class MapIterator

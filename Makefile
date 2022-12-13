@@ -6,7 +6,7 @@
 #    By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/21 18:52:01 by alefranc          #+#    #+#              #
-#    Updated: 2022/12/12 16:28:01 by alefranc         ###   ########.fr        #
+#    Updated: 2022/12/13 18:37:02 by alefranc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@
 NAME = containers
 
 CXX 		= c++
-CXXFLAGS	= -Wall -Wextra -Werror -std=c++98 -g3
+CXXFLAGS	= -Wall -Wextra -Werror -std=c++98 -g3 #-ferror-limit=100
 
 LDFLAGS		=
 
