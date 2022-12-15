@@ -1,65 +1,90 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tree.hpp                                           :+:      :+:    :+:   */
+/*   tree.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/24 17:56:52 by alefranc          #+#    #+#             */
-/*   Updated: 2022/12/15 17:29:03 by alefranc         ###   ########.fr       */
+/*   Created: 2022/12/15 14:12:52 by alefranc          #+#    #+#             */
+/*   Updated: 2022/12/15 14:12:52 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TREE_HPP
 # define TREE_HPP
 
-#include <cstdlib>
-
-#include "utils.hpp"
+# include "iterator.hpp"
 
 namespace ft
 {
-	// T is ft::pair<const Key, T>
 
-	template <typename T>
-	struct Node
+	template <class Value, class Compare, class Allocator>
+	class Tree
 	{
-		typedef std::ptrdiff_t	difference_type;
-		typedef T				value_type;
-		typedef T*				pointer;
-		typedef T&				reference;
-		typedef	int				iterator_category;
+	public: // basic typedefs
+		typedef Value			value_type;
+		typedef Compare			key_compare;
+		typedef Allocator		value_allocator_type;
 
-		typedef	typename T::first_type	first_type;
-		typedef	typename T::second_type	second_type;
+	private: // setup node and allocators
+		struct Node
+		{
+			Node*		parent;
+			Node*		left;
+			Node*		right;
+			value_type	value;
+		}; // Node
 
-		T			data;
-		Node*		parent;
-		Node*		left;
-		Node*		right;
+		typedef Node						node_type;
+		typedef std::allocator<node_type>	node_allocator_type;
 
-		Node(const T& val)
-			: data(val), parent(NULL), left(NULL), right(NULL)
+		value_allocator_type	_value_allocator;
+		node_allocator_type		_node_allocator;
+		key_compare				_compare;
+
+	public: // typedefs
+		typedef typename node_allocator_type::size_type			size_type;
+		typedef typename node_allocator_type::difference_type	difference_type;
+
+		typedef typename value_allocator_type::reference		reference;
+		typedef typename value_allocator_type::const_reference	const_reference;
+		typedef typename value_allocator_type::pointer			pointer;
+		typedef typename value_allocator_type::const_pointer	const_pointer;
+
+		typedef typename node_allocator_type::pointer			node_pointer;
+
+	private: // attributes
+		node_pointer	_root;
+		size_type		_size;
+
+	public: // iterators
+		class iterator;
+		class const_iterator;
+
+		typedef ft::reverse_iterator<iterator>			reverse_iterator;
+		typedef ft::reverse_iterator<const_iterator>	const_reverse_iterator;
+
+	public: // constructors/destructor/operator=
+		Tree()
+			: _value_allocator(), _node_allocator(), _compare(), _root(NULL), _size(0)
 		{}
-		
-		const first_type&	key() const
-		{
-			return data.first;
-		}
 
-		const second_type&	mapped_value() const
-		{
-			return data.second;
-		}
+		Tree(const Tree& src)
+			: _value_allocator(), _node_allocator(), _compare(), _root(NULL), _size(0)
+		{*this = src;}
 
-		operator ft::Node<const T>()
-		{
-			std::cout << "Implicit conversion from Node<T> to Node<const T>" << std::endl;
-			return ft::Node<const T>(data);
-		}
+		~Tree()
+		{}
 
-	}; // struct Node
+		value_allocator_type	get_value_allocator() const {return _value_allocator;}
 
-} // namespece ft
+
+
+
+	
+	
+	}; // Tree
+
+}
 
 #endif

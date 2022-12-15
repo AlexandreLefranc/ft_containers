@@ -6,7 +6,7 @@
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 14:00:31 by alefranc          #+#    #+#             */
-/*   Updated: 2022/12/15 17:27:09 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/12/15 17:33:29 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -480,220 +480,220 @@ bool	operator>=(const VectorIterator<T>& lhs, const VectorIterator<U>& rhs)
 
 // T est donc un pair<const Key, T>
 
-template <typename T>
-class MapIterator
-{
+// template <typename T>
+// class MapIterator
+// {
 
-public:
-	// Typedefs
-	typedef typename ft::Node<T>		node_type;
+// public:
+// 	// Typedefs
+// 	typedef typename ft::Node<T>		node_type;
 
-	typedef typename iterator_traits< node_type >::difference_type	difference_type;
-	typedef typename iterator_traits< node_type >::value_type		value_type;
-	typedef typename iterator_traits< node_type >::pointer			pointer;
-	typedef typename iterator_traits< node_type >::reference		reference;
-	typedef ft::bidirectional_iterator_tag							iterator_category;
+// 	typedef typename iterator_traits< node_type >::difference_type	difference_type;
+// 	typedef typename iterator_traits< node_type >::value_type		value_type;
+// 	typedef typename iterator_traits< node_type >::pointer			pointer;
+// 	typedef typename iterator_traits< node_type >::reference		reference;
+// 	typedef ft::bidirectional_iterator_tag							iterator_category;
 
-public:
+// public:
 
-	node_type*	_ptr;
-	node_type*	_root;
+// 	node_type*	_ptr;
+// 	node_type*	_root;
 
-private:
+// private:
 
-	node_type*	_minimum(node_type* node)
-	{
-		while (node->left != NULL)
-			node = node->left;
-		return (node);
-	}
+// 	node_type*	_minimum(node_type* node)
+// 	{
+// 		while (node->left != NULL)
+// 			node = node->left;
+// 		return (node);
+// 	}
 
-	node_type*	_maximum(node_type* node)
-	{
-		while (node->right != NULL)
-			node = node->right;
-		return (node);
-	}
+// 	node_type*	_maximum(node_type* node)
+// 	{
+// 		while (node->right != NULL)
+// 			node = node->right;
+// 		return (node);
+// 	}
 
-	node_type*	_successor()
-	{
-		node_type*	tmp(_ptr);
+// 	node_type*	_successor()
+// 	{
+// 		node_type*	tmp(_ptr);
 
-		if (tmp->right != NULL)
-			return _minimum(tmp->right);
+// 		if (tmp->right != NULL)
+// 			return _minimum(tmp->right);
 
-		node_type* parent(tmp->parent);
+// 		node_type* parent(tmp->parent);
 
-		while (parent != NULL && tmp == parent->right)
-		{
-			tmp = parent;
-			parent = tmp->parent;
-		}
-		return (parent);
-	}
+// 		while (parent != NULL && tmp == parent->right)
+// 		{
+// 			tmp = parent;
+// 			parent = tmp->parent;
+// 		}
+// 		return (parent);
+// 	}
 
-	node_type*	_predecessor()
-	{
-		node_type*	tmp(_ptr);
+// 	node_type*	_predecessor()
+// 	{
+// 		node_type*	tmp(_ptr);
 
-		if (tmp == NULL)
-			return _maximum(_root);
+// 		if (tmp == NULL)
+// 			return _maximum(_root);
 
-		if (tmp->left != NULL)
-			return _maximum(tmp->left);
+// 		if (tmp->left != NULL)
+// 			return _maximum(tmp->left);
 
-		node_type* parent(tmp->parent);
+// 		node_type* parent(tmp->parent);
 
-		while (parent != NULL && tmp == parent->left)
-		{
-			tmp = parent;
-			parent = tmp->parent;
-		}
-		return (parent);
-	}
+// 		while (parent != NULL && tmp == parent->left)
+// 		{
+// 			tmp = parent;
+// 			parent = tmp->parent;
+// 		}
+// 		return (parent);
+// 	}
 
-public:
+// public:
 
-	/* CONSTRUCTOR - SYNOPSIS
+// 	/* CONSTRUCTOR - SYNOPSIS
 
-	MapIterator();
-	MapIterator(const MapIterator<node_type>& src);
-	MapIterator(pointer ptr);
-	MapIterator& operator=(const MapIterator<node_type>& rhs);
+// 	MapIterator();
+// 	MapIterator(const MapIterator<node_type>& src);
+// 	MapIterator(pointer ptr);
+// 	MapIterator& operator=(const MapIterator<node_type>& rhs);
 
-	~MapIterator();
+// 	~MapIterator();
 
-	*/
+// 	*/
 
-	MapIterator()
-		: _ptr(NULL), _root(NULL)
-	{}
+// 	MapIterator()
+// 		: _ptr(NULL), _root(NULL)
+// 	{}
 	
-	MapIterator(const MapIterator<node_type>& src)
-		: _ptr(src._ptr), _root(src._root)
-	{}
+// 	MapIterator(const MapIterator<node_type>& src)
+// 		: _ptr(src._ptr), _root(src._root)
+// 	{}
 	
-	MapIterator(node_type* ptr, node_type* root)
-		: _ptr(ptr), _root(root)
-	{}
+// 	MapIterator(node_type* ptr, node_type* root)
+// 		: _ptr(ptr), _root(root)
+// 	{}
 	
-	MapIterator& operator=(const MapIterator<node_type>& rhs)
-	{
-		if (this != &rhs)
-		{
-			_ptr = rhs._ptr;
-			_root = rhs._root;
-		}
-		return (*this);
-	}
+// 	MapIterator& operator=(const MapIterator<node_type>& rhs)
+// 	{
+// 		if (this != &rhs)
+// 		{
+// 			_ptr = rhs._ptr;
+// 			_root = rhs._root;
+// 		}
+// 		return (*this);
+// 	}
 
-	~MapIterator() {}
+// 	~MapIterator() {}
 
-	/* ACCESSOR - SYNOPSYS
+// 	/* ACCESSOR - SYNOPSYS
 
-	node_type*		base() const;
-	reference		operator*() const;
-	pointer			operator->() const;
+// 	node_type*		base() const;
+// 	reference		operator*() const;
+// 	pointer			operator->() const;
 
-	*/
+// 	*/
 
-	node_type*	base() const		{return _ptr;}
-	reference	operator*() const	{return _ptr->data;}
-	pointer		operator->() const	{return &(_ptr->data);}
+// 	node_type*	base() const		{return _ptr;}
+// 	reference	operator*() const	{return _ptr->data;}
+// 	pointer		operator->() const	{return &(_ptr->data);}
 
-	/* MOVE - SYNOPSIS
+// 	/* MOVE - SYNOPSIS
 
-	MapIterator&	operator++();
-	MapIterator&	operator--();
-	MapIterator		operator++( int );
-	MapIterator		operator--( int );
+// 	MapIterator&	operator++();
+// 	MapIterator&	operator--();
+// 	MapIterator		operator++( int );
+// 	MapIterator		operator--( int );
 
-	*/
+// 	*/
 
-	MapIterator&	operator++()
-	{
-		_ptr = _successor();
-		return (*this);
-	}
+// 	MapIterator&	operator++()
+// 	{
+// 		_ptr = _successor();
+// 		return (*this);
+// 	}
 
-	MapIterator&	operator--()
-	{
-		_ptr = _predecessor();
-		return (*this);
-	}
+// 	MapIterator&	operator--()
+// 	{
+// 		_ptr = _predecessor();
+// 		return (*this);
+// 	}
 
-	MapIterator		operator++( int )
-	{
-		MapIterator tmp(*this);
-		_ptr = _successor();
-		return (tmp);
-	}
+// 	MapIterator		operator++( int )
+// 	{
+// 		MapIterator tmp(*this);
+// 		_ptr = _successor();
+// 		return (tmp);
+// 	}
 
-	MapIterator		operator--( int )
-	{
-		MapIterator tmp(*this);
-		_ptr = _predecessor();
-		return (tmp);
-	}
+// 	MapIterator		operator--( int )
+// 	{
+// 		MapIterator tmp(*this);
+// 		_ptr = _predecessor();
+// 		return (tmp);
+// 	}
 
-	operator MapIterator<const T>()
-	{
-		return MapIterator<const T>(NULL, NULL);
-	}
+// 	operator MapIterator<const T>()
+// 	{
+// 		return MapIterator<const T>(NULL, NULL);
+// 	}
 
-}; // class MapIterator
+// }; // class MapIterator
 
-/* NON-MEMBER FUNCTION - SYNOPSIS
+// /* NON-MEMBER FUNCTION - SYNOPSIS
 
-template <typename T, typename U>
-bool	operator==(const MapIterator<T>& lhs, const MapIterator<U>& rhs);
+// template <typename T, typename U>
+// bool	operator==(const MapIterator<T>& lhs, const MapIterator<U>& rhs);
 
-template <typename T, typename U>
-bool	operator!=(const MapIterator<T>& lhs, const MapIterator<U>& rhs);
+// template <typename T, typename U>
+// bool	operator!=(const MapIterator<T>& lhs, const MapIterator<U>& rhs);
 
-template <typename T, typename U>
-bool	operator<(const MapIterator<T>& lhs, const MapIterator<U>& rhs);
+// template <typename T, typename U>
+// bool	operator<(const MapIterator<T>& lhs, const MapIterator<U>& rhs);
 
-template <typename T, typename U>
-bool	operator<=(const MapIterator<T>& lhs, const MapIterator<U>& rhs);
+// template <typename T, typename U>
+// bool	operator<=(const MapIterator<T>& lhs, const MapIterator<U>& rhs);
 
-template <typename T, typename U>
-bool	operator>(const MapIterator<T>& lhs, const MapIterator<U>& rhs);
+// template <typename T, typename U>
+// bool	operator>(const MapIterator<T>& lhs, const MapIterator<U>& rhs);
 
-template <typename T, typename U>
-bool	operator>=(const MapIterator<T>& lhs, const MapIterator<U>& rhs);
+// template <typename T, typename U>
+// bool	operator>=(const MapIterator<T>& lhs, const MapIterator<U>& rhs);
 
-*/
+// */
 
-template <typename T, typename U>
-bool	operator==(const MapIterator<T>& lhs, const MapIterator<U>& rhs)
-{
-	if (lhs.base() == NULL && rhs.base() == NULL)
-		return true;
-	if (lhs.base() == NULL && rhs.base() != NULL)
-		return false;
-	if (lhs.base() != NULL && rhs.base() == NULL)
-		return false;
-	return lhs->first == rhs->first;
-}
+// template <typename T, typename U>
+// bool	operator==(const MapIterator<T>& lhs, const MapIterator<U>& rhs)
+// {
+// 	if (lhs.base() == NULL && rhs.base() == NULL)
+// 		return true;
+// 	if (lhs.base() == NULL && rhs.base() != NULL)
+// 		return false;
+// 	if (lhs.base() != NULL && rhs.base() == NULL)
+// 		return false;
+// 	return lhs->first == rhs->first;
+// }
 
-template <typename T, typename U>
-bool	operator!=(const MapIterator<T>& lhs, const MapIterator<U>& rhs)
-{
-	return !operator==(lhs, rhs);
-}
+// template <typename T, typename U>
+// bool	operator!=(const MapIterator<T>& lhs, const MapIterator<U>& rhs)
+// {
+// 	return !operator==(lhs, rhs);
+// }
 
-template <typename T, typename U>
-bool	operator<(const MapIterator<T>& lhs, const MapIterator<U>& rhs);
+// template <typename T, typename U>
+// bool	operator<(const MapIterator<T>& lhs, const MapIterator<U>& rhs);
 
-template <typename T, typename U>
-bool	operator<=(const MapIterator<T>& lhs, const MapIterator<U>& rhs);
+// template <typename T, typename U>
+// bool	operator<=(const MapIterator<T>& lhs, const MapIterator<U>& rhs);
 
-template <typename T, typename U>
-bool	operator>(const MapIterator<T>& lhs, const MapIterator<U>& rhs);
+// template <typename T, typename U>
+// bool	operator>(const MapIterator<T>& lhs, const MapIterator<U>& rhs);
 
-template <typename T, typename U>
-bool	operator>=(const MapIterator<T>& lhs, const MapIterator<U>& rhs);
+// template <typename T, typename U>
+// bool	operator>=(const MapIterator<T>& lhs, const MapIterator<U>& rhs);
 
 /*******************************************************************************
 *                              UTILS_ITERATOR                                  *
