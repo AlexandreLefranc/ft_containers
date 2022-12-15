@@ -6,7 +6,7 @@
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 18:00:51 by alefranc          #+#    #+#             */
-/*   Updated: 2022/12/13 18:44:01 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/12/14 16:26:35 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ namespace ft
 		explicit map( const Compare& comp, const Allocator& alloc = Allocator());
 		template< class InputIt >
 		map( InputIt first, InputIt last, const Compare& comp = Compare(), const Allocator& alloc = Allocator() );
+		map( const map& other );
+		
 		~map();
 
 		map&			operator=( const map& other );	
@@ -115,6 +117,12 @@ namespace ft
 			: _root(NULL), _size(0), _compare(comp), _alloc(alloc), _alloc_node(std::allocator<node_type>())
 		{
 			insert(first, last);
+		}
+
+		map( const map& other )
+			: _root(NULL), _size(0), _compare(Compare()), _alloc(Allocator()), _alloc_node(std::allocator<node_type>())
+		{
+			insert(other.begin(), other.end());
 		}
 
 		~map()
@@ -208,11 +216,11 @@ namespace ft
 			return const_iterator(NULL, _root);
 		}
 
-		reverse_iterator rbegin();
-		const_reverse_iterator rbegin() const;
+		reverse_iterator		rbegin()		{return reverse_iterator(end());}
+		const_reverse_iterator	rbegin() const	{return const_reverse_iterator(end());}
 
-		reverse_iterator rend();
-		const_reverse_iterator rend() const;
+		reverse_iterator		rend()			{return reverse_iterator(begin());}		
+		const_reverse_iterator	rend() const	{return const_reverse_iterator(begin());}
 
 
 

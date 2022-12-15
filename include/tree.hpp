@@ -6,7 +6,7 @@
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 17:56:52 by alefranc          #+#    #+#             */
-/*   Updated: 2022/12/13 19:03:58 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/12/15 17:29:03 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,10 @@ namespace ft
 			return data.second;
 		}
 
-		operator Node<const T>()
+		operator ft::Node<const T>()
 		{
-			return Node<const T>(data);
+			std::cout << "Implicit conversion from Node<T> to Node<const T>" << std::endl;
+			return ft::Node<const T>(data);
 		}
 
 	}; // struct Node
