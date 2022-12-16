@@ -48,7 +48,7 @@ namespace ft
 			}
 		}; // value_compare
 
-	private: // Setup tree representation
+	private: // setup tree representation
 		typedef Tree<value_type, key_compare, allocator_type> tree_type;
 		tree_type	_t;
 	
@@ -74,35 +74,90 @@ namespace ft
 		// template< class InputIt >
 		// map( InputIt first, InputIt last, const Compare& comp = Compare(), const Allocator& alloc = Allocator() );
 		// map( const map& other );
-		
+
 		~map() {}
 
 		// map&	operator=( const map& other );
-		allocator_type	get_allocator() const {return _t.get_value_allocator();}
 
 	public: // element access
-		T&			at( const Key& key );
-		const T&	at( const Key& key ) const;
-		T& operator[]( const Key& key );
+		T&			at( const Key& key )		{return _t.at(key);}
+		const T&	at( const Key& key ) const	{return _t.at(key);}
+
+		T&			operator[]( const Key& key )
+		{
+			return (*((insert(value_type(key, T()))).first)).second;
+		}
 
 	public: // iterators
-		iterator		begin();
-		const_iterator	begin() const;
+		iterator		begin()			{return _t.begin();}
+		const_iterator	begin() const	{return _t.begin();}
 
-		iterator		end();
-		const_iterator	end() const;
+		iterator		end()			{return _t.end();}
+		const_iterator	end() const		{return _t.end();}
 
-		reverse_iterator		rbegin();
-		const_reverse_iterator	rbegin() const;
+		reverse_iterator		rbegin()		{return _t.rbegin();}
+		const_reverse_iterator	rbegin() const	{return _t.rbegin();}
 
-		reverse_iterator		rend();
-		const_reverse_iterator	rend() const;
+		reverse_iterator		rend()			{return _t.rend();}
+		const_reverse_iterator	rend() const	{return _t.rend();}
 
 	public: // capacity
+		bool empty() const			{return _t.empty();}
+		size_type size() const		{return _t.size();}
+		size_type max_size() const	{return _t.max_size();}
+
 	public: // modifiers: insert/swap
+		ft::pair<iterator, bool>	insert( const value_type& value )
+		{
+			return _t.insert(value);
+		}
+
+		iterator					insert( iterator pos, const value_type& value )
+		{
+			(void)pos;
+			return _t.insert(value).first;
+		}
+
+		template< class InputIt >
+		void						insert( InputIt first, InputIt last )
+		{
+			for (; first != last; first++)
+				_t.insert(*first);
+		}
+
+		void swap( map& other )	{_t.swap(other._t);}
+
 	public: // modifiers: clear/erase
+		void	clear()									{_t.clear();}
+		void	erase( iterator pos )					{_t.erase(pos);}
+		void	erase( iterator first, iterator last )
+		{
+			for (; first != last; first++)
+				_t.erase(first);
+		}
+
+		size_type	erase( const Key& key )				{return _t.erase(key);}
+
 	public: // lookup
+		size_type		count( const Key& key ) const	{return _t.count(key);}
+		iterator		find( const Key& key )			{return _t.find(key);}
+		const_iterator	find( const Key& key ) const	{return _t.find(key);}
+
+		ft::pair<iterator,iterator>				equal_range( const Key& key )
+		{return _t.equal_range(key);}
+
+		ft::pair<const_iterator,const_iterator>	equal_range( const Key& key ) const
+		{return _t.equal_range(key);}
+
+		iterator		lower_bound( const Key& key )		{return _t.lower_bound(key);}
+		const_iterator	lower_bound( const Key& key ) const	{return _t.lower_bound(key);}
+		iterator		upper_bound( const Key& key )		{return _t.upper_bound(key);}
+		const_iterator	upper_bound( const Key& key ) const	{return _t.upper_bound(key);}
+
 	public: // observers
+		allocator_type	get_allocator() const	{return _t.get_value_allocator();}
+		key_compare		key_comp() const		{return _t.key_comp();}
+		value_compare	value_comp() const		{return _t.value_comp();}
 
 	}; // map
 

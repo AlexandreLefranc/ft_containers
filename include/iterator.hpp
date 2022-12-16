@@ -6,14 +6,12 @@
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 14:00:31 by alefranc          #+#    #+#             */
-/*   Updated: 2022/12/15 17:33:29 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/12/16 15:13:21 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ITERATOR_HPP
 # define ITERATOR_HPP
-
-# include "tree.hpp"
 
 namespace ft
 {
