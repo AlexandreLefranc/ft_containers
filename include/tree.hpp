@@ -24,6 +24,7 @@ namespace ft
 	public: // basic typedefs
 		typedef Value							value_type;
 		typedef typename value_type::first_type	key_type;
+		typedef typename value_type::second_type	mapped_value;
 		typedef Compare							key_compare;
 		typedef Allocator						value_allocator_type;
 
@@ -34,6 +35,10 @@ namespace ft
 			Node*		left;
 			Node*		right;
 			value_type	value;
+
+			Node(const value_type& val)
+				: parent(NULL), left(NULL), right(NULL), value(val)
+			{}
 
 			key_type	key() const {return value.first;}
 		}; // Node
@@ -64,11 +69,11 @@ namespace ft
 		class iterator
 		{
 		public:
-			// typedef typename ft::iterator_traits< value_type >::difference_type	difference_type;
-			// typedef typename ft::iterator_traits< value_type >::value_type		value_type;
-			// typedef typename ft::iterator_traits< value_type >::pointer			pointer;
-			// typedef typename ft::iterator_traits< value_type >::reference		reference;
-			typedef ft::bidirectional_iterator_tag							iterator_category;
+			typedef difference_type					difference_type;
+			typedef value_type						value_type;
+			typedef pointer							pointer;
+			typedef reference						reference;
+			typedef ft::bidirectional_iterator_tag	iterator_category;
 
 		private: // attributes
 			node_pointer	_node;
@@ -150,7 +155,7 @@ namespace ft
 					return _max(tmp->left);
 				
 				node_pointer	parent(tmp->parent);
-				while (parent != NULL && tmp != parent->left)
+				while (parent != NULL && tmp == parent->left)
 				{
 					tmp = parent;
 					parent = tmp->parent;
@@ -181,7 +186,7 @@ namespace ft
 			iterator	operator--(int)
 			{
 				iterator	tmp(*this);
-				_node = _successor();
+				_node = _predecessor();
 				return tmp;
 			}
 
@@ -191,11 +196,11 @@ namespace ft
 		class const_iterator
 		{
 			public:
-			// typedef typename ft::iterator_traits< value_type >::difference_type	difference_type;
-			// typedef typename ft::iterator_traits< value_type >::value_type		value_type;
-			// typedef typename ft::iterator_traits< value_type >::pointer			pointer;
-			// typedef typename ft::iterator_traits< value_type >::reference		reference;
-			typedef ft::bidirectional_iterator_tag							iterator_category;
+			typedef difference_type					difference_type;
+			typedef value_type						value_type;
+			typedef const_pointer					pointer;
+			typedef const_reference					reference;
+			typedef ft::bidirectional_iterator_tag	iterator_category;
 
 		private:
 			node_pointer	_node;
@@ -343,7 +348,7 @@ namespace ft
 		reference	at(const key_type& key);
 
 	public: // iterator
-		iterator	begin()
+		iterator	begin() const
 		{
 			if (_root == NULL)
 				return iterator(NULL, _root);
@@ -353,10 +358,10 @@ namespace ft
 			return iterator(tmp, _root);
 		}
 
-		iterator	end() {return iterator(NULL, _root);}
+		iterator	end() const {return iterator(NULL, _root);}
 
-		reverse_iterator	rbegin()	{return reverse_iterator(end());}
-		reverse_iterator	rend()		{return reverse_iterator(begin());}
+		reverse_iterator	rbegin() const	{return reverse_iterator(end());}
+		reverse_iterator	rend() const	{return reverse_iterator(begin());}
 
 	public: // capacity
 		bool		empty() const		{return _size == 0;}

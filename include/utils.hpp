@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 14:02:33 by alefranc          #+#    #+#             */
-/*   Updated: 2022/12/14 16:55:02 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/12/21 00:42:45 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ struct pair
 
 	operator ft::pair<const T1, T2>()
 	{
-		std::cout << "Implicit conversion from pair<T1, T2> to pair<const T1, T2>" << std::endl;
+		// std::cout << "Implicit conversion from pair<T1, T2> to pair<const T1, T2>" << std::endl;
 		return ft::pair<const T1, T2>(first, second);
 	}
 	
