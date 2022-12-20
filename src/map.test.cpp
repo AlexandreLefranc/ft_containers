@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.test.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 20:49:34 by alefranc          #+#    #+#             */
-/*   Updated: 2022/12/15 17:34:11 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/12/20 17:16:05 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,16 @@ static void	print_title(const std::string& title)
 // 	std::cout << std::endl;
 // }
 
-// static void	test_map_capacity()
-// {
-// 	print_title("MAP CAPACITY");
-// 	std::cout << std::boolalpha;
+static void	test_map_capacity()
+{
+	print_title("MAP CAPACITY");
+	std::cout << std::boolalpha;
 
-// 	ns::map<char, int> m;
+	ns::map<char, int> m;
 
-// 	std::cout << "m.empty() = " << m.empty() << std::endl;
-// 	std::cout << "m.size() = " << m.size() << std::endl;
-// }
+	std::cout << "m.empty() = " << m.empty() << std::endl;
+	std::cout << "m.size() = " << m.size() << std::endl;
+}
 
 // static void	test_map_iterator()
 // {
@@ -190,11 +190,14 @@ static void	test_map_test()
 	print_title("MAP TEST");
 
 	ns::map<char, int> m;
+	ns::map<char, int>::iterator it = m.begin();
+	ns::map<char, int>::const_iterator cit = it;
+	(void)cit;
 }
 
 void	main_map()
 {
-	// test_map_capacity();
+	test_map_capacity();
 	// test_map_iterator();
 	// test_map_reverse_iterator();
 	// test_map_const_copy();

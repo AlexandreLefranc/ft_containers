@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+         #
+#    By: alex <alex@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/21 18:52:01 by alefranc          #+#    #+#              #
-#    Updated: 2022/12/15 14:23:00 by alefranc         ###   ########.fr        #
+#    Updated: 2022/12/20 17:26:00 by alex             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,8 @@
 
 NAME = containers
 
-CXX 		= c++
+# CXX 		= c++
+CXX 		= clang++
 CXXFLAGS	= -Wall -Wextra -Werror -std=c++98 -g3 #-ferror-limit=100
 
 LDFLAGS		=

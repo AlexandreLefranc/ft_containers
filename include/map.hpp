@@ -80,10 +80,10 @@ namespace ft
 		// map&	operator=( const map& other );
 
 	public: // element access
-		T&			at( const Key& key )		{return _t.at(key);}
-		const T&	at( const Key& key ) const	{return _t.at(key);}
+		T&			at( const key_type& key )		{return _t.at(key);}
+		const T&	at( const key_type& key ) const	{return _t.at(key);}
 
-		T&			operator[]( const Key& key )
+		T&			operator[]( const key_type& key )
 		{
 			return (*((insert(value_type(key, T()))).first)).second;
 		}
