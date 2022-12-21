@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.test.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 20:49:34 by alefranc          #+#    #+#             */
-/*   Updated: 2022/12/21 00:58:02 by alex             ###   ########.fr       */
+/*   Updated: 2022/12/21 15:48:41 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,9 +140,9 @@ static void	test_map_reverse_iterator()
 		std::cout << rit->first << " -> " << rit->second << std::endl;
 }
 
-static void	test_map_const_copy()
+static void	test_map_copy()
 {
-	print_title("MAP CONST COPY");
+	print_title("MAP COPY");
 
 	ns::map<char, int> m;
 	m.insert(ns::pair<char, int>('m', 13));
@@ -154,8 +154,24 @@ static void	test_map_const_copy()
 	std::cout << "['a', 1]     ['z', 26]" << std::endl;
 	std::cout << std::endl;
 
-	const ns::map<char, int> m2 = m;
-	print_map(m2);
+	{
+		std::cout << "Const copy by assignation" << std::endl;
+		const ns::map<char, int> m2 = m;
+		print_map(m2);
+	}
+
+	{
+		std::cout << "Const copy by copy" << std::endl;
+		const ns::map<char, int> m2(m);
+		print_map(m2);
+	}
+
+	{
+		std::cout << "Double copy" << std::endl;
+		ns::map<char, int> m2 = m;
+		m2 = m;
+		print_map(m2);
+	}
 }
 
 // static void	test_map_lookup()
@@ -199,7 +215,7 @@ void	main_map()
 	test_map_capacity();
 	test_map_iterator();
 	test_map_reverse_iterator();
-	test_map_const_copy();
+	test_map_copy();
 	// test_map_lookup();
 	// test_map_modifiers();
 	test_map_test();

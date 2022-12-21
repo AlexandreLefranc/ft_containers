@@ -41,6 +41,16 @@ namespace ft
 			{}
 
 			key_type	key() const {return value.first;}
+
+			size_t	count_children()
+			{
+				size_type	count = 0;
+				if (left != NULL)
+					++count;
+				if (right != NULL)
+					++count;
+				return count;
+			}
 		}; // Node
 
 		typedef Node						node_type;
@@ -331,18 +341,48 @@ namespace ft
 		{*this = src;}
 
 		~Tree()
-		{}
+		{_destroy(_root);}
 
 		Tree&	operator=(const Tree& rhs)
 		{
 			if (this == &rhs)
-				return (*this);
-			// do stuff
-			return (*this);
+				return *this;
+			_destroy(_root);
+			_value_allocator = rhs._value_allocator;
+			_node_allocator = rhs._node_allocator;
+			_compare = rhs._compare;
+			_copy(rhs);
+			return *this;
 		}
 
 		value_allocator_type	get_value_allocator() const {return _value_allocator;}
 
+	private: // internal function
+		void	_copy(const Tree& src)
+		{
+			for (const_iterator it = src.begin(); it != src.end(); it++)
+				insert(*it);
+		}
+
+		void	_destroy(node_pointer& node)
+		{
+			if (node != NULL)
+			{
+				_destroy(node->left);
+				_destroy(node->right);
+				_node_allocator.deallocate(node, 1);
+				node = NULL;
+				--_size;
+			}
+		}
+
+		node_pointer	_min(const node_pointer& node) const
+		{
+			node_pointer	tmp(node);
+			while (tmp != NULL)
+				tmp = tmp->left;
+			return tmp;
+		}
 	
 	public: // element access
 		reference	at(const key_type& key);
@@ -385,6 +425,7 @@ namespace ft
 			}
 
 			node_pointer	new_node = _node_allocator.allocate(1);
+			// std::cout << "Allocate node " << new_node << std::endl;
 			_node_allocator.construct(new_node, node_type(value));
 
 			new_node->parent = parent;
@@ -400,8 +441,101 @@ namespace ft
 			return ft::pair<iterator, bool>(iterator(new_node, _root), true);
 		}
 
+		void	swap(Tree& other)
+		{
+			Tree tmp(other);
+			other = *this;
+			*this = tmp;
+		}
+
 	public: // modifiers: clear/erase
+		void	clear() {_destroy(_root);}
+
+		void	erase(iterator pos)
+		{
+			if (pos == end())
+				return;
+
+			node_pointer	node = pos.node();
+			if (node->count_children() == 0)
+			{
+				if (node->parent->left == node)
+					node->parent->left = NULL;
+				else
+					node->parent->right = NULL;
+
+				_node_allocator.deallocate(node, 1);
+				--_size;
+				return;
+			}
+
+			if (node->count_children() == 1)
+			{
+				node_pointer	child;
+				if (node->left != NULL)
+					child = node->left;
+				else
+					child = node->right;
+				
+				if (node->parent->left == node)
+					node->parent->left = child;
+				else
+					node->parent->right = child;
+				
+				_node_allocator.deallocate(node, 1);
+				--_size;
+				return;
+			}
+			
+			if (node->count_children() == 2)
+			{
+				node_pointer	min = _min(node->right);
+				node_pointer	min_child;
+				if (min->left != NULL)
+					min_child = min->left;
+				else
+					min_child = min->right;
+				
+
+
+			}
+			return;
+		}
+
 	public: // lookup
+		size_type	count(const key_type& key) const
+		{
+			if (find(key) != end())
+				return 1;
+			return 0;
+		}
+
+		iterator	find(const key_type& key) const
+		{
+			for (iterator it = begin(); it != end(); it++)
+			{
+				if (it->first == key)
+					return it;
+			}
+			return end();
+		}
+
+		iterator	lower_bound(const key_type& key) const
+		{
+			return --find(key);
+		}
+
+		iterator	upper_bound(const key_type& key) const
+		{
+			return ++find(key);
+		}
+
+		ft::pair<iterator, iterator>	equal_range(const key_type& key) const
+		{
+			return ft::make_pair(lower_bound(key), upper_bound(key));
+		}
+		
+
 	public: // observers
 
 

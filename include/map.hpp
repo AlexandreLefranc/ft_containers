@@ -73,11 +73,17 @@ namespace ft
 		// {}
 		// template< class InputIt >
 		// map( InputIt first, InputIt last, const Compare& comp = Compare(), const Allocator& alloc = Allocator() );
-		// map( const map& other );
+		map( const map& src ): _t(src._t) {}
 
 		~map() {}
 
-		// map&	operator=( const map& other );
+		map&	operator=( const map& rhs )
+		{
+			if (this == &rhs)
+				return *this;
+			_t = rhs._t;
+			return *this;
+		}
 
 	public: // element access
 		T&			at( const key_type& key )		{return _t.at(key);}
@@ -136,23 +142,23 @@ namespace ft
 				_t.erase(first);
 		}
 
-		size_type	erase( const Key& key )				{return _t.erase(key);}
+		size_type	erase( const key_type& key )	{return _t.erase(key);}
 
 	public: // lookup
-		size_type		count( const Key& key ) const	{return _t.count(key);}
-		iterator		find( const Key& key )			{return _t.find(key);}
-		const_iterator	find( const Key& key ) const	{return _t.find(key);}
+		size_type		count( const key_type& key ) const	{return _t.count(key);}
+		iterator		find( const key_type& key )			{return _t.find(key);}
+		const_iterator	find( const key_type& key ) const	{return _t.find(key);}
 
-		ft::pair<iterator,iterator>				equal_range( const Key& key )
+		ft::pair<iterator,iterator>				equal_range( const key_type& key )
 		{return _t.equal_range(key);}
 
-		ft::pair<const_iterator,const_iterator>	equal_range( const Key& key ) const
+		ft::pair<const_iterator,const_iterator>	equal_range( const key_type& key ) const
 		{return _t.equal_range(key);}
 
-		iterator		lower_bound( const Key& key )		{return _t.lower_bound(key);}
-		const_iterator	lower_bound( const Key& key ) const	{return _t.lower_bound(key);}
-		iterator		upper_bound( const Key& key )		{return _t.upper_bound(key);}
-		const_iterator	upper_bound( const Key& key ) const	{return _t.upper_bound(key);}
+		iterator		lower_bound( const key_type& key )			{return _t.lower_bound(key);}
+		const_iterator	lower_bound( const key_type& key ) const	{return _t.lower_bound(key);}
+		iterator		upper_bound( const key_type& key )			{return _t.upper_bound(key);}
+		const_iterator	upper_bound( const key_type& key ) const	{return _t.upper_bound(key);}
 
 	public: // observers
 		allocator_type	get_allocator() const	{return _t.get_value_allocator();}
