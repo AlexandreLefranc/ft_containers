@@ -212,7 +212,7 @@ namespace ft
 			typedef const_reference					reference;
 			typedef ft::bidirectional_iterator_tag	iterator_category;
 
-		private:
+		public:
 			node_pointer	_node;
 			node_pointer	_root;
 
@@ -271,7 +271,7 @@ namespace ft
 
 				if (tmp->right != NULL)
 					return _min(tmp->right);
-				
+
 				node_pointer	parent(tmp->parent);
 				while (parent != NULL && tmp == parent->right)
 				{
@@ -292,7 +292,7 @@ namespace ft
 					return _max(tmp->left);
 				
 				node_pointer	parent(tmp->parent);
-				while (parent != NULL && tmp != parent->left)
+				while (parent != NULL && tmp == parent->left)
 				{
 					tmp = parent;
 					parent = tmp->parent;
@@ -323,7 +323,7 @@ namespace ft
 			const_iterator	operator--(int)
 			{
 				const_iterator	tmp(*this);
-				_node = _successor();
+				_node = _predecessor();
 				return tmp;
 			}
 		}; // const_iterator
@@ -456,50 +456,41 @@ namespace ft
 			if (pos == end())
 				return;
 
-			node_pointer	node = pos.node();
-			if (node->count_children() == 0)
+			node_pointer	z = pos.node();
+			node_pointer	y;
+			if (z->left == NULL || z->right == NULL)
+				y = z;
+			else
 			{
-				if (node->parent->left == node)
-					node->parent->left = NULL;
-				else
-					node->parent->right = NULL;
-
-				_node_allocator.deallocate(node, 1);
-				--_size;
-				return;
-			}
-
-			if (node->count_children() == 1)
-			{
-				node_pointer	child;
-				if (node->left != NULL)
-					child = node->left;
-				else
-					child = node->right;
-				
-				if (node->parent->left == node)
-					node->parent->left = child;
-				else
-					node->parent->right = child;
-				
-				_node_allocator.deallocate(node, 1);
-				--_size;
-				return;
+				y = (++pos).node();
 			}
 			
-			if (node->count_children() == 2)
+			node_pointer	x;
+			if (y->left != NULL)
+				x = y->left;
+			else
+				x = y->right;
+			
+			if (x != NULL)
+				x->parent = y->parent;
+			
+			if (y->parent == NULL)
+				_root = x;
+			else if (y == y->parent->left)
+				y->parent->left = x;
+			else
+				y->parent->right = x;
+
+			if (y != z)
 			{
-				node_pointer	min = _min(node->right);
-				node_pointer	min_child;
-				if (min->left != NULL)
-					min_child = min->left;
-				else
-					min_child = min->right;
-				
-
-
+				_value_allocator.construct(&z->value, y->value);
 			}
-			return;
+			
+			if (y != NULL)
+			{
+				_node_allocator.deallocate(y, 1);
+			}
+			--_size;
 		}
 
 	public: // lookup

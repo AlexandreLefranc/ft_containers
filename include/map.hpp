@@ -142,7 +142,14 @@ namespace ft
 				_t.erase(first);
 		}
 
-		size_type	erase( const key_type& key )	{return _t.erase(key);}
+		size_type	erase( const key_type& key )
+		{
+			iterator	it = find(key);
+			if (it == end())
+				return 0;
+			_t.erase(it);
+			return 1;
+		}
 
 	public: // lookup
 		size_type		count( const key_type& key ) const	{return _t.count(key);}
