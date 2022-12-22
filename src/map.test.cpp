@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.test.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 20:49:34 by alefranc          #+#    #+#             */
-/*   Updated: 2022/12/21 18:16:42 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/12/22 19:56:03 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,6 +174,35 @@ static void	test_map_copy()
 	}
 }
 
+static void	test_map_erase()
+{
+	print_title("MAP ERASE");
+
+	ns::map<char, int> m;
+
+	m['c']=30;
+	m['f']=60;
+	m['b']=20;
+	m['d']=40;
+	m['a']=10;
+	m['e']=50;
+
+	print_map(m);
+
+	std::cout << "Erase 2nd element via iterator" << std::endl;
+	m.erase((++m.begin()));
+	print_map(m);
+
+	std::cout << "Erase 'c' via key" << std::endl;
+	m.erase('c');
+	print_map(m);
+
+	std::cout << "Erase begin() to end() via range iterator" << std::endl;
+	m.erase(m.begin(), m.end());
+	print_map(m);
+
+}
+
 // static void	test_map_lookup()
 // {
 // 	print_title("MAP LOOKUP");
@@ -237,6 +266,7 @@ void	main_map()
 	test_map_iterator();
 	test_map_reverse_iterator();
 	test_map_copy();
+	test_map_erase();
 	// test_map_lookup();
 	// test_map_modifiers();
 	test_map_test();

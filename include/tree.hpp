@@ -499,10 +499,13 @@ namespace ft
 				return;
 
 			node_pointer	node = pos.node();
+			// std::cout << pos->first << node->count_children() << std::endl;
 			if (node->count_children() == 0)
 			{
 				// unlink parent and node
-				if (node->parent->left == node)
+				if (node->parent == NULL)
+					_root = NULL;
+				else if (node->parent->left == node)
 					node->parent->left = NULL;
 				else
 					node->parent->right = NULL;
@@ -522,7 +525,9 @@ namespace ft
 					child = node->right;
 				
 				// link node parent to node child
-				if (node->parent->left == node)
+				if (node->parent == NULL)
+					_root = child;
+				else if (node->parent->left == node)
 					node->parent->left = child;
 				else
 					node->parent->right = child;
@@ -537,14 +542,13 @@ namespace ft
 			
 			if (node->count_children() == 2)
 			{
-				// get minimum of the right tree of node. Also get the 
-				node_pointer	min = _min(node->right);
+				// get minimum of the successor of node. Also get the child of the succesor
+				node_pointer	min = (++pos).node();
 				node_pointer	min_child;
 				if (min->left != NULL)
 					min_child = min->left;
 				else
 					min_child = min->right;
-				
 				// link minimum parent to minimum child
 				if (min->parent->left == min)
 					min->parent->left = min_child;
@@ -556,14 +560,17 @@ namespace ft
 					min_child->parent = min->parent;
 
 				// link node parent to minimum
-				if (node->parent->left == node)
+				if (node->parent == NULL)
+					_root = min;
+				else if (node->parent->left == node)
 					node->parent->left = min;
 				else
 					node->parent->right = min;
 
 				// link node child to minimum
 				node->left->parent = min;
-				node->right->parent = min;
+				if (node->right != NULL)
+					node->right->parent = min;
 
 				// link minimum to node parent and node child
 				min->parent = node->parent;
@@ -574,7 +581,6 @@ namespace ft
 				--_size;
 				return;
 			}
-			return;
 		}
 
 	public: // lookup
