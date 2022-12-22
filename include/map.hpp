@@ -138,8 +138,8 @@ namespace ft
 		void	erase( iterator pos )					{_t.erase(pos);}
 		void	erase( iterator first, iterator last )
 		{
-			for (; first != last; first++)
-				_t.erase(first);
+			while (first != last)
+				_t.erase(first++);
 		}
 
 		size_type	erase( const key_type& key )
