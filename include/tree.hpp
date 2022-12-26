@@ -443,9 +443,23 @@ namespace ft
 
 		void	swap(Tree& other)
 		{
-			Tree tmp(other);
-			other = *this;
-			*this = tmp;
+			value_allocator_type	tmp_value_allocator = other._value_allocator;
+			node_allocator_type		tmp_node_allocator = other._node_allocator;
+			key_compare				tmp_compare = other._compare;
+			node_pointer			tmp_root = other._root;
+			size_type				tmp_size = other._size;
+
+			other._value_allocator = _value_allocator;
+			other._node_allocator = _node_allocator;
+			other._compare = _compare;
+			other._root = _root;
+			other._size = _size;
+
+			_value_allocator = tmp_value_allocator;
+			_node_allocator = tmp_node_allocator;
+			_compare = tmp_compare;
+			_root = tmp_root;
+			_size = tmp_size;
 		}
 
 	public: // modifiers: clear/erase

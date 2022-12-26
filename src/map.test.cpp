@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.test.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 20:49:34 by alefranc          #+#    #+#             */
-/*   Updated: 2022/12/26 14:42:13 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/12/26 20:41:00 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -305,7 +305,7 @@ static void	test_map_test()
 
 
 	ns::map<char, int>::const_iterator tmp = foo.begin(); //tmp iterates through foo
-	// ns::map<char, int>::const_iterator tmp2 = bar.begin(); //tmp2 iterates through bar
+	ns::map<char, int>::const_iterator tmp2 = bar.begin(); //tmp2 iterates through bar
 
 	foo.swap(bar); //tmp iterates through bar
 				//tmp2 iterates through foo
@@ -320,7 +320,7 @@ static void	test_map_test()
 	other['5'] = 74683;
 	other['6'] = 753;
 
-	// ns::map<char, int>::const_iterator tmp3 = other.begin(); // tmp3 iterates through other
+	ns::map<char, int>::const_iterator tmp3 = other.begin(); // tmp3 iterates through other
 
 	std::cout << "foo contains:\n";
 	for (ns::map<char,int>::iterator it=foo.begin(); it!=foo.end(); ++it)
@@ -341,64 +341,64 @@ static void	test_map_test()
 	}
 	tmp--;
 
-	// while(tmp2 != foo.end())
-	// {
-	// 	std::cout << tmp2->first << " => " << tmp2->second << '\n';
-	// 	tmp2++;
-	// }
-	// tmp2--;
+	while(tmp2 != foo.end())
+	{
+		std::cout << tmp2->first << " => " << tmp2->second << '\n';
+		tmp2++;
+	}
+	tmp2--;
 
-	// other.swap(foo); //tmp2 iterates through other
-	// 				//tmp3 iterates throught foo
-	// print_map(other);
-	// print_map(foo);
-	// print_map(bar);
-	// while(tmp != bar.begin())
-	// {
-	// 	std::cout << tmp->first << " => " << tmp->second << '\n';
-	// 	tmp--;
-	// }
-	// std::cout << tmp->first << " => " << tmp->second << '\n';
+	other.swap(foo); //tmp2 iterates through other
+					//tmp3 iterates throught foo
+	print_map(other);
+	print_map(foo);
+	print_map(bar);
+	while(tmp != bar.begin())
+	{
+		std::cout << tmp->first << " => " << tmp->second << '\n';
+		tmp--;
+	}
+	std::cout << tmp->first << " => " << tmp->second << '\n';
 
-	// while(tmp2 != other.begin())
-	// {
-	// 	std::cout << tmp2->first << " => " << tmp2->second << '\n';
-	// 	tmp2--;
-	// }
-	// std::cout << tmp2->first << " => " << tmp2->second << '\n';
+	while(tmp2 != other.begin())
+	{
+		std::cout << tmp2->first << " => " << tmp2->second << '\n';
+		tmp2--;
+	}
+	std::cout << tmp2->first << " => " << tmp2->second << '\n';
 
-	// while(tmp3 != foo.end())
-	// {
-	// 	std::cout << tmp3->first << " => " << tmp3->second << '\n';
-	// 	tmp3++;
-	// }
-	// tmp3--;
+	while(tmp3 != foo.end())
+	{
+		std::cout << tmp3->first << " => " << tmp3->second << '\n';
+		tmp3++;
+	}
+	tmp3--;
 
-	// bar.swap(foo); //tmp3 iterates through bar
-	// 			//tmp iterates through foo
+	bar.swap(foo); //tmp3 iterates through bar
+				//tmp iterates through foo
 
-	// print_map(other);
-	// print_map(foo);
-	// print_map(bar);
+	print_map(other);
+	print_map(foo);
+	print_map(bar);
 
-	// while(tmp != foo.end())
-	// {
-	// 	std::cout << tmp->first << " => " << tmp->second << '\n';
-	// 	tmp++;
-	// }
+	while(tmp != foo.end())
+	{
+		std::cout << tmp->first << " => " << tmp->second << '\n';
+		tmp++;
+	}
 
-	// while(tmp2 != other.end())
-	// {
-	// 	std::cout << tmp2->first << " => " << tmp2->second << '\n';
-	// 	tmp2++;
-	// }
+	while(tmp2 != other.end())
+	{
+		std::cout << tmp2->first << " => " << tmp2->second << '\n';
+		tmp2++;
+	}
 
-	// while(tmp3 != bar.begin())
-	// {
-	// 	std::cout << tmp3->first << " => " << tmp3->second << '\n';
-	// 	tmp3--;
-	// }
-	// std::cout << tmp3->first << " => " << tmp3->second << '\n';
+	while(tmp3 != bar.begin())
+	{
+		std::cout << tmp3->first << " => " << tmp3->second << '\n';
+		tmp3--;
+	}
+	std::cout << tmp3->first << " => " << tmp3->second << '\n';
 }
 
 void	main_map()
