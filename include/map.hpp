@@ -174,6 +174,53 @@ namespace ft
 
 	}; // map
 
+	// Non member functions
+	template< class Key, class T, class Compare, class Alloc >
+	bool operator==( const ft::map<Key,T,Compare,Alloc>& lhs, const ft::map<Key,T,Compare,Alloc>& rhs )
+	{
+		if (lhs.size() != rhs.size())
+			return false;
+
+		typename ft::map<Key,T,Compare,Alloc>::const_iterator	lhs_it = lhs.begin();
+		typename ft::map<Key,T,Compare,Alloc>::const_iterator	rhs_it = rhs.begin();
+		while (lhs_it != lhs.end())
+		{
+			if (*lhs_it != *rhs_it)
+				return false;
+			++lhs_it;
+			++rhs_it;
+		}
+		return true;
+	}
+
+	template< class Key, class T, class Compare, class Alloc >
+	bool operator!=( const ft::map<Key,T,Compare,Alloc>& lhs, const ft::map<Key,T,Compare,Alloc>& rhs )
+	{
+		return !(lhs == rhs);
+	}
+
+	// template< class Key, class T, class Compare, class Alloc >
+	// bool operator< ( const ft::map<Key,T,Compare,Alloc>& lhs, const ft::map<Key,T,Compare,Alloc>& rhs )
+	// {}
+
+	// template< class Key, class T, class Compare, class Alloc >
+	// bool operator<=( const ft::map<Key,T,Compare,Alloc>& lhs, const ft::map<Key,T,Compare,Alloc>& rhs )
+	// {}
+
+	// template< class Key, class T, class Compare, class Alloc >
+	// bool operator> ( const ft::map<Key,T,Compare,Alloc>& lhs, const ft::map<Key,T,Compare,Alloc>& rhs )
+	// {}
+
+	// template< class Key, class T, class Compare, class Alloc >
+	// bool operator>=( const ft::map<Key,T,Compare,Alloc>& lhs, const ft::map<Key,T,Compare,Alloc>& rhs )
+	// {}
+
+	template< class Key, class T, class Compare, class Alloc >
+	void swap( ft::map<Key,T,Compare,Alloc>& lhs, ft::map<Key,T,Compare,Alloc>& rhs )
+	{
+		lhs.swap(rhs);
+	}
+
 } // ft
 
 #endif

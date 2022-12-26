@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.test.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 20:49:34 by alefranc          #+#    #+#             */
-/*   Updated: 2022/12/22 21:06:07 by alex             ###   ########.fr       */
+/*   Updated: 2022/12/26 14:42:13 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,11 +187,6 @@ static void	test_map_erase()
 	m['d']=40;
 	m['a']=10;
 
-
-	//              c
-	//       b             e
-	//   a              d     f
-
 	print_map(m);
 
 	std::cout << "Erase 2nd element via iterator" << std::endl;
@@ -208,61 +203,202 @@ static void	test_map_erase()
 
 }
 
-// static void	test_map_lookup()
-// {
-// 	print_title("MAP LOOKUP");
+static void	test_map_lookup()
+{
+	print_title("MAP DONT LOOK UP");
 
-// 	ns::map<char, int> m;
-// }
+	ns::map<char, int> m;
 
-// static void	test_map_modifiers()
-// {
-// 	print_title("MAP MODIFIERS");
+	m['c']=30;
+	m['e']=50;
+	m['f']=60;
+	m['d']=40;
+	m['a']=10;
 
-// 	ns::map<int, int> m;
+	print_map(m);
 
-// 	ns::pair<ns::map<int, int>::iterator, bool> out = m.insert(ns::pair<int, int>(100, 3));
-// 	std::cout << "Inserted? " << out.second
-// 			<< " mapped_value = " << out.first->second
-// 			<< " size = " << m.size() << std::endl;
+	for (char c = 'a'; c < 'h'; c++)
+	{
+		std::cout << "count '" << c << "'" << std::endl;
+		std::cout << m.count(c) << std::endl;
+	}
 
-// 	out = m.insert(ns::pair<int, int>(100, 3));
-// 	std::cout << "Inserted? " << out.second
-// 			<< " mapped_value = " << out.first->second
-// 			<< " size = " << m.size() << std::endl;
+	std::cout << std::endl;
 
-// 	// print_map(m);	
-// }
+	ns::map<char, int>::const_iterator	cit;
+	cit = m.find('c');
+	std::cout << "find 'c'" << std::endl;
+	std::cout << cit->first << " -> " << cit->second << std::endl << std::endl;
+
+	cit = m.find('z');
+	std::cout << "find 'z'" << std::endl;
+	if (cit == m.end())
+		std::cout << "iterator is end()" << std::endl;
+	else
+		std::cout << "iterator is not end()" << std::endl;
+
+	std::cout << std::endl;
+	
+	ns::pair<ns::map<char, int>::iterator, ns::map<char, int>::iterator> range;
+	for (char c = 'a'; c < 'h'; c++)
+	{
+		std::cout << "equal_range('" << c << "')" << std::endl;
+		range = m.equal_range(c);
+		if (range.first != m.end())
+			std::cout << "lower_bound=" << range.first->first << std::endl;
+		else
+			std::cout << "lower_bound is end()" << std::endl;
+
+		if (range.second != m.end())
+			std::cout << "upper_bound=" << range.second->first << std::endl;
+		else
+			std::cout << "upper_bound is end()" << std::endl;
+		
+		std::cout << std::endl;
+	}
+	
+}
+
+static void	test_map_swap()
+{
+	print_title("MAP SWAP");
+
+	ns::map<char, int> m1;
+
+	m1['c']=30;
+	m1['e']=50;
+	m1['f']=60;
+	m1['d']=40;
+	m1['a']=10;
+
+	ns::map<char, int> m2;
+
+	m2['y']=654;
+	m2['z']=122;
+	m2['t']=78;
+	m2['u']=1231;
+	m2['p']=165456;
+
+	std::cout << "m1" << std::endl;
+	print_map(m1);
+	std::cout << "m2" << std::endl;
+	print_map(m2);
+
+	m1.swap(m2);
+
+	std::cout << "m1" << std::endl;
+	print_map(m1);
+	std::cout << "m2" << std::endl;
+	print_map(m2);
+}
 
 static void	test_map_test()
 {
-	print_title("MAP TEST");
+	ns::map<char,int> foo,bar;
 
-  ns::map<char,int> mymap;
-  ns::map<char,int>::iterator it;
+	foo['x']=100;
+	foo['y']=200;
 
-  // insert some values:
-  mymap['a']=10;
-  mymap['b']=20;
-  mymap['c']=30;
-  mymap['d']=40;
-  mymap['e']=50;
-  mymap['f']=60;
+	bar['a']=11;
+	bar['b']=22;
+	bar['c']=33;
 
-  it=mymap.find('b');
-  std::cout << "found b\n";
-  mymap.erase (it);                   // erasing by iterator
-  std::cout << "erase iterator to b\n";
-  mymap.erase ('c');                  // erasing by key
-  std::cout << "erase by key 'c'\n";
-  it=mymap.find ('e');
-  std::cout << "erase by range 'e' to end\n";
-  mymap.erase ( it, mymap.end() );    // erasing by range
 
-  std::cout << " display :\n";
-  // show content:
-  for (it=mymap.begin(); it!=mymap.end(); ++it)
-    std::cout << it->first << " => " << it->second << '\n';
+	ns::map<char, int>::const_iterator tmp = foo.begin(); //tmp iterates through foo
+	// ns::map<char, int>::const_iterator tmp2 = bar.begin(); //tmp2 iterates through bar
+
+	foo.swap(bar); //tmp iterates through bar
+				//tmp2 iterates through foo
+
+
+	ns::map<char, int>	other;
+
+	other['1'] = 73;
+	other['2'] = 173;
+	other['3'] = 763;
+	other['4'] = 73854;
+	other['5'] = 74683;
+	other['6'] = 753;
+
+	// ns::map<char, int>::const_iterator tmp3 = other.begin(); // tmp3 iterates through other
+
+	std::cout << "foo contains:\n";
+	for (ns::map<char,int>::iterator it=foo.begin(); it!=foo.end(); ++it)
+		std::cout << it->first << " => " << it->second << '\n';
+
+	std::cout << std::endl;
+
+	std::cout << "bar contains:\n";
+	for (ns::map<char,int>::iterator it=bar.begin(); it!=bar.end(); ++it)
+		std::cout << it->first << " => " << it->second << '\n';
+
+	std::cout << std::endl;
+
+	while(tmp != bar.end())
+	{
+		std::cout << tmp->first << " => " << tmp->second << '\n';
+		tmp++;
+	}
+	tmp--;
+
+	// while(tmp2 != foo.end())
+	// {
+	// 	std::cout << tmp2->first << " => " << tmp2->second << '\n';
+	// 	tmp2++;
+	// }
+	// tmp2--;
+
+	// other.swap(foo); //tmp2 iterates through other
+	// 				//tmp3 iterates throught foo
+	// print_map(other);
+	// print_map(foo);
+	// print_map(bar);
+	// while(tmp != bar.begin())
+	// {
+	// 	std::cout << tmp->first << " => " << tmp->second << '\n';
+	// 	tmp--;
+	// }
+	// std::cout << tmp->first << " => " << tmp->second << '\n';
+
+	// while(tmp2 != other.begin())
+	// {
+	// 	std::cout << tmp2->first << " => " << tmp2->second << '\n';
+	// 	tmp2--;
+	// }
+	// std::cout << tmp2->first << " => " << tmp2->second << '\n';
+
+	// while(tmp3 != foo.end())
+	// {
+	// 	std::cout << tmp3->first << " => " << tmp3->second << '\n';
+	// 	tmp3++;
+	// }
+	// tmp3--;
+
+	// bar.swap(foo); //tmp3 iterates through bar
+	// 			//tmp iterates through foo
+
+	// print_map(other);
+	// print_map(foo);
+	// print_map(bar);
+
+	// while(tmp != foo.end())
+	// {
+	// 	std::cout << tmp->first << " => " << tmp->second << '\n';
+	// 	tmp++;
+	// }
+
+	// while(tmp2 != other.end())
+	// {
+	// 	std::cout << tmp2->first << " => " << tmp2->second << '\n';
+	// 	tmp2++;
+	// }
+
+	// while(tmp3 != bar.begin())
+	// {
+	// 	std::cout << tmp3->first << " => " << tmp3->second << '\n';
+	// 	tmp3--;
+	// }
+	// std::cout << tmp3->first << " => " << tmp3->second << '\n';
 }
 
 void	main_map()
@@ -272,7 +408,7 @@ void	main_map()
 	test_map_reverse_iterator();
 	test_map_copy();
 	test_map_erase();
-	// test_map_lookup();
-	// test_map_modifiers();
+	test_map_lookup();
+	test_map_swap();
 	test_map_test();
 }

@@ -451,48 +451,6 @@ namespace ft
 	public: // modifiers: clear/erase
 		void	clear() {_destroy(_root);}
 
-		// void	erase(iterator pos)
-		// {
-		// 	if (pos == end())
-		// 		return;
-
-		// 	node_pointer	z = pos.node();
-		// 	node_pointer	y;
-		// 	if (z->left == NULL || z->right == NULL)
-		// 		y = z;
-		// 	else
-		// 	{
-		// 		y = (++pos).node();
-		// 	}
-			
-		// 	node_pointer	x;
-		// 	if (y->left != NULL)
-		// 		x = y->left;
-		// 	else
-		// 		x = y->right;
-			
-		// 	if (x != NULL)
-		// 		x->parent = y->parent;
-			
-		// 	if (y->parent == NULL)
-		// 		_root = x;
-		// 	else if (y == y->parent->left)
-		// 		y->parent->left = x;
-		// 	else
-		// 		y->parent->right = x;
-
-		// 	if (y != z)
-		// 	{
-		// 		_value_allocator.construct(&z->value, y->value);
-		// 	}
-			
-		// 	if (y != NULL)
-		// 	{
-		// 		_node_allocator.deallocate(y, 1);
-		// 	}
-		// 	--_size;
-		// }
-
 		void	erase(iterator pos)
 		{
 			if (pos == end())
@@ -603,12 +561,22 @@ namespace ft
 
 		iterator	lower_bound(const key_type& key) const
 		{
-			return --find(key);
+			iterator	it = begin();
+			while (it != end() && it->first < key)
+				it++;
+			return it;
 		}
 
 		iterator	upper_bound(const key_type& key) const
 		{
-			return ++find(key);
+			iterator	it = begin();
+			while (it != end())
+			{
+				if (it->first > key)
+					return it;
+				it++;
+			}
+			return end();
 		}
 
 		ft::pair<iterator, iterator>	equal_range(const key_type& key) const
