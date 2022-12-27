@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 14:02:33 by alefranc          #+#    #+#             */
-/*   Updated: 2022/12/21 00:42:45 by alex             ###   ########.fr       */
+/*   Updated: 2022/12/27 17:20:24 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,9 @@ struct pair
 	pair(const T1& one, const T2& two);
 	pair(const pair<T1, T2>& src);
 
+	template< class U1, class U2 >
+	pair( const pair<U1, U2>& p );
+
 	pair<T1, T2>& operator=(const pair<T1, T2>& other);
 	
 	*/
@@ -67,6 +70,11 @@ struct pair
 		: first(src.first), second(src.second)
 	{}
 
+	template< class U1, class U2 >
+	pair( const pair<U1, U2>& p )
+		: first(p.first), second(p.second)
+	{}
+
 	pair<T1, T2>& operator=(const pair<T1, T2>& other)
 	{
 		if (this != &other)
@@ -75,12 +83,6 @@ struct pair
 			this->second = other.second;
 		}
 		return (*this);
-	}
-
-	operator ft::pair<const T1, T2>()
-	{
-		// std::cout << "Implicit conversion from pair<T1, T2> to pair<const T1, T2>" << std::endl;
-		return ft::pair<const T1, T2>(first, second);
 	}
 	
 };

@@ -49,7 +49,7 @@ namespace ft
 		}; // value_compare
 
 	private: // setup tree representation
-		typedef Tree<value_type, key_compare, allocator_type> tree_type;
+		typedef Tree<key_type, mapped_type, key_compare, allocator_type> tree_type;
 		tree_type	_t;
 	
 	public: // typedefs derived from tree
@@ -70,9 +70,20 @@ namespace ft
 		map(): _t() {}
 
 		// explicit map( const Compare& comp, const Allocator& alloc = Allocator())
+		// 	: _t()
 		// {}
+
 		// template< class InputIt >
-		// map( InputIt first, InputIt last, const Compare& comp = Compare(), const Allocator& alloc = Allocator() );
+		// map( InputIt first, InputIt last, const Compare& comp = Compare(), const Allocator& alloc = Allocator() )
+		// 	: _t()
+		// {
+		// 	while (first != last)
+		// 	{
+		// 		_t.insert(first);
+		// 		first++;
+		// 	}
+		// }
+
 		map( const map& src ): _t(src._t) {}
 
 		~map() {}

@@ -18,13 +18,13 @@
 namespace ft
 {
 
-	template <class Value, class Compare, class Allocator>
+	template <class Key, class T, class Compare, class Allocator>
 	class Tree
 	{
 	public: // basic typedefs
-		typedef Value							value_type;
-		typedef typename value_type::first_type	key_type;
-		typedef typename value_type::second_type	mapped_value;
+		typedef	Key								key_type;
+		typedef T								mapped_type;
+		typedef ft::pair<const Key, T>			value_type;
 		typedef Compare							key_compare;
 		typedef Allocator						value_allocator_type;
 
