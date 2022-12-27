@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.test.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 20:49:34 by alefranc          #+#    #+#             */
-/*   Updated: 2022/12/26 20:41:00 by alex             ###   ########.fr       */
+/*   Updated: 2022/12/27 14:45:27 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -284,122 +284,33 @@ static void	test_map_swap()
 	std::cout << "m2" << std::endl;
 	print_map(m2);
 
+	ns::map<char, int>::const_iterator it_m1 = m1.begin();
+	ns::map<char, int>::const_iterator it_m2 = m2.begin();
+
 	m1.swap(m2);
 
 	std::cout << "m1" << std::endl;
 	print_map(m1);
 	std::cout << "m2" << std::endl;
 	print_map(m2);
+
+	while (it_m1 != m2.end())
+	{
+		std::cout << it_m1->first << " -> " << it_m1->second << std::endl;
+		it_m1++;
+	}
+
+	while (it_m2 != m1.end())
+	{
+		std::cout << it_m2->first << " -> " << it_m2->second << std::endl;
+		it_m2++;
+	}
 }
 
-static void	test_map_test()
-{
-	ns::map<char,int> foo,bar;
-
-	foo['x']=100;
-	foo['y']=200;
-
-	bar['a']=11;
-	bar['b']=22;
-	bar['c']=33;
-
-
-	ns::map<char, int>::const_iterator tmp = foo.begin(); //tmp iterates through foo
-	ns::map<char, int>::const_iterator tmp2 = bar.begin(); //tmp2 iterates through bar
-
-	foo.swap(bar); //tmp iterates through bar
-				//tmp2 iterates through foo
-
-
-	ns::map<char, int>	other;
-
-	other['1'] = 73;
-	other['2'] = 173;
-	other['3'] = 763;
-	other['4'] = 73854;
-	other['5'] = 74683;
-	other['6'] = 753;
-
-	ns::map<char, int>::const_iterator tmp3 = other.begin(); // tmp3 iterates through other
-
-	std::cout << "foo contains:\n";
-	for (ns::map<char,int>::iterator it=foo.begin(); it!=foo.end(); ++it)
-		std::cout << it->first << " => " << it->second << '\n';
-
-	std::cout << std::endl;
-
-	std::cout << "bar contains:\n";
-	for (ns::map<char,int>::iterator it=bar.begin(); it!=bar.end(); ++it)
-		std::cout << it->first << " => " << it->second << '\n';
-
-	std::cout << std::endl;
-
-	while(tmp != bar.end())
-	{
-		std::cout << tmp->first << " => " << tmp->second << '\n';
-		tmp++;
-	}
-	tmp--;
-
-	while(tmp2 != foo.end())
-	{
-		std::cout << tmp2->first << " => " << tmp2->second << '\n';
-		tmp2++;
-	}
-	tmp2--;
-
-	other.swap(foo); //tmp2 iterates through other
-					//tmp3 iterates throught foo
-	print_map(other);
-	print_map(foo);
-	print_map(bar);
-	while(tmp != bar.begin())
-	{
-		std::cout << tmp->first << " => " << tmp->second << '\n';
-		tmp--;
-	}
-	std::cout << tmp->first << " => " << tmp->second << '\n';
-
-	while(tmp2 != other.begin())
-	{
-		std::cout << tmp2->first << " => " << tmp2->second << '\n';
-		tmp2--;
-	}
-	std::cout << tmp2->first << " => " << tmp2->second << '\n';
-
-	while(tmp3 != foo.end())
-	{
-		std::cout << tmp3->first << " => " << tmp3->second << '\n';
-		tmp3++;
-	}
-	tmp3--;
-
-	bar.swap(foo); //tmp3 iterates through bar
-				//tmp iterates through foo
-
-	print_map(other);
-	print_map(foo);
-	print_map(bar);
-
-	while(tmp != foo.end())
-	{
-		std::cout << tmp->first << " => " << tmp->second << '\n';
-		tmp++;
-	}
-
-	while(tmp2 != other.end())
-	{
-		std::cout << tmp2->first << " => " << tmp2->second << '\n';
-		tmp2++;
-	}
-
-	while(tmp3 != bar.begin())
-	{
-		std::cout << tmp3->first << " => " << tmp3->second << '\n';
-		tmp3--;
-	}
-	std::cout << tmp3->first << " => " << tmp3->second << '\n';
-}
+// static void	test_map_test()
+// {
+	
+// }
 
 void	main_map()
 {
@@ -410,5 +321,5 @@ void	main_map()
 	test_map_erase();
 	test_map_lookup();
 	test_map_swap();
-	test_map_test();
+	// test_map_test();
 }

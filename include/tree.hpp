@@ -355,8 +355,6 @@ namespace ft
 			return *this;
 		}
 
-		value_allocator_type	get_value_allocator() const {return _value_allocator;}
-
 	private: // internal function
 		void	_copy(const Tree& src)
 		{
@@ -406,7 +404,7 @@ namespace ft
 	public: // capacity
 		bool		empty() const		{return _size == 0;}
 		size_type	size() const		{return _size;}
-		size_type	max_size() const	{return 0;}
+		size_type	max_size() const	{return _node_allocator.max_size();}
 	
 	public: // modifiers: insert/swap
 		ft::pair<iterator, bool> insert(const value_type& value)
@@ -600,6 +598,8 @@ namespace ft
 		
 
 	public: // observers
+		value_allocator_type	get_value_allocator() const {return _value_allocator;}
+		key_compare				key_comp() const {return _compare;}
 
 
 	}; // Tree

@@ -170,7 +170,7 @@ namespace ft
 	public: // observers
 		allocator_type	get_allocator() const	{return _t.get_value_allocator();}
 		key_compare		key_comp() const		{return _t.key_comp();}
-		value_compare	value_comp() const		{return _t.value_comp();}
+		value_compare	value_comp() const		{return value_compare(Compare());}
 
 	}; // map
 
@@ -199,21 +199,29 @@ namespace ft
 		return !(lhs == rhs);
 	}
 
-	// template< class Key, class T, class Compare, class Alloc >
-	// bool operator< ( const ft::map<Key,T,Compare,Alloc>& lhs, const ft::map<Key,T,Compare,Alloc>& rhs )
-	// {}
+	template< class Key, class T, class Compare, class Alloc >
+	bool operator< ( const ft::map<Key,T,Compare,Alloc>& lhs, const ft::map<Key,T,Compare,Alloc>& rhs )
+	{
+		return ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+	}
 
-	// template< class Key, class T, class Compare, class Alloc >
-	// bool operator<=( const ft::map<Key,T,Compare,Alloc>& lhs, const ft::map<Key,T,Compare,Alloc>& rhs )
-	// {}
+	template< class Key, class T, class Compare, class Alloc >
+	bool operator<=( const ft::map<Key,T,Compare,Alloc>& lhs, const ft::map<Key,T,Compare,Alloc>& rhs )
+	{
+		return lhs < rhs || lhs == rhs;
+	}
 
-	// template< class Key, class T, class Compare, class Alloc >
-	// bool operator> ( const ft::map<Key,T,Compare,Alloc>& lhs, const ft::map<Key,T,Compare,Alloc>& rhs )
-	// {}
+	template< class Key, class T, class Compare, class Alloc >
+	bool operator> ( const ft::map<Key,T,Compare,Alloc>& lhs, const ft::map<Key,T,Compare,Alloc>& rhs )
+	{
+		return !(lhs <= rhs);
+	}
 
-	// template< class Key, class T, class Compare, class Alloc >
-	// bool operator>=( const ft::map<Key,T,Compare,Alloc>& lhs, const ft::map<Key,T,Compare,Alloc>& rhs )
-	// {}
+	template< class Key, class T, class Compare, class Alloc >
+	bool operator>=( const ft::map<Key,T,Compare,Alloc>& lhs, const ft::map<Key,T,Compare,Alloc>& rhs )
+	{
+		return !(lhs < rhs);
+	}
 
 	template< class Key, class T, class Compare, class Alloc >
 	void swap( ft::map<Key,T,Compare,Alloc>& lhs, ft::map<Key,T,Compare,Alloc>& rhs )
