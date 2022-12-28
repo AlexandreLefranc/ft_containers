@@ -6,12 +6,13 @@
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 15:16:10 by alefranc          #+#    #+#             */
-/*   Updated: 2022/11/23 17:26:35 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/12/28 16:43:10 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include <string>
+#include <list>
 
 #ifdef FT
 	#include "vector.hpp"
@@ -204,6 +205,104 @@ static void	test_vector_iterator()
 	}
 }
 
+static void	test_vector_iterator2()
+{
+	print_title("VECTOR - ITERATOR2");
+
+	std::list<int>				lst;
+	std::list<int>::iterator	lst_it;
+	for (int i = 1; i < 5; ++i)
+		lst.push_back(i * 3);
+
+	ns::vector<int> vct(lst.begin(), lst.end());
+	print_vector(vct);
+
+	lst_it = lst.begin();
+	for (int i = 1; lst_it != lst.end(); ++i)
+		*lst_it++ = i * 5;
+	vct.assign(lst.begin(), lst.end());
+	print_vector(vct);
+
+	vct.insert(vct.end(), lst.rbegin(), lst.rend());
+	print_vector(vct);
+}
+
+static void	test_vector_iterator3()
+{
+	print_title("VECTOR - ITERATOR3");
+
+	const int size = 5;
+	ns::vector<int> vct(size);
+	ns::vector<int>::iterator it = vct.begin();
+	ns::vector<int>::const_iterator ite = vct.begin();
+
+	for (int i = 0; i < size; ++i)
+		it[i] = (size - i) * 5;
+	ns::vector<int>::iterator it_tmp;
+
+	std::cout << "Pre inc" << std::endl;
+	it_tmp = ++it;
+	std::cout << *it_tmp << " | " << *it << std::endl;
+
+	std::cout << "Pre dec" << std::endl;
+	it_tmp = --it;
+	std::cout << *it_tmp << " | " << *it << std::endl;
+
+	std::cout << "Post inc" << std::endl;
+	it_tmp = it++;
+	std::cout << *it_tmp << " | " << *it << std::endl;
+
+	std::cout << "Post dec" << std::endl;
+	it_tmp = it--;
+	std::cout << *it_tmp << " | " << *it << std::endl;
+	std::cout << "###############################################" << std::endl;
+	it = it + 5;
+	it = 1 + it;
+	it = it - 4;
+	std::cout << *(it += 2) << std::endl;
+	std::cout << *(it -= 1) << std::endl;
+
+	*(it -= 2) = 42;
+	*(it += 2) = 21;
+
+	std::cout << "const_ite +=: " << *(ite += 2) << std::endl;
+	std::cout << "const_ite -=: " << *(ite -= 2) << std::endl;
+
+	std::cout << "(it == const_it): " << (ite == it) << std::endl;
+	std::cout << "(const_ite - it): " << (ite - it) << std::endl;
+	std::cout << "(ite + 3 == it): " << (ite + 3 == it) << std::endl;
+
+	print_vector(vct);
+}
+
+static void	test_vector_reverse_iterator()
+{
+	const int size = 5;
+	ns::vector<int> vct(size);
+	ns::vector<int>::reverse_iterator it = vct.rbegin();
+	ns::vector<int>::const_reverse_iterator ite = vct.rbegin();
+
+	for (int i = 0; i < size; ++i)
+		it[i] = (size - i) * 5;
+
+	it = it + 5;
+	it = 1 + it;
+	it = it - 4;
+	std::cout << *(it += 2) << std::endl;
+	std::cout << *(it -= 1) << std::endl;
+
+	*(it -= 2) = 42;
+	*(it += 2) = 21;
+
+	std::cout << "const_ite +=/-=: " << *(ite += 2) << " | " << *(ite -= 2) << std::endl;
+
+	std::cout << "(it == const_it): " << (ite == it) << std::endl;
+	std::cout << "(const_ite - it): " << (ite - it) << std::endl;
+	std::cout << "(ite + 3 == it): " << (ite + 3 == it) << std::endl;
+
+	print_vector(vct);
+}
+
 static void test_vector_insert()
 {
 	print_title("VECTOR - INSERT");
@@ -301,6 +400,8 @@ void	main_vector()
 	test_vector_constructor();
 	test_vector_assign();
 	test_vector_iterator();
+	test_vector_iterator2();
+	test_vector_iterator3();
 	test_vector_insert();
 	test_vector_erase();
 }

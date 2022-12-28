@@ -6,7 +6,7 @@
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 20:49:34 by alefranc          #+#    #+#             */
-/*   Updated: 2022/12/27 14:45:27 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/12/28 17:16:42 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -307,10 +307,10 @@ static void	test_map_swap()
 	}
 }
 
-// static void	test_map_test()
-// {
+static void	test_map_test()
+{
 	
-// }
+}
 
 void	main_map()
 {

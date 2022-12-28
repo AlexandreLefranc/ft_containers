@@ -6,7 +6,7 @@
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 18:02:07 by alefranc          #+#    #+#             */
-/*   Updated: 2022/11/25 17:27:44 by alefranc         ###   ########.fr       */
+/*   Updated: 2022/12/28 16:40:03 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,7 @@ namespace ft
 	template < typename T, typename Allocator = std::allocator<T> >
 	class vector
 	{
-
-	public:
-
-		// Typedefs
+	public: // typedefs
 		typedef T										value_type;
 		typedef Allocator								allocator_type;
 		typedef std::size_t								size_type;
@@ -43,39 +40,13 @@ namespace ft
 		typedef ft::reverse_iterator<iterator>			reverse_iterator;
 		typedef ft::reverse_iterator<const_iterator>	const_reverse_iterator;
 
-	private:
-	
+	private: // attributes
 		pointer			_data;
 		size_type		_size;
 		size_type		_capacity;
 		allocator_type	_alloc;
 
-	public:
-
-		/* CONSTRUCTOR DESTRUCTOR ASSIGN - SYNOPSIS
-
-		vector();
-		explicit vector( const Allocator& alloc );
-		explicit vector( size_type count, const T& value = T(), const Allocator& alloc = Allocator());
-
-		template< class InputIt >
-		vector( InputIt first, InputIt last, const Allocator& alloc = Allocator() );
-		
-		vector( const vector& other );
-		
-		vector& operator=( const vector& rhs );
-		
-		~vector();
-
-		void assign( size_type count, const T& value );
-		
-		template < class InputIt >
-		void assign( InputIt first, InputIt last );
-
-		allocator_type get_allocator() const;
-
-		*/
-
+	public: // constructor/destructor/operator=
 		vector()
 			: _data(NULL), _size(0), _capacity(0), _alloc(Allocator())
 		{/*std::cout << "Default constructor" << std::endl;*/}
@@ -169,25 +140,7 @@ namespace ft
 
 		allocator_type get_allocator() const {return (_alloc);}
 
-		/* ELEMENT ACCESS - SYNOPSIS
-
-		reference 		at( size_type pos );
-		const_reference	at( size_type pos ) const;
-
-		reference 		operator[]( size_type pos );
-		const_reference	operator[]( size_type pos ) const;
-		
-		reference 		front();
-		const_reference	front() const;
-
-		reference		back();
-		const_reference	back() const;
-
-		T* data();
-		const T* data() const;
-		
-		*/
-
+	public: // element access
 		reference 		at( size_type pos )
 		{
 			if (pos >= size())
@@ -214,22 +167,7 @@ namespace ft
 		T* 			data()			{return _data;}
 		const T*	data() const	{return _data;}
 		
-		/* ITERATORS - SYNOPSIS
-		
-		iterator				begin();
-		const_iterator			begin() const;
-
-		iterator				end();
-		const_iterator			end() const;
-
-		reverse_iterator		rbegin();
-		const_reverse_iterator	rbegin() const;
-
-		reverse_iterator		rend();
-		const_reverse_iterator	rend() const;
-
-		*/
-
+	public: // iterators
 		iterator				begin()			{return iterator(_data);}
 		const_iterator			begin() const	{return const_iterator(_data);}
 
@@ -242,17 +180,7 @@ namespace ft
 		reverse_iterator		rend()			{return reverse_iterator(begin());}		
 		const_reverse_iterator	rend() const	{return const_reverse_iterator(begin());}
 
-	
-		/* CAPACITY - SYNOPSIS
-		
-		bool		empty() const;
-		size_type	size() const;
-		size_type	max_size() const;
-		void		reserve( size_type new_cap );
-		size_type	capacity() const;
-
-		*/
-
+	public: // capacity
 		bool		empty() const	{return size() == 0;}
 		size_type	size() const	{return _size;}
 		size_type	max_size() const	{return _alloc.max_size();}
@@ -278,28 +206,7 @@ namespace ft
 
 		size_type	capacity() const	{return _capacity;}
 
-		/* MODIFIER - SYNOPSIS
-		
-		void		clear();
-
-		iterator	insert( const_iterator pos, const T& value );
-		iterator	insert( const_iterator pos, size_type count, const T& value );
-		
-		template< class InputIt >
-		iterator	insert( const_iterator pos, InputIt first, InputIt last );
-
-		iterator	erase( iterator pos );
-		iterator	erase( iterator first, iterator last );
-
-		void		push_back( const T& value );
-		void		pop_back();
-
-		void		resize( size_type count, T value = T() );
-
-		void		swap( vector& other );
-
-		*/
-
+	public: // modifiers
 		void clear()
 		{
 			for (size_type i = 0; i < _size; i++)
@@ -430,32 +337,7 @@ namespace ft
 			_alloc = tmp_alloc;
 		}
 
-	};
-
-	/* NON-MEMBER FUNCTIONS - SYNOPSIS
-		
-	template< class T, class Alloc >
-	void swap( ft::vector<T, Alloc>& lhs, ft::vector<T, Alloc>& rhs );
-
-	template< class T, class Alloc >
-	bool operator==( const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs );
-
-	template< class T, class Alloc >
-	bool operator!=( const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs );
-
-	template< class T, class Alloc >
-	bool operator<( const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs );
-
-	template< class T, class Alloc >
-	bool operator<=( const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs );
-
-	template< class T, class Alloc >
-	bool operator>( const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs );
-
-	template< class T, class Alloc >
-	bool operator>=( const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs );
-
-	*/
+	}; // class vector
 
 	template< class T, class Alloc >
 	void swap( ft::vector<T, Alloc>& lhs, ft::vector<T, Alloc>& rhs )
@@ -487,73 +369,25 @@ namespace ft
 	template< class T, class Alloc >
 	bool operator<( const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs )
 	{
-		typename ft::vector<T,Alloc>::const_iterator first1 = lhs.begin();
-		typename ft::vector<T,Alloc>::const_iterator last1 = lhs.end();
-
-		typename ft::vector<T,Alloc>::const_iterator first2 = rhs.begin();
-		typename ft::vector<T,Alloc>::const_iterator last2 = rhs.end();
-		for (; (first1 != last1) && (first2 != last2); ++first1, (void) ++first2)
-		{
-			if (*first1 < *first2)
-				return true;
-			if (*first2 < *first1)
-				return false;
-		}
-		return (first1 == last1) && (first2 != last2);
-	}
-
-	template< class T, class Alloc >
-	bool operator<=( const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs )
-	{
-		typename ft::vector<T,Alloc>::const_iterator first1 = lhs.begin();
-		typename ft::vector<T,Alloc>::const_iterator last1 = lhs.end();
-
-		typename ft::vector<T,Alloc>::const_iterator first2 = rhs.begin();
-		typename ft::vector<T,Alloc>::const_iterator last2 = rhs.end();
-		for (; (first1 != last1) && (first2 != last2); ++first1, (void) ++first2)
-		{
-			if (*first1 <= *first2)
-				return true;
-			if (*first2 <= *first1)
-				return false;
-		}
-		return (first1 == last1) && (first2 != last2);
+		return ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
 	}
 
 	template< class T, class Alloc >
 	bool operator>( const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs )
 	{
-		typename ft::vector<T,Alloc>::const_iterator first1 = lhs.begin();
-		typename ft::vector<T,Alloc>::const_iterator last1 = lhs.end();
+		return rhs < lhs;
+	}
 
-		typename ft::vector<T,Alloc>::const_iterator first2 = rhs.begin();
-		typename ft::vector<T,Alloc>::const_iterator last2 = rhs.end();
-		for (; (first1 != last1) && (first2 != last2); ++first1, (void) ++first2)
-		{
-			if (*first1 > *first2)
-				return true;
-			if (*first2 > *first1)
-				return false;
-		}
-		return (first1 == last1) && (first2 != last2);
+	template< class T, class Alloc >
+	bool operator<=( const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs )
+	{
+		return !(lhs > rhs);
 	}
 
 	template< class T, class Alloc >
 	bool operator>=( const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs )
 	{
-		typename ft::vector<T,Alloc>::const_iterator first1 = lhs.begin();
-		typename ft::vector<T,Alloc>::const_iterator last1 = lhs.end();
-
-		typename ft::vector<T,Alloc>::const_iterator first2 = rhs.begin();
-		typename ft::vector<T,Alloc>::const_iterator last2 = rhs.end();
-		for (; (first1 != last1) && (first2 != last2); ++first1, (void) ++first2)
-		{
-			if (*first1 >= *first2)
-				return true;
-			if (*first2 >= *first1)
-				return false;
-		}
-		return (first1 == last1) && (first2 != last2);
+		return !(lhs < rhs);
 	}
 
 } // namespace ft

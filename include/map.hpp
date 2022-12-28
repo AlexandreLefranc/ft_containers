@@ -48,10 +48,14 @@ namespace ft
 			}
 		}; // value_compare
 
+	private: // compare and alloc attributes
+		Compare		_compare;
+		Allocator	_allocator;
+
 	private: // setup tree representation
 		typedef Tree<key_type, mapped_type, key_compare, allocator_type> tree_type;
 		tree_type	_t;
-	
+
 	public: // typedefs derived from tree
 		typedef typename tree_type::size_type			size_type;
 		typedef typename tree_type::difference_type		difference_type;
@@ -67,24 +71,28 @@ namespace ft
 		typedef typename tree_type::const_reverse_iterator	const_reverse_iterator;
 
 	public: // constructor/destructor/operator=
-		map(): _t() {}
+		map()
+			: _compare(), _allocator(), _t()
+		{}
 
-		// explicit map( const Compare& comp, const Allocator& alloc = Allocator())
-		// 	: _t()
-		// {}
+		explicit map( const Compare& comp, const Allocator& alloc = Allocator())
+			: _compare(comp), _allocator(alloc), _t()
+		{}
 
-		// template< class InputIt >
-		// map( InputIt first, InputIt last, const Compare& comp = Compare(), const Allocator& alloc = Allocator() )
-		// 	: _t()
-		// {
-		// 	while (first != last)
-		// 	{
-		// 		_t.insert(first);
-		// 		first++;
-		// 	}
-		// }
+		template< class InputIt >
+		map( InputIt first, InputIt last, const Compare& comp = Compare(), const Allocator& alloc = Allocator() )
+			: _compare(comp), _allocator(alloc), _t()
+		{
+			while (first != last)
+			{
+				_t.insert(first);
+				first++;
+			}
+		}
 
-		map( const map& src ): _t(src._t) {}
+		map( const map& src )
+			: _compare(src._compare), _allocator(src._allocator), _t(src._t)
+		{}
 
 		~map() {}
 
@@ -92,6 +100,8 @@ namespace ft
 		{
 			if (this == &rhs)
 				return *this;
+			_compare = rhs._compare;
+			_allocator = rhs._allocator;
 			_t = rhs._t;
 			return *this;
 		}
