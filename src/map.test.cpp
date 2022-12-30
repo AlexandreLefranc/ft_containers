@@ -307,10 +307,28 @@ static void	test_map_swap()
 	}
 }
 
-static void	test_map_test()
+static void	test_map_perf()
 {
-	
+	int size = 100000;
+	ns::map<int, int>	m;
+
+	for (int i = 0; i < size ;i++)
+	{
+		if (i % 1000 == 0)
+			std::cout << i << std::endl;
+		m[i] = i;
+	}
+
+	// for (int i = 0; i < size ;i++)
+	// {
+	// 	m[i] = i + 1;
+	// }
 }
+
+// static void	test_map_test()
+// {
+	
+// }
 
 void	main_map()
 {
@@ -322,4 +340,5 @@ void	main_map()
 	test_map_lookup();
 	test_map_swap();
 	// test_map_test();
+	test_map_perf();
 }

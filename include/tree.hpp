@@ -53,8 +53,9 @@ namespace ft
 			}
 		}; // Node
 
-		typedef Node						node_type;
-		typedef std::allocator<node_type>	node_allocator_type;
+		typedef Node											node_type;
+		typedef typename Allocator::template rebind<Node>::other	node_allocator_type;
+		// typedef std::allocator<node_type>			node_allocator_type;
 
 	public: // typedefs
 		typedef typename node_allocator_type::size_type			size_type;

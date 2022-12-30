@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: alex <alex@student.42.fr>                  +#+  +:+       +#+         #
+#    By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/21 18:52:01 by alefranc          #+#    #+#              #
-#    Updated: 2022/12/21 00:53:34 by alex             ###   ########.fr        #
+#    Updated: 2022/12/30 14:33:17 by alefranc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,8 +47,7 @@ SRC			=	$(addprefix $(SRCDIR), $(SRCFILE))
 #------------------------------------#
 
 INCDIR		=	include/
-INCFILE		=	container.hpp \
-				functional.hpp \
+INCFILE		=	functional.hpp \
 				iterator.hpp \
 				map.hpp \
 				stack.hpp \
