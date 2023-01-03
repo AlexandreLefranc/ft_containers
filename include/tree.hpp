@@ -123,7 +123,7 @@ namespace ft
 		public: // dereference
 			reference	operator*() const {return _node->value;}
 			pointer		operator->() const {return &(_node->value);}
-		
+
 		private: // internal incrementor / decrement
 			node_pointer	_min(node_pointer node)
 			{
