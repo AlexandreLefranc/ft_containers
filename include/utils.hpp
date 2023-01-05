@@ -6,7 +6,7 @@
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 14:02:33 by alefranc          #+#    #+#             */
-/*   Updated: 2022/12/27 17:20:24 by alefranc         ###   ########.fr       */
+/*   Updated: 2023/01/04 17:49:52 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ struct pair
 		: first(p.first), second(p.second)
 	{}
 
-	pair<T1, T2>& operator=(const pair<T1, T2>& other)
+	pair& operator=(const pair& other)
 	{
 		if (this != &other)
 		{

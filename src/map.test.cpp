@@ -6,13 +6,15 @@
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 20:49:34 by alefranc          #+#    #+#             */
-/*   Updated: 2022/12/28 17:16:42 by alefranc         ###   ########.fr       */
+/*   Updated: 2023/01/05 17:14:08 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include <iomanip>
 #include <string>
+#include <cstdlib>
+#include <ctime>
 
 #ifdef FT
 	#include "map.hpp"
@@ -309,26 +311,34 @@ static void	test_map_swap()
 
 static void	test_map_perf()
 {
-	int size = 100000;
+	int size = 1000000;
 	ns::map<int, int>	m;
+
+	std::srand(std::time(NULL));
+	int	r;
+	for (int i = 0; i < size ;i++)
+	{
+		r = std::rand();
+		m[r] = r;
+	}
 
 	for (int i = 0; i < size ;i++)
 	{
-		if (i % 1000 == 0)
-			std::cout << i << std::endl;
-		m[i] = i;
+		m.find(i);
 	}
 
-	// for (int i = 0; i < size ;i++)
-	// {
-	// 	m[i] = i + 1;
-	// }
-}
+	for (int i = 0; i < size ;i++)
+	{
+		m.erase(i);
+	}
 
-// static void	test_map_test()
-// {
-	
-// }
+	m.clear();
+	size = 20000;
+	for (int i = 0; i < size ;i++)
+	{
+		m[i] = i;
+	}
+}
 
 void	main_map()
 {
@@ -339,6 +349,5 @@ void	main_map()
 	test_map_erase();
 	test_map_lookup();
 	test_map_swap();
-	// test_map_test();
-	test_map_perf();
+	// test_map_perf();
 }

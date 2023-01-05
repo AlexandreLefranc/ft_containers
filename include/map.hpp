@@ -200,7 +200,9 @@ namespace ft
 	bool operator==( const ft::map<Key,T,Compare,Alloc>& lhs, const ft::map<Key,T,Compare,Alloc>& rhs )
 	{
 		if (lhs.size() != rhs.size())
+		{
 			return false;
+		}
 
 		typename ft::map<Key,T,Compare,Alloc>::const_iterator	lhs_it = lhs.begin();
 		typename ft::map<Key,T,Compare,Alloc>::const_iterator	rhs_it = rhs.begin();
@@ -250,6 +252,6 @@ namespace ft
 		lhs.swap(rhs);
 	}
 
-} // ft
+} // namespace ft
 
 #endif

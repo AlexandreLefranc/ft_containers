@@ -6,7 +6,7 @@
 #    By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/21 18:52:01 by alefranc          #+#    #+#              #
-#    Updated: 2022/12/30 14:33:17 by alefranc         ###   ########.fr        #
+#    Updated: 2023/01/05 13:54:18 by alefranc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,6 @@
 
 NAME = containers
 
-# CXX 		= g++
 CXX 		= clang++
 CXXFLAGS	= -Wall -Wextra -Werror -std=c++98 -g3 #-ferror-limit=100
 

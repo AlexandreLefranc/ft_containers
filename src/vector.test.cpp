@@ -6,7 +6,7 @@
 /*   By: alefranc <alefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 15:16:10 by alefranc          #+#    #+#             */
-/*   Updated: 2022/12/28 16:43:10 by alefranc         ###   ########.fr       */
+/*   Updated: 2023/01/05 17:03:29 by alefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,13 +152,13 @@ static void	test_vector_iterator()
 	print_title("VECTOR - ITERATOR");
 
 	{
-		std::cout << "Implicit conversion iterator to const_iterator" << std::endl;
+		std::cout << "Implicit conversion iterator to const_iterator + comparison" << std::endl;
 		ns::vector<int> v(6, 0);
 		
 		ns::vector<int>::iterator		it = v.begin();
 		ns::vector<int>::const_iterator	cit = it;
 		
-		(void)cit;
+		std::cout << "(it == cit)" << (it == cit) << std::endl;
 	}
 
 	{
@@ -275,6 +275,30 @@ static void	test_vector_iterator3()
 	print_vector(vct);
 }
 
+static void	test_vector_capacity()
+{
+	print_title("VECTOR - CAPACITY");
+
+	ns::vector<int> v(5, 1);
+	vinfo(v);
+
+	std::cout << "resize to 10" << std::endl;
+	v.resize(10);
+	vinfo(v);
+
+	std::cout << "resize to 2" << std::endl;
+	v.resize(2);
+	vinfo(v);
+
+	std::cout << "reserve to 8" << std::endl;
+	v.reserve(8);
+	vinfo(v);
+
+	std::cout << "reserve to 15" << std::endl;
+	v.reserve(15);
+	vinfo(v);
+}
+
 static void test_vector_insert()
 {
 	print_title("VECTOR - INSERT");
@@ -366,22 +390,90 @@ static void test_vector_erase()
 	}
 }
 
-static void	test_vector_perf()
+static void	test_vector_modifiers()
 {
-	int	size = 100000000;
-	ns::vector<int>	v;
+	print_title("VECTOR - MODIFIERS");
 
+	int tab[] = {1,2,3,4,5,6};
+	ns::vector<int> v(tab, tab+6);
+	print_vector(v);
 
-	for (int i = 0; i < size ;i++)
+	std::cout << "v[0] = 6" << std::endl;
+	v[0] = 6;
+	std::cout << "v[2] = 66" << std::endl;
+	v[2] = 66;
+	std::cout << "v[3] = 666" << std::endl;
+	v[3] = 666;
+	std::cout << "v[5] = 6666" << std::endl;
+	v[5] = 6666;
+
+	print_vector(v);
+
+	std::cout << std::endl;
+	std::cout << "Try" << std::endl;
+	try
 	{
-		v.push_back(i);
+		std::cout << "v.at(3) = " << v.at(3) << std::endl;
+	}
+	catch (const std::exception& e)
+	{
+		std::cout << "This should not print" << std::endl;
 	}
 
-	for (int i = 0; i < size ;i++)
+	std::cout << "Try" << std::endl;
+	try
 	{
-		v[i] = i + 1;
+		std::cout << "v.at(6) = " << v.at(6) << std::endl;
 	}
+	catch (const std::exception& e)
+	{
+		std::cout << "This should print exception: " << e.what() << std::endl;
+	}
+
+	std::cout << std::endl;
+	std::cout << "v.front() = " << v.front() << std::endl;
+	std::cout << "v.back() = " << v.back() << std::endl;
+
+	std::cout << std::endl;
+	std::cout << "v.pop_back()" << std::endl;
+	v.pop_back();
+	print_vector(v);
+	std::cout << "v.push_back(7777)" << std::endl;
+	v.push_back(7777);
+	print_vector(v);
 }
+
+static void	test_vector_swap()
+{
+	print_title("VECTOR - SWAP");
+
+	int tab1[] = {1,2,3,4,5,6};
+	ns::vector<int> v1(tab1, tab1+6);
+	print_vector(v1);
+
+	int tab2[] = {11,22,33,44};
+	ns::vector<int> v2(tab2, tab2+4);
+	print_vector(v2);
+
+	ns::vector<int>::const_iterator it1 = (v1.begin())++;
+}
+
+// static void	test_vector_perf()
+// {
+// 	int	size = 100000000;
+// 	ns::vector<int>	v;
+
+
+// 	for (int i = 0; i < size ;i++)
+// 	{
+// 		v.push_back(i);
+// 	}
+
+// 	for (int i = 0; i < size ;i++)
+// 	{
+// 		v[i] = i + 1;
+// 	}
+// }
 
 void	main_vector()
 {
@@ -391,7 +483,10 @@ void	main_vector()
 	test_vector_iterator();
 	test_vector_iterator2();
 	test_vector_iterator3();
+	test_vector_capacity();
 	test_vector_insert();
 	test_vector_erase();
-	test_vector_perf();
+	test_vector_modifiers();
+	test_vector_swap();
+	// test_vector_perf();
 }
