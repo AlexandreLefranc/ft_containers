@@ -197,7 +197,7 @@ void push_back(const value_type& val);
 
 Iterator invalidity : all if realloc. Otherwise only end() invalidated
 
-Exception : Baisc guarantee
+Exception : strong guarantee
 
 ## pop_back
 

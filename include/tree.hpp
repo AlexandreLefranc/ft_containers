@@ -352,15 +352,34 @@ namespace ft
 			_value_allocator = rhs._value_allocator;
 			_node_allocator = rhs._node_allocator;
 			_compare = rhs._compare;
-			_copy(rhs);
+
+			_root = _copy_tree_from(rhs._root);
+			_size = rhs._size;
 			return *this;
 		}
 
 	private: // internal function
-		void	_copy(const Tree& src)
+		node_pointer	_copy_tree_from(node_pointer node)
 		{
-			for (const_iterator it = src.begin(); it != src.end(); it++)
-				insert(*it);
+			node_pointer new_node = NULL;
+			if (node != NULL)
+			{
+				new_node = _node_allocator.allocate(1);
+				_node_allocator.construct(new_node, node_type(node->value));
+
+				new_node->left = _copy_tree_from(node->left);
+				if (new_node->left != NULL)
+				{
+					new_node->left->parent = new_node;
+				}
+
+				new_node->right = _copy_tree_from(node->right);
+				if (new_node->right != NULL)
+				{
+					new_node->right->parent = new_node;
+				}
+			}
+			return new_node;
 		}
 
 		void	_destroy(node_pointer& node)
